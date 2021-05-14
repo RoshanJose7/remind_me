@@ -102,7 +102,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                         subName: Global.allSubjects[idx].subjectName,
                         timeSlots: Global.allSubjects[idx].timeSlots,
                       );
-                    }),
+                    },),
               ),
             ),
           ),
