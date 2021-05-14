@@ -56,7 +56,7 @@ class _CalenderPageState extends State<CalenderPage> {
             padding: EdgeInsets.only(
               left: 10,
               right: 10,
-              top: 40,
+              top: 30,
             ),
             decoration: BoxDecoration(
               color: Color(0xFFECEDED),
@@ -65,6 +65,7 @@ class _CalenderPageState extends State<CalenderPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                  margin: EdgeInsets.all(10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,6 +111,7 @@ class _CalenderPageState extends State<CalenderPage> {
           ),
           Positioned(
             top: 100,
+            bottom: 3,
             child: Container(
               padding: EdgeInsets.only(
                 top: 15,
@@ -152,8 +154,6 @@ class _CalenderPageState extends State<CalenderPage> {
                                       CalenderPage.classesToday[idx].duration,
                                   subjectName: CalenderPage
                                       .classesToday[idx].subjectName,
-                                  professorImage: CalenderPage
-                                      .classesToday[idx].professorImage,
                                   professorName: CalenderPage
                                       .classesToday[idx].professorName,
                                   roomName:

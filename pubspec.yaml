@@ -26,8 +26,12 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icon/
-    - assets/img/
+    - assets/icon/remind_me_logo.png
+    - assets/img/professor.png
+    - assets/img/Jose.jpg
+    - assets/img/assignments.png
+    - assets/img/calender.png
+    - assets/img/remainder.png
 
   fonts:
     - family: Product Sans

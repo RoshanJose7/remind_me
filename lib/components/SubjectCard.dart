@@ -5,13 +5,11 @@ class SubjectCard extends StatelessWidget {
   final String subName;
   final String duration;
   final String professorName;
-  final String professorImg;
   final String roomName;
   final List timeSlots;
 
   SubjectCard({
     required this.duration,
-    required this.professorImg,
     required this.professorName,
     required this.roomName,
     required this.subName,
@@ -88,12 +86,11 @@ class SubjectCard extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: AssetImage(professorImg),
+                    width: 25,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        "assets/img/professor.png",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -109,7 +106,7 @@ class SubjectCard extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -120,10 +117,24 @@ class SubjectCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              Text(
-                "${roomName.split(':')[0]}\n"
-                "${roomName.split(':')[1]}",
-                style: TextStyle(fontSize: 14),
+              Expanded(
+                child: RichText(
+                  maxLines: 3,
+                  text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: roomName.split(':')[0],
+                        ),
+                        TextSpan(
+                          text: roomName.split(':')[1],
+                        ),
+                      ]),
+                  overflow: TextOverflow.clip,
+                ),
               ),
             ],
           ),
@@ -177,13 +188,6 @@ class SubjectCard extends StatelessWidget {
             ],
           ),
         ],
-        //   null
-        //   "AM 08:00"
-        //   null
-        //   null
-        //   null
-        //   "PM 12:00"
-        //   null
       ),
     );
   }

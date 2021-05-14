@@ -46,8 +46,8 @@ class _MainAppState extends State<MainApp> {
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: "Add Class",
-            icon: Icon(Icons.add_to_photos),
+            label: "Subjects",
+            icon: Icon(Icons.book_rounded),
           ),
           BottomNavigationBarItem(
             label: "Tasks",

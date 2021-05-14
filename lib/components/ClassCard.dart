@@ -5,12 +5,10 @@ class ClassCard extends StatelessWidget {
   final String subjectName;
   final String roomName;
   final String professorName;
-  final String professorImage;
 
   ClassCard(
       {Key? key,
       required this.time,
-      required this.professorImage,
       required this.professorName,
       required this.roomName,
       required this.subjectName})
@@ -94,7 +92,7 @@ class ClassCard extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            professorImage,
+                            "assets/img/professor.png",
                             fit: BoxFit.cover,
                           ),
                         ),

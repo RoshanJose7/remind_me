@@ -8,7 +8,6 @@ class Global {
     Subject(
       duration: "1 hr",
       subjectName: "Data Structures and Algorithms",
-      professorImage: "assets/img/Gabriel.jpg",
       professorName: "Gabriel Sutton",
       roomName: "Computer Science Engineering:Room C1, 2nd floor",
       timeSlots: [
@@ -24,7 +23,6 @@ class Global {
     Subject(
       duration: "1 hr 30 min",
       subjectName: "Internet of Things",
-      professorImage: "assets/img/Stella.jpg",
       professorName: "Stella Varghese",
       roomName: "Electronics and Communication:Room A3, 2nd floor",
       timeSlots: [
@@ -40,7 +38,6 @@ class Global {
     Subject(
       duration: "1 hr 45 min",
       subjectName: "Engineering Mathematics",
-      professorImage: "assets/img/Alexander.jpg",
       professorName: "Alexander Andrio",
       roomName: "Engineering Mathematics:Room B4, 2st floor",
       timeSlots: [

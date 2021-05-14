@@ -16,13 +16,18 @@ void main() {
         fontFamily: "Product Sans",
         accentColor: Color(0xFF37408A),
         backgroundColor: Color(0xFFD4E7FE),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFFF0F0F0),
+          actionsIconTheme: IconThemeData(
+            color: Colors.blueGrey,
+          ),
+        ),
       ),
       initialRoute: "/onboard",
       routes: {
         "/": (context) => MainApp(),
         "/onboard": (context) => UserOnboard(),
         "/allSubjects": (context) => AllSubjects(),
-        // "/addSubject": (context) => AddSubject(),
       },
     ),
   );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remind_me/components/SubjectCard.dart';
+import 'package:remind_me/models/Subject.dart';
+import 'package:remind_me/pages/AddSubject.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class AllSubjects extends StatefulWidget {
@@ -8,6 +10,12 @@ class AllSubjects extends StatefulWidget {
 }
 
 class _AllSubjectsState extends State<AllSubjects> {
+  void addToAll({required Subject sub}) {
+    setState(() {
+      Global.allSubjects.add(sub);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -46,7 +54,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: height * 0.03),
+                  margin: EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,42 +77,32 @@ class _AllSubjectsState extends State<AllSubjects> {
           ),
           Positioned(
             top: 120,
+            bottom: 3,
             child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
-              ),
-              height: height - 180,
+              padding: EdgeInsets.only(top: 20, bottom: 10),
               width: width,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
               ),
-              child: SingleChildScrollView(
-                child: Container(
-                  height: 500,
-                  width: width,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: Global.allSubjects.length,
-                          itemBuilder: (ctx, idx) => SubjectCard(
-                            duration: Global.allSubjects[idx].duration,
-                            professorImg:
-                                Global.allSubjects[idx].professorImage,
-                            professorName:
-                                Global.allSubjects[idx].professorName,
-                            roomName: Global.allSubjects[idx].roomName,
-                            subName: Global.allSubjects[idx].subjectName,
-                            timeSlots: Global.allSubjects[idx].timeSlots,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+              child: Container(
+                height: height,
+                width: width,
+                padding: EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 10,
                 ),
+                child: ListView.builder(
+                    itemCount: Global.allSubjects.length,
+                    itemBuilder: (ctx, idx) {
+                      return SubjectCard(
+                        duration: Global.allSubjects[idx].duration,
+                        professorName: Global.allSubjects[idx].professorName,
+                        roomName: Global.allSubjects[idx].roomName,
+                        subName: Global.allSubjects[idx].subjectName,
+                        timeSlots: Global.allSubjects[idx].timeSlots,
+                      );
+                    }),
               ),
             ),
           ),
@@ -112,7 +110,12 @@ class _AllSubjectsState extends State<AllSubjects> {
             bottom: 20,
             right: 20,
             child: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddSubject(callback: addToAll),
+                ),
+              ),
               child: Icon(Icons.add),
             ),
           ),

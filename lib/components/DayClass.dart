@@ -4,14 +4,12 @@ class DayClass extends StatelessWidget {
   final String time;
   final String duration;
   final String subjectName;
-  final String professorImage;
   final String professorName;
   final String roomName;
 
   DayClass({
     Key? key,
     required this.duration,
-    required this.professorImage,
     required this.professorName,
     required this.roomName,
     required this.subjectName,
@@ -107,7 +105,7 @@ class DayClass extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.asset(
-                              professorImage,
+                              "assets/img/professor.png",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -130,9 +128,9 @@ class DayClass extends StatelessWidget {
                         Icon(
                           Icons.location_on,
                           color: Colors.grey,
-                          size: 25,
+                          size: 30,
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 13),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,

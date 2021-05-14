@@ -133,6 +133,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned(
             top: 180,
+            bottom: 3,
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,
@@ -216,8 +217,6 @@ class _HomePageState extends State<HomePage> {
                                           .classesToday[idx].roomName,
                                       professorName: CalenderPage
                                           .classesToday[idx].professorName,
-                                      professorImage: CalenderPage
-                                          .classesToday[idx].professorImage,
                                     );
                                   },
                                 ),

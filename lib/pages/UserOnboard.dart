@@ -130,8 +130,8 @@ class _UserOnboardState extends State<UserOnboard>
                         )),
                     const SizedBox(height: 20.0),
                     Text(
-                      "Once you set your,\n"
-                      "Time-Table  reminds you,\n"
+                      "Once you set your Time-Table,\n"
+                      "Remind.Me reminds you,\n"
                       "quicker than you think.",
                       overflow: TextOverflow.clip,
                       style: UserOnboard.descriptionGreyStyle,
