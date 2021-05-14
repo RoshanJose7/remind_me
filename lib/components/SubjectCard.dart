@@ -162,52 +162,49 @@ class SubjectCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               for (int i = 0; i < 7; i++)
-                Expanded(
-                  child: Container(
-                    width: 30,
-                    height: 40,
-                    child: TextButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          timeSlots[i] != null
-                              ? Color(0xFF3F33C7)
-                              : Colors.grey.withOpacity(0.1),
+                Container(
+                  width: 40,
+                  height: 53,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () => {},
-                      child: Tooltip(
-                        key: _toolTipKey[i],
-                        message: timeSlots[i] ?? "No Class",
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              Global.week[i]['day'][0],
-                              style: TextStyle(
-                                color: timeSlots[i] != null
-                                    ? Colors.white70
-                                    : Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        timeSlots[i] != null
+                            ? Color(0xFF3F33C7)
+                            : Colors.grey.withOpacity(0.1),
+                      ),
+                    ),
+                    onPressed: () => {},
+                    child: Tooltip(
+                      key: _toolTipKey[i],
+                      message: timeSlots[i] ?? "No Class",
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            Global.week[i]['day'][0],
+                            style: TextStyle(
+                              color: timeSlots[i] != null
+                                  ? Colors.white70
+                                  : Colors.grey,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Text(
-                              Global.week[i]['date'].toString(),
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: timeSlots[i] != null
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          ),
+                          Text(
+                            Global.week[i]['date'].toString(),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: timeSlots[i] != null
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
