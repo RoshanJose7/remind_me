@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:remind_me/pages/Home.dart';
 import 'package:remind_me/pages/Calender.dart';
 import 'package:remind_me/pages/ProfilePage.dart';
-import 'package:remind_me/pages/AllClasses.dart';
+import 'package:remind_me/pages/AllSubjects.dart';
 import 'package:remind_me/pages/Assignments.dart';
 
 class MainApp extends StatefulWidget {
@@ -65,7 +65,7 @@ class _MainAppState extends State<MainApp> {
       ),
       body: [
         HomePage(),
-        AllClassesPage(),
+        AllSubjects(),
         AssignmentsPage(),
         CalenderPage(),
         ProfilePage(),

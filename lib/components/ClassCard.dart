@@ -89,9 +89,15 @@ class ClassCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        professorImage,
-                        fit: BoxFit.cover,
+                      Container(
+                        width: 25,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            professorImage,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                       SizedBox(width: 10),
                       Text(

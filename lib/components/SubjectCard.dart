@@ -1,0 +1,190 @@
+import 'package:flutter/material.dart';
+import 'package:remind_me/shared/globals.dart';
+
+class SubjectCard extends StatelessWidget {
+  final String subName;
+  final String duration;
+  final String professorName;
+  final String professorImg;
+  final String roomName;
+  final List timeSlots;
+
+  SubjectCard({
+    required this.duration,
+    required this.professorImg,
+    required this.professorName,
+    required this.roomName,
+    required this.subName,
+    required this.timeSlots,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        color: Colors.white60,
+        border: Border.all(
+          color: Colors.blueGrey.withOpacity(0.3),
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Subject ",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                subName,
+                style: TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Time ",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                duration,
+                style: TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Professor ",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Row(
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: AssetImage(professorImg),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    professorName,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Room Name ",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                "${roomName.split(':')[0]}\n"
+                "${roomName.split(':')[1]}",
+                style: TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Text(
+            "Time Slots ",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (int i = 0; i < 7; i++)
+                Container(
+                  width: 30,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: timeSlots[i] != null
+                        ? Color(0xFF3F33C7)
+                        : Colors.grey.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        Global.week[i]['day'][0],
+                        style: TextStyle(
+                          color: timeSlots[i] != null
+                              ? Colors.white70
+                              : Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        Global.week[i]['date'].toString(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: timeSlots[i] != null
+                              ? Colors.white
+                              : Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ],
+        //   null
+        //   "AM 08:00"
+        //   null
+        //   null
+        //   null
+        //   "PM 12:00"
+        //   null
+      ),
+    );
+  }
+}

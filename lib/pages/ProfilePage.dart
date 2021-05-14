@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
             top: 170,
             child: Container(
-              height: height - 250,
+              height: height - 230,
               width: width,
               padding: EdgeInsets.symmetric(vertical: 30, horizontal: 40),
               decoration: BoxDecoration(

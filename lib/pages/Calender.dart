@@ -116,7 +116,7 @@ class _CalenderPageState extends State<CalenderPage> {
                 right: 10,
                 bottom: 10,
               ),
-              height: height - 180,
+              height: height - 160,
               width: width,
               decoration: BoxDecoration(
                 color: Colors.white,

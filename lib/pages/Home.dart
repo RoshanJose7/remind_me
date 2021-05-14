@@ -131,7 +131,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          // The Curved Container
           Positioned(
             top: 180,
             child: Container(
@@ -139,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                 horizontal: 20,
                 vertical: 15,
               ),
-              height: height - 260,
+              height: height - 240,
               width: width,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -151,7 +150,6 @@ class _HomePageState extends State<HomePage> {
                   width: double.infinity,
                   child: Column(
                     children: [
-                      // today's classes
                       Expanded(
                         flex: 1,
                         child: Row(
