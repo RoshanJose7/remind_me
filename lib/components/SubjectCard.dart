@@ -18,6 +18,16 @@ class SubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<GlobalKey> _toolTipKey = [
+      GlobalKey(),
+      GlobalKey(),
+      GlobalKey(),
+      GlobalKey(),
+      GlobalKey(),
+      GlobalKey(),
+      GlobalKey(),
+    ];
+
     return Container(
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.only(bottom: 20),
@@ -121,18 +131,19 @@ class SubjectCard extends StatelessWidget {
                 child: RichText(
                   maxLines: 3,
                   text: TextSpan(
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: roomName.split(':')[0],
                       ),
-                      children: [
-                        TextSpan(
-                          text: roomName.split(':')[0],
-                        ),
-                        TextSpan(
-                          text: roomName.split(':')[1],
-                        ),
-                      ]),
+                      TextSpan(
+                        text: roomName.split(':')[1],
+                      ),
+                    ],
+                  ),
                   overflow: TextOverflow.clip,
                 ),
               ),
@@ -154,35 +165,48 @@ class SubjectCard extends StatelessWidget {
                 Container(
                   width: 30,
                   height: 40,
-                  decoration: BoxDecoration(
-                    color: timeSlots[i] != null
-                        ? Color(0xFF3F33C7)
-                        : Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        Global.week[i]['day'][0],
-                        style: TextStyle(
-                          color: timeSlots[i] != null
-                              ? Colors.white70
-                              : Colors.grey,
-                          fontWeight: FontWeight.bold,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      Text(
-                        Global.week[i]['date'].toString(),
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: timeSlots[i] != null
-                              ? Colors.white
-                              : Colors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        timeSlots[i] != null
+                            ? Color(0xFF3F33C7)
+                            : Colors.grey.withOpacity(0.1),
                       ),
-                    ],
+                    ),
+                    onPressed: () => {},
+                    child: Tooltip(
+                      key: _toolTipKey[i],
+                      message: timeSlots[i] ?? "No Class",
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            Global.week[i]['day'][0],
+                            style: TextStyle(
+                              color: timeSlots[i] != null
+                                  ? Colors.white70
+                                  : Colors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            Global.week[i]['date'].toString(),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: timeSlots[i] != null
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
             ],
