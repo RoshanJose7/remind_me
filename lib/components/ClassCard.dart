@@ -33,6 +33,7 @@ class ClassCard extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.w900,
+                  fontSize: 20,
                 ),
               ),
               Text(
@@ -40,6 +41,7 @@ class ClassCard extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black45,
                   fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
               ),
             ],

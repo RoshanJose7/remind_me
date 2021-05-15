@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:animations/animations.dart';
 
 import 'package:remind_me/pages/Home.dart';
@@ -15,26 +16,31 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   int _selectedItemIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
+  void pushToAllSubjectsPage() {
+    setState(() {
+      _selectedItemIndex = 1;
+    });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  void pushToTasksPage() {
+    setState(() {
+      _selectedItemIndex = 2;
+    });
   }
-
-  List _pages = [
-    HomePage(),
-    AllSubjects(),
-    AssignmentsPage(),
-    CalenderPage(),
-    ProfilePage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    List _pages = [
+      HomePage(
+        pushToAllSubjectsPage: pushToAllSubjectsPage,
+        pushToTasksPage: pushToTasksPage,
+      ),
+      AllSubjects(),
+      AssignmentsPage(),
+      CalenderPage(),
+      ProfilePage(),
+    ];
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,

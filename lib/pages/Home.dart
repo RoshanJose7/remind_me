@@ -6,6 +6,12 @@ import 'package:remind_me/pages/Calender.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class HomePage extends StatefulWidget {
+  Function pushToAllSubjectsPage;
+  Function pushToTasksPage;
+
+  HomePage(
+      {required this.pushToAllSubjectsPage, required this.pushToTasksPage});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -168,12 +174,17 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Text(
                                     "(${CalenderPage.classesToday.length})",
-                                    style: TextStyle(color: Colors.grey),
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                 ],
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  widget.pushToAllSubjectsPage();
+                                },
                                 child: Text(
                                   "See all",
                                   style: TextStyle(
@@ -238,12 +249,17 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Text(
                                       "(${Global.tasks.length})",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    widget.pushToTasksPage();
+                                  },
                                   child: Text(
                                     "See all",
                                     style: TextStyle(
