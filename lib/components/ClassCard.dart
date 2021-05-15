@@ -18,7 +18,6 @@ class ClassCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      width: double.infinity,
       decoration: BoxDecoration(
         color: Color(0xFFF9F9FC),
         borderRadius: BorderRadius.circular(10),

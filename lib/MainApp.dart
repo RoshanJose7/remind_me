@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
 
 import 'package:remind_me/pages/Home.dart';
 import 'package:remind_me/pages/Calender.dart';
@@ -23,6 +24,14 @@ class _MainAppState extends State<MainApp> {
   void dispose() {
     super.dispose();
   }
+
+  List _pages = [
+    HomePage(),
+    AllSubjects(),
+    AssignmentsPage(),
+    CalenderPage(),
+    ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +72,17 @@ class _MainAppState extends State<MainApp> {
           ),
         ],
       ),
-      body: [
-        HomePage(),
-        AllSubjects(),
-        AssignmentsPage(),
-        CalenderPage(),
-        ProfilePage(),
-      ][_selectedItemIndex],
+      body: PageTransitionSwitcher(
+        transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
+          return SharedAxisTransition(
+            animation: primaryAnimation,
+            secondaryAnimation: secondaryAnimation,
+            transitionType: SharedAxisTransitionType.scaled,
+            child: child,
+          );
+        },
+        child: _pages[_selectedItemIndex],
+      ),
     );
   }
 }

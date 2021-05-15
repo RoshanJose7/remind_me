@@ -77,7 +77,7 @@ class _AllSubjectsState extends State<AllSubjects> {
           ),
           Positioned(
             top: 120,
-            bottom: 3,
+            bottom: 0,
             child: Container(
               padding: EdgeInsets.only(top: 20, bottom: 10),
               width: width,
@@ -93,16 +93,17 @@ class _AllSubjectsState extends State<AllSubjects> {
                   horizontal: 10,
                 ),
                 child: ListView.builder(
-                    itemCount: Global.allSubjects.length,
-                    itemBuilder: (ctx, idx) {
-                      return SubjectCard(
-                        duration: Global.allSubjects[idx].duration,
-                        professorName: Global.allSubjects[idx].professorName,
-                        roomName: Global.allSubjects[idx].roomName,
-                        subName: Global.allSubjects[idx].subjectName,
-                        timeSlots: Global.allSubjects[idx].timeSlots,
-                      );
-                    },),
+                  itemCount: Global.allSubjects.length,
+                  itemBuilder: (ctx, idx) {
+                    return SubjectCard(
+                      duration: Global.allSubjects[idx].duration,
+                      professorName: Global.allSubjects[idx].professorName,
+                      roomName: Global.allSubjects[idx].roomName,
+                      subName: Global.allSubjects[idx].subjectName,
+                      timeSlots: Global.allSubjects[idx].timeSlots,
+                    );
+                  },
+                ),
               ),
             ),
           ),

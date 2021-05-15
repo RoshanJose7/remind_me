@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: height * 0.03),
+                  margin: EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned(
             top: 180,
-            bottom: 3,
+            bottom: 0,
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,
@@ -145,103 +145,29 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
               ),
-              child: SingleChildScrollView(
-                child: Container(
-                  height: 470,
-                  width: double.infinity,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "TODAY CLASSES ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  "(${CalenderPage.classesToday.length})",
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "See all",
-                                style: TextStyle(
-                                  color: Color(0xFF3F33C7),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: CalenderPage.classesToday.length < 2 ? 5 : 7,
-                        child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: CalenderPage.classesToday.length == 0
-                              ? Center(
-                                  child: Text(
-                                    "No classes for Today!!!",
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  itemCount:
-                                      CalenderPage.classesToday.length <= 2
-                                          ? CalenderPage.classesToday.length
-                                          : 2,
-                                  itemBuilder: (BuildContext context, int idx) {
-                                    return ClassCard(
-                                      time: CalenderPage
-                                              .classesToday[idx].timeSlots[
-                                          DateTime.now().weekday - 1],
-                                      subjectName: CalenderPage
-                                          .classesToday[idx].subjectName,
-                                      roomName: CalenderPage
-                                          .classesToday[idx].roomName,
-                                      professorName: CalenderPage
-                                          .classesToday[idx].professorName,
-                                    );
-                                  },
-                                ),
-                        ),
-                      ),
-                      // Your Tasks
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Row(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "YOUR TASKS ",
+                                    "TODAY CLASSES ",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w900,
                                       fontSize: 16,
                                     ),
                                   ),
                                   Text(
-                                    "(${Global.tasks.length})",
+                                    "(${CalenderPage.classesToday.length})",
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                 ],
@@ -258,38 +184,108 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          child: Global.tasks.length == 0
-                              ? Center(
+                          Expanded(
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: CalenderPage.classesToday.length == 0
+                                  ? Center(
+                                      child: Text(
+                                        "No classes for Today!!!",
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      itemCount:
+                                          CalenderPage.classesToday.length <= 2
+                                              ? CalenderPage.classesToday.length
+                                              : 2,
+                                      itemBuilder:
+                                          (BuildContext context, int idx) {
+                                        return ClassCard(
+                                          time: CalenderPage
+                                                  .classesToday[idx].timeSlots[
+                                              DateTime.now().weekday - 1],
+                                          subjectName: CalenderPage
+                                              .classesToday[idx].subjectName,
+                                          roomName: CalenderPage
+                                              .classesToday[idx].roomName,
+                                          professorName: CalenderPage
+                                              .classesToday[idx].professorName,
+                                        );
+                                      },
+                                    ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "YOUR TASKS ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      "(${Global.tasks.length})",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                TextButton(
+                                  onPressed: () {},
                                   child: Text(
-                                    "No Due Tasks!!!",
+                                    "See all",
                                     style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 24,
+                                      color: Color(0xFF3F33C7),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                )
-                              : ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: Global.tasks.length,
-                                  itemBuilder: (BuildContext context, int idx) {
-                                    return TaskCard(
-                                      days: Global.tasks[idx]['days'],
-                                      subjectName: Global.tasks[idx]
-                                          ['subjectName'],
-                                    );
-                                  },
                                 ),
-                        ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 120,
+                            child: Global.tasks.length == 0
+                                ? Center(
+                                    child: Text(
+                                      "No Due Tasks!!!",
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: Global.tasks.length,
+                                    itemBuilder:
+                                        (BuildContext context, int idx) {
+                                      return TaskCard(
+                                        days: Global.tasks[idx]['days'],
+                                        subjectName: Global.tasks[idx]
+                                            ['subjectName'],
+                                      );
+                                    },
+                                  ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
