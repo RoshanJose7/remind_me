@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:remind_me/components/TaskDetailCard.dart';
+import 'package:remind_me/models/Task.dart';
+import 'package:remind_me/pages/AddTask.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class TasksPage extends StatefulWidget {
@@ -8,6 +11,24 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
+  void addToAll({required Task task}) {
+    setState(() {
+      Global.tasks.add(task);
+    });
+  }
+
+  void updateTask({required int id}) {
+    setState(() {
+      Global.tasks[id].isCompleted = !Global.tasks[id].isCompleted;
+    });
+  }
+
+  void deleteTask({required int id}) {
+    setState(() {
+      Global.tasks.removeAt(id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -26,15 +47,15 @@ class _TasksPageState extends State<TasksPage> {
                   height: height,
                   width: width,
                   padding: EdgeInsets.only(
-                    left: 10,
+                    left: 20,
                     right: 10,
                     top: 40,
                   ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xFFD4E7FE),
-                        Color(0xFFF0F0F0),
+                        const Color(0xFFD4E7FE),
+                        const Color(0xFFF0F0F0),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -44,7 +65,7 @@ class _TasksPageState extends State<TasksPage> {
                   child: Text(
                     "Your Tasks",
                     style: TextStyle(
-                      color: Color(0xFF272F66),
+                      color: const Color(0xFF272F66),
                       fontSize: 27,
                       fontWeight: FontWeight.w600,
                     ),
@@ -60,7 +81,7 @@ class _TasksPageState extends State<TasksPage> {
                         Text(
                           Global.days[DateTime.now().weekday - 1],
                           style: TextStyle(
-                            color: Color(0xFF272F66),
+                            color: const Color(0xFF272F66),
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
@@ -68,7 +89,7 @@ class _TasksPageState extends State<TasksPage> {
                         Text(
                           " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                           style: TextStyle(
-                            color: Color(0xFF272F66),
+                            color: const Color(0xFF272F66),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
@@ -110,30 +131,33 @@ class _TasksPageState extends State<TasksPage> {
                             Text(
                               "All Tasks",
                               style: TextStyle(
-                                color: Color(0xFF37408A),
+                                color: const Color(0xFF37408A),
                                 fontSize: 18,
                               ),
                             ),
                             Text(
                               "(${Global.tasks.length})",
                               style: TextStyle(
-                                color: Color(0xFF37408A),
+                                color: const Color(0xFF37408A),
                                 fontSize: 18,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         Expanded(
                           flex: 4,
                           child: ListView.builder(
                             itemCount: Global.tasks.length,
-                            itemBuilder: (context, idx) {
+                            itemBuilder: (BuildContext context, int idx) {
                               return TaskDetailCard(
+                                id: idx,
                                 deadLine: Global.tasks[idx].deadLine,
                                 description: Global.tasks[idx].description,
                                 isCompleted: Global.tasks[idx].isCompleted,
                                 subject: Global.tasks[idx].subject,
+                                updateTask: updateTask,
+                                deleteTask: deleteTask,
                               );
                             },
                           ),
@@ -143,6 +167,20 @@ class _TasksPageState extends State<TasksPage> {
                   )
                 ],
               ),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: FloatingActionButton(
+              backgroundColor: Color(0xFF37408A),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddTask(callback: addToAll),
+                ),
+              ),
+              child: Icon(Icons.add_to_photos_rounded),
             ),
           ),
         ],

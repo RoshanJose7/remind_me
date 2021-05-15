@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
 class TaskDetailCard extends StatefulWidget {
-  bool isCompleted;
-  String subject;
-  String description;
-  DateTime deadLine;
+  final int id;
+  final bool isCompleted;
+  final String subject;
+  final String description;
+  final DateTime deadLine;
+  final Function updateTask;
+  final Function deleteTask;
 
   TaskDetailCard({
+    required this.id,
     required this.isCompleted,
     required this.subject,
     required this.deadLine,
     required this.description,
+    required this.updateTask,
+    required this.deleteTask,
   });
 
   @override
@@ -62,7 +68,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                               Icons.check,
                               color: Colors.green,
                             ),
-                            onPressed: () {},
+                            onPressed: () => widget.updateTask(id: widget.id),
                           ),
                         )
                       : Container(
@@ -74,10 +80,10 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                           height: 40,
                           child: IconButton(
                             icon: Icon(
-                              Icons.close,
+                              Icons.delete_forever_rounded,
                               color: Colors.red,
                             ),
-                            onPressed: () {},
+                            onPressed: () => widget.deleteTask(id: widget.id),
                           ),
                         ),
                 ],
