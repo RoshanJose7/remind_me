@@ -6,7 +6,7 @@ class SubjectCard extends StatelessWidget {
   final String duration;
   final String professorName;
   final String roomName;
-  final List timeSlots;
+  final List<TimeOfDay?> timeSlots;
 
   SubjectCard({
     required this.duration,
@@ -181,7 +181,9 @@ class SubjectCard extends StatelessWidget {
                     onPressed: () => {},
                     child: Tooltip(
                       key: _toolTipKey[i],
-                      message: timeSlots[i] ?? "No Class",
+                      message: timeSlots[i] == null
+                          ? "No Class"
+                          : "${timeSlots[i]!.hour}:${timeSlots[i]!.minute == 0 ? '00' : timeSlots[i]!.minute}",
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

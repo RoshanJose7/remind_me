@@ -15,8 +15,9 @@ class CalenderPage extends StatefulWidget {
     Global.allSubjects.forEach(
         (sub) => {if (sub.timeSlots[curDay] != null) classesToday.add(sub)});
 
-    classesToday
-        .sort((a, b) => a.timeSlots[curDay].compareTo(b.timeSlots[curDay]));
+    classesToday.sort((a, b) => a.timeSlots[curDay]!
+        .toString()
+        .compareTo(b.timeSlots[curDay]!.toString()));
   }
 
   @override
@@ -148,8 +149,8 @@ class _CalenderPageState extends State<CalenderPage> {
                               itemCount: CalenderPage.classesToday.length,
                               itemBuilder: (BuildContext context, int idx) {
                                 return DayClass(
-                                  time: CalenderPage
-                                      .classesToday[idx].timeSlots[curDay],
+                                  time:
+                                      "${CalenderPage.classesToday[idx].timeSlots[curDay]!.hour}:${CalenderPage.classesToday[idx].timeSlots[curDay]!.minute == 0 ? '00' : CalenderPage.classesToday[idx].timeSlots[curDay]!.minute}",
                                   duration:
                                       CalenderPage.classesToday[idx].duration,
                                   subjectName: CalenderPage

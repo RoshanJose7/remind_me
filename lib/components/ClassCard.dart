@@ -6,13 +6,13 @@ class ClassCard extends StatelessWidget {
   final String roomName;
   final String professorName;
 
-  ClassCard(
-      {Key? key,
-      required this.time,
-      required this.professorName,
-      required this.roomName,
-      required this.subjectName})
-      : super(key: key);
+  ClassCard({
+    Key? key,
+    required this.time,
+    required this.professorName,
+    required this.roomName,
+    required this.subjectName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +25,13 @@ class ClassCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                time.split(" ")[1],
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20,
-                ),
-              ),
-              Text(
-                time.split(" ")[0],
-                style: TextStyle(
-                  color: Colors.black45,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-            ],
+          Text(
+            time,
+            style: TextStyle(
+              color: Colors.black54,
+              fontWeight: FontWeight.w900,
+              fontSize: 20,
+            ),
           ),
           const SizedBox(width: 10),
           SizedBox(
@@ -64,7 +51,7 @@ class ClassCard extends StatelessWidget {
                   Text(
                     subjectName,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                   Row(
@@ -75,12 +62,24 @@ class ClassCard extends StatelessWidget {
                       ),
                       SizedBox(width: 10),
                       Expanded(
-                        child: Text(
-                          roomName,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              roomName.split(":")[0],
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Text(
+                              roomName.split(":")[1],
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -103,7 +102,7 @@ class ClassCard extends StatelessWidget {
                         professorName,
                         style: TextStyle(
                           color: Colors.grey,
-                          fontSize: 16,
+                          fontSize: 15,
                         ),
                       ),
                     ],

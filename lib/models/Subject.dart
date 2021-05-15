@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
 class Subject {
   late String duration;
   late String subjectName;
   late String professorName;
   late String roomName;
-  late List timeSlots;
+  late List<TimeOfDay?> timeSlots;
 
   Subject({
     required this.duration,

@@ -41,7 +41,7 @@ class DayClass extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    time.split(" ")[1],
+                    time,
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 12,

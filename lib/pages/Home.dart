@@ -6,8 +6,8 @@ import 'package:remind_me/pages/Calender.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class HomePage extends StatefulWidget {
-  Function pushToAllSubjectsPage;
-  Function pushToTasksPage;
+  final Function pushToAllSubjectsPage;
+  final Function pushToTasksPage;
 
   HomePage(
       {required this.pushToAllSubjectsPage, required this.pushToTasksPage});
@@ -26,6 +26,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  int getDaysLeft(DateTime deadLine) {
+    return deadLine.day - DateTime.now().day;
   }
 
   @override
@@ -218,9 +222,8 @@ class _HomePageState extends State<HomePage> {
                                       itemBuilder:
                                           (BuildContext context, int idx) {
                                         return ClassCard(
-                                          time: CalenderPage
-                                                  .classesToday[idx].timeSlots[
-                                              DateTime.now().weekday - 1],
+                                          time:
+                                              "${CalenderPage.classesToday[idx].timeSlots[DateTime.now().weekday - 1]!.hour}:${CalenderPage.classesToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute == 0 ? '00' : CalenderPage.classesToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute}",
                                           subjectName: CalenderPage
                                               .classesToday[idx].subjectName,
                                           roomName: CalenderPage
@@ -290,9 +293,9 @@ class _HomePageState extends State<HomePage> {
                                     itemBuilder:
                                         (BuildContext context, int idx) {
                                       return TaskCard(
-                                        days: Global.tasks[idx]['days'],
-                                        subjectName: Global.tasks[idx]
-                                            ['subjectName'],
+                                        days: getDaysLeft(
+                                            Global.tasks[idx].deadLine),
+                                        subjectName: Global.tasks[idx].subject,
                                       );
                                     },
                                   ),

@@ -6,7 +6,7 @@ import 'package:remind_me/pages/Home.dart';
 import 'package:remind_me/pages/Calender.dart';
 import 'package:remind_me/pages/ProfilePage.dart';
 import 'package:remind_me/pages/AllSubjects.dart';
-import 'package:remind_me/pages/Assignments.dart';
+import 'package:remind_me/pages/Tasks.dart';
 
 class MainApp extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _MainAppState extends State<MainApp> {
         pushToTasksPage: pushToTasksPage,
       ),
       AllSubjects(),
-      AssignmentsPage(),
+      TasksPage(),
       CalenderPage(),
       ProfilePage(),
     ];

@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:remind_me/models/Subject.dart';
+import 'package:remind_me/models/Task.dart';
 
 class Global {
   static String userName = "Jose";
@@ -12,11 +14,11 @@ class Global {
       roomName: "Computer Science Engineering:Room C1, 2nd floor",
       timeSlots: [
         null,
-        "AM 08:00",
+        TimeOfDay(hour: 8, minute: 0),
         null,
         null,
         null,
-        "PM 12:00",
+        TimeOfDay(hour: 12, minute: 0),
         null,
       ],
     ),
@@ -27,11 +29,11 @@ class Global {
       roomName: "Electronics and Communication:Room A3, 2nd floor",
       timeSlots: [
         null,
-        "AM 09:00",
-        "AM 10:00",
+        TimeOfDay(hour: 09, minute: 0),
+        TimeOfDay(hour: 10, minute: 0),
         null,
         null,
-        null,
+        TimeOfDay(hour: 15, minute: 0),
         null,
       ],
     ),
@@ -42,10 +44,10 @@ class Global {
       roomName: "Engineering Mathematics:Room B4, 2st floor",
       timeSlots: [
         null,
-        "PM 03:00",
+        TimeOfDay(hour: 08, minute: 0),
         null,
         null,
-        "AM 09:00",
+        TimeOfDay(hour: 10, minute: 10),
         null,
         null,
       ],
@@ -78,19 +80,25 @@ class Global {
     "Dec",
   ];
 
-  static List tasks = [
-    {
-      'days': 3,
-      'subjectName': "Engineering Mathematics Assignment - I",
-    },
-    {
-      'days': 10,
-      'subjectName': "Data Structures and Algorithms Record",
-    },
-    {
-      'days': 7,
-      'subjectName': "Internet of Things Internals",
-    },
+  static List<Task> tasks = [
+    Task(
+      isCompleted: false,
+      subject: "Engineering Mathematics",
+      description: "Assignment I - Second Order Differential Equations",
+      deadLine: DateTime(2021, 5, 18, 10, 30),
+    ),
+    Task(
+      isCompleted: true,
+      subject: "Data Structures and Algorithms",
+      description: "DS and Algo Lab Record",
+      deadLine: DateTime(2021, 5, 27, 10, 30),
+    ),
+    Task(
+      isCompleted: true,
+      subject: "Internet of Things",
+      description: "IOT Internals I",
+      deadLine: DateTime(2021, 5, 28, 10, 30),
+    ),
   ];
 
   static int start = int.parse(

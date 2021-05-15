@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:remind_me/models/Subject.dart';
 import 'package:remind_me/shared/globals.dart';
 
@@ -18,11 +19,11 @@ class _AddSubjectState extends State<AddSubject> {
   String _professorName = "";
   String _roomFloor = "";
   String _roomName = "";
-  List _timeSlots = [];
+  List<TimeOfDay?> _timeSlots = [];
 
   Widget _buildSubNameField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: "Name"),
+      decoration: InputDecoration(labelText: "Subject Name"),
       validator: (String? val) {
         if (val!.isEmpty) return "Provide a valid Input";
       },
@@ -87,9 +88,13 @@ class _AddSubjectState extends State<AddSubject> {
         labelStyle: TextStyle(fontSize: 15),
       ),
       onSaved: (String? val) {
-        if (val != null)
-          _timeSlots.add(val);
-        else
+        if (val != null || val != "") {
+          TimeOfDay _time = TimeOfDay(
+            hour: int.parse(val!.split(":")[0]),
+            minute: int.parse(val.split(":")[1]),
+          );
+          _timeSlots.add(_time);
+        } else
           _timeSlots.add(null);
       },
     );
@@ -143,7 +148,7 @@ class _AddSubjectState extends State<AddSubject> {
                 child: ListView(
                   children: [
                     Text(
-                      "Time Slot Text Format HH:MM AM/PM",
+                      "Time Slot 24 Hour Text Format hh:mm",
                       style: TextStyle(
                         fontSize: 17,
                         color: Colors.grey,
@@ -194,7 +199,7 @@ class _AddSubjectState extends State<AddSubject> {
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  primary: Colors.blue[300],
+                  primary: Color(0xFF3E37C9),
                 ),
                 child: Text(
                   "Add Subject",
