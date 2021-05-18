@@ -47,15 +47,6 @@ class DayClass extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
-                  const SizedBox(width: 5),
-                  Text(
-                    time.split(" ")[0],
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
                 ],
               ),
               Text(

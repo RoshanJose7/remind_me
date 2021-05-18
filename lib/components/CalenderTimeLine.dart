@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:remind_me/providers/ClassesToday.dart';
+import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
-import 'package:remind_me/pages/Calender.dart';
 
 class CalenderTimeLine extends StatefulWidget {
   final int day;
-  final Function generateTodaysClasses;
   final Function changeState;
 
   CalenderTimeLine({
     Key? key,
     required this.day,
-    required this.generateTodaysClasses,
     required this.changeState,
   }) : super(key: key);
 
@@ -23,6 +23,8 @@ class _CalenderTimeLineState extends State<CalenderTimeLine> {
   @override
   Widget build(BuildContext context) {
     int _day = widget.day;
+    final subjects = Provider.of<Subjects>(context).subjects;
+    final classesTodayProvider = Provider.of<ClassesToday>(context);
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5),
@@ -60,7 +62,8 @@ class _CalenderTimeLineState extends State<CalenderTimeLine> {
                     onPressed: () => {
                       setState(
                         () {
-                          CalenderPage.generateTodaysClasses(day: idx);
+                          classesTodayProvider.generateTodaysClasses(
+                              day: idx, subjects: subjects);
                           _day = idx;
                           widget.changeState(idx);
                         },

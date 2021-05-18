@@ -1,31 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:remind_me/components/ClassCard.dart';
 import 'package:remind_me/components/TaskCard.dart';
-import 'package:remind_me/pages/Calender.dart';
+import 'package:remind_me/models/Subject.dart';
+import 'package:remind_me/providers/Subjects.dart';
+import 'package:remind_me/providers/Tasks.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class HomePage extends StatefulWidget {
-  final Function pushToAllSubjectsPage;
   final Function pushToTasksPage;
-
-  HomePage(
-      {required this.pushToAllSubjectsPage, required this.pushToTasksPage});
+  HomePage({required this.pushToTasksPage});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Subject> _subjectsToday = [];
+
   @override
   void initState() {
-    CalenderPage.generateTodaysClasses();
     super.initState();
+    Future.delayed(Duration.zero, () {
+      generate();
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void generate() {
+    final _subjects = Provider.of<Subjects>(context, listen: false).subjects;
+    int curDay = DateTime.now().weekday - 1;
+    List<Subject> _temp = [];
+
+    _subjects
+        .forEach((sub) => {if (sub.timeSlots[curDay] != null) _temp.add(sub)});
+
+    _temp.sort(
+      (a, b) => a.timeSlots[curDay]!.toString().compareTo(
+            b.timeSlots[curDay]!.toString(),
+          ),
+    );
+
+    setState(() => _subjectsToday = _temp);
   }
 
   int getDaysLeft(DateTime deadLine) {
@@ -36,6 +57,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+    final tasks = Provider.of<Tasks>(context).tasks;
+    // final classesToday = Provider.of<ClassesToday>(context).classesToday;
 
     return SafeArea(
       child: Stack(
@@ -177,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Text(
-                                    "(${CalenderPage.classesToday.length})",
+                                    "(${_subjectsToday.length})",
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 12,
@@ -186,9 +209,8 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               TextButton(
-                                onPressed: () {
-                                  widget.pushToAllSubjectsPage();
-                                },
+                                onPressed: () => Navigator.of(context)
+                                    .pushNamed("/allSubjects"),
                                 child: Text(
                                   "See all",
                                   style: TextStyle(
@@ -203,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               width: double.infinity,
                               padding: EdgeInsets.symmetric(vertical: 10),
-                              child: CalenderPage.classesToday.length == 0
+                              child: _subjectsToday.length == 0
                                   ? Center(
                                       child: Text(
                                         "No classes for Today!!!",
@@ -215,21 +237,20 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     )
                                   : ListView.builder(
-                                      itemCount:
-                                          CalenderPage.classesToday.length <= 2
-                                              ? CalenderPage.classesToday.length
-                                              : 2,
+                                      itemCount: _subjectsToday.length <= 2
+                                          ? _subjectsToday.length
+                                          : 2,
                                       itemBuilder:
                                           (BuildContext context, int idx) {
                                         return ClassCard(
                                           time:
-                                              "${CalenderPage.classesToday[idx].timeSlots[DateTime.now().weekday - 1]!.hour}:${CalenderPage.classesToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute == 0 ? '00' : CalenderPage.classesToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute}",
-                                          subjectName: CalenderPage
-                                              .classesToday[idx].subjectName,
-                                          roomName: CalenderPage
-                                              .classesToday[idx].roomName,
-                                          professorName: CalenderPage
-                                              .classesToday[idx].professorName,
+                                              "${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.hour}:${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute == 0 ? '00' : _subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute}",
+                                          subjectName:
+                                              _subjectsToday[idx].subjectName,
+                                          roomName:
+                                              _subjectsToday[idx].roomName,
+                                          professorName:
+                                              _subjectsToday[idx].professorName,
                                         );
                                       },
                                     ),
@@ -251,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     Text(
-                                      "(${Global.tasks.length})",
+                                      "(${tasks.length})",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 12,
@@ -276,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Container(
                             height: 120,
-                            child: Global.tasks.length == 0
+                            child: tasks.length == 0
                                 ? Center(
                                     child: Text(
                                       "No Due Tasks!!!",
@@ -289,13 +310,12 @@ class _HomePageState extends State<HomePage> {
                                   )
                                 : ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: Global.tasks.length,
+                                    itemCount: tasks.length,
                                     itemBuilder:
                                         (BuildContext context, int idx) {
                                       return TaskCard(
-                                        days: getDaysLeft(
-                                            Global.tasks[idx].deadLine),
-                                        subjectName: Global.tasks[idx].subject,
+                                        days: getDaysLeft(tasks[idx].deadLine),
+                                        subjectName: tasks[idx].subject,
                                       );
                                     },
                                   ),

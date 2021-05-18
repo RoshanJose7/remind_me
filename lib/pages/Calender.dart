@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:remind_me/components/CalenderTimeLine.dart';
 import 'package:remind_me/components/DayClass.dart';
-import 'package:remind_me/models/Subject.dart';
-import 'package:remind_me/shared/globals.dart';
+import 'package:remind_me/providers/ClassesToday.dart';
+import 'package:remind_me/providers/Subjects.dart';
 
 class CalenderPage extends StatefulWidget {
-  static List<Subject> classesToday = [];
-
-  static void generateTodaysClasses({int? day}) {
-    int curDay = day == null ? DateTime.now().weekday - 1 : day;
-    classesToday = [];
-
-    Global.allSubjects.forEach(
-        (sub) => {if (sub.timeSlots[curDay] != null) classesToday.add(sub)});
-
-    classesToday.sort((a, b) => a.timeSlots[curDay]!
-        .toString()
-        .compareTo(b.timeSlots[curDay]!.toString()));
-  }
-
   @override
   _CalenderPageState createState() => _CalenderPageState();
 }
@@ -27,27 +14,22 @@ class CalenderPage extends StatefulWidget {
 class _CalenderPageState extends State<CalenderPage> {
   int curDay = DateTime.now().weekday - 1;
 
-  void changeState(int day) {
-    setState(() {
-      curDay = day;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    CalenderPage.generateTodaysClasses();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+    final subjects = Provider.of<Subjects>(context).subjects;
+    final classesTodayProvider = Provider.of<ClassesToday>(context);
+
+    void changeState(int day) {
+      Provider.of<ClassesToday>(context, listen: false).generateTodaysClasses(
+        subjects: subjects,
+        day: day,
+      );
+      setState(() {
+        curDay = day;
+      });
+    }
 
     return SafeArea(
       child: Stack(
@@ -133,8 +115,6 @@ class _CalenderPageState extends State<CalenderPage> {
                       children: [
                         CalenderTimeLine(
                           day: curDay,
-                          generateTodaysClasses:
-                              CalenderPage.generateTodaysClasses,
                           changeState: changeState,
                         ),
                         const SizedBox(
@@ -146,19 +126,20 @@ class _CalenderPageState extends State<CalenderPage> {
                         Container(
                           child: Expanded(
                             child: ListView.builder(
-                              itemCount: CalenderPage.classesToday.length,
-                              itemBuilder: (BuildContext context, int idx) {
+                              itemCount:
+                                  classesTodayProvider.classesToday.length,
+                              itemBuilder: (_, int idx) {
                                 return DayClass(
                                   time:
-                                      "${CalenderPage.classesToday[idx].timeSlots[curDay]!.hour}:${CalenderPage.classesToday[idx].timeSlots[curDay]!.minute == 0 ? '00' : CalenderPage.classesToday[idx].timeSlots[curDay]!.minute}",
-                                  duration:
-                                      CalenderPage.classesToday[idx].duration,
-                                  subjectName: CalenderPage
+                                      "${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.hour}:${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.minute == 0 ? '00' : classesTodayProvider.classesToday[idx].timeSlots[curDay]!.minute}",
+                                  duration: classesTodayProvider
+                                      .classesToday[idx].duration,
+                                  subjectName: classesTodayProvider
                                       .classesToday[idx].subjectName,
-                                  professorName: CalenderPage
+                                  professorName: classesTodayProvider
                                       .classesToday[idx].professorName,
-                                  roomName:
-                                      CalenderPage.classesToday[idx].roomName,
+                                  roomName: classesTodayProvider
+                                      .classesToday[idx].roomName,
                                 );
                               },
                             ),

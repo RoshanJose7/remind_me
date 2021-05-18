@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remind_me/components/SubjectCard.dart';
-import 'package:remind_me/models/Subject.dart';
-import 'package:remind_me/pages/AddSubject.dart';
+import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class AllSubjects extends StatefulWidget {
@@ -10,16 +10,11 @@ class AllSubjects extends StatefulWidget {
 }
 
 class _AllSubjectsState extends State<AllSubjects> {
-  void addToAll({required Subject sub}) {
-    setState(() {
-      Global.allSubjects.add(sub);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final subjects = Provider.of<Subjects>(context).subjects;
 
     return SafeArea(
       child: Stack(
@@ -93,14 +88,14 @@ class _AllSubjectsState extends State<AllSubjects> {
                   horizontal: 10,
                 ),
                 child: ListView.builder(
-                  itemCount: Global.allSubjects.length,
+                  itemCount: subjects.length,
                   itemBuilder: (ctx, idx) {
                     return SubjectCard(
-                      duration: Global.allSubjects[idx].duration,
-                      professorName: Global.allSubjects[idx].professorName,
-                      roomName: Global.allSubjects[idx].roomName,
-                      subName: Global.allSubjects[idx].subjectName,
-                      timeSlots: Global.allSubjects[idx].timeSlots,
+                      duration: subjects[idx].duration,
+                      professorName: subjects[idx].professorName,
+                      roomName: subjects[idx].roomName,
+                      subName: subjects[idx].subjectName,
+                      timeSlots: subjects[idx].timeSlots,
                     );
                   },
                 ),
@@ -111,12 +106,7 @@ class _AllSubjectsState extends State<AllSubjects> {
             bottom: 20,
             right: 20,
             child: FloatingActionButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddSubject(callback: addToAll),
-                ),
-              ),
+              onPressed: () => Navigator.pushNamed(context, "/addSubject"),
               child: Icon(Icons.add),
             ),
           ),

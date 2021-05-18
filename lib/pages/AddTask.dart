@@ -1,13 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:provider/provider.dart';
 
-import 'package:remind_me/models/Task.dart';
+import 'package:remind_me/providers/Tasks.dart';
 
 class AddTask extends StatefulWidget {
-  final Function callback;
-  AddTask({required this.callback});
-
   @override
   _AddTaskState createState() => _AddTaskState();
 }
@@ -74,6 +72,8 @@ class _AddTaskState extends State<AddTask> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
+    final tasks = Provider.of<Tasks>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[50],
@@ -107,14 +107,13 @@ class _AddTaskState extends State<AddTask> {
                   if (!_formKey.currentState!.validate()) return;
                   _formKey.currentState!.save();
 
-                  Task task = Task(
-                    subject: _subName,
+                  tasks.addTask(
                     isCompleted: false,
-                    description: _description,
+                    subject: _subName,
                     deadLine: _deadLine,
+                    description: _description,
                   );
 
-                  widget.callback(task: task);
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(

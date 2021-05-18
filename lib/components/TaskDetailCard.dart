@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remind_me/providers/Tasks.dart';
 
 class TaskDetailCard extends StatefulWidget {
-  final int id;
+  final String id;
   final bool isCompleted;
   final String subject;
   final String description;
   final DateTime deadLine;
-  final Function updateTask;
-  final Function deleteTask;
 
   TaskDetailCard({
     required this.id,
@@ -15,8 +15,6 @@ class TaskDetailCard extends StatefulWidget {
     required this.subject,
     required this.deadLine,
     required this.description,
-    required this.updateTask,
-    required this.deleteTask,
   });
 
   @override
@@ -26,6 +24,8 @@ class TaskDetailCard extends StatefulWidget {
 class _TaskDetailCardState extends State<TaskDetailCard> {
   @override
   Widget build(BuildContext context) {
+    final tasksProvider = Provider.of<Tasks>(context);
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -68,7 +68,8 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                               Icons.check,
                               color: Colors.green,
                             ),
-                            onPressed: () => widget.updateTask(id: widget.id),
+                            onPressed: () =>
+                                tasksProvider.markCompleted(id: widget.id),
                           ),
                         )
                       : Container(
@@ -83,7 +84,8 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                               Icons.delete_forever_rounded,
                               color: Colors.red,
                             ),
-                            onPressed: () => widget.deleteTask(id: widget.id),
+                            onPressed: () =>
+                                tasksProvider.removeTask(id: widget.id),
                           ),
                         ),
                 ],

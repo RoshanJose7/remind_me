@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:remind_me/models/Subject.dart';
+import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class AddSubject extends StatefulWidget {
-  final Function callback;
-  AddSubject({Key? key, required this.callback}) : super(key: key);
-
   @override
   _AddSubjectState createState() => _AddSubjectState();
 }
@@ -88,9 +86,9 @@ class _AddSubjectState extends State<AddSubject> {
         labelStyle: TextStyle(fontSize: 15),
       ),
       onSaved: (String? val) {
-        if (val != null || val != "") {
+        if (val != null && val.isNotEmpty) {
           TimeOfDay _time = TimeOfDay(
-            hour: int.parse(val!.split(":")[0]),
+            hour: int.parse(val.split(":")[0]),
             minute: int.parse(val.split(":")[1]),
           );
           _timeSlots.add(_time);
@@ -104,6 +102,8 @@ class _AddSubjectState extends State<AddSubject> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
+    final subjectProvider = Provider.of<Subjects>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -186,7 +186,7 @@ class _AddSubjectState extends State<AddSubject> {
                   for (int i = _timeSlots.length - 1; i < 7; i++)
                     _timeSlots.add(null);
 
-                  Subject sub = Subject(
+                  subjectProvider.addSubject(
                     duration: _duration,
                     subjectName: _subName,
                     professorName: _professorName,
@@ -194,7 +194,6 @@ class _AddSubjectState extends State<AddSubject> {
                     timeSlots: _timeSlots,
                   );
 
-                  widget.callback(sub: sub);
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(

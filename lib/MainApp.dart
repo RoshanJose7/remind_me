@@ -32,7 +32,6 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     List _pages = [
       HomePage(
-        pushToAllSubjectsPage: pushToAllSubjectsPage,
         pushToTasksPage: pushToTasksPage,
       ),
       AllSubjects(),

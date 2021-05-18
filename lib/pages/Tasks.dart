@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:remind_me/components/TaskDetailCard.dart';
-import 'package:remind_me/models/Task.dart';
 import 'package:remind_me/pages/AddTask.dart';
+import 'package:remind_me/providers/Tasks.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class TasksPage extends StatefulWidget {
@@ -11,28 +12,12 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  void addToAll({required Task task}) {
-    setState(() {
-      Global.tasks.add(task);
-    });
-  }
-
-  void updateTask({required int id}) {
-    setState(() {
-      Global.tasks[id].isCompleted = !Global.tasks[id].isCompleted;
-    });
-  }
-
-  void deleteTask({required int id}) {
-    setState(() {
-      Global.tasks.removeAt(id);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+
+    final tasks = Provider.of<Tasks>(context).tasks;
 
     return SafeArea(
       child: Stack(
@@ -136,7 +121,7 @@ class _TasksPageState extends State<TasksPage> {
                               ),
                             ),
                             Text(
-                              "(${Global.tasks.length})",
+                              "(${tasks.length})",
                               style: TextStyle(
                                 color: const Color(0xFF37408A),
                                 fontSize: 18,
@@ -148,16 +133,14 @@ class _TasksPageState extends State<TasksPage> {
                         Expanded(
                           flex: 4,
                           child: ListView.builder(
-                            itemCount: Global.tasks.length,
+                            itemCount: tasks.length,
                             itemBuilder: (BuildContext context, int idx) {
                               return TaskDetailCard(
-                                id: idx,
-                                deadLine: Global.tasks[idx].deadLine,
-                                description: Global.tasks[idx].description,
-                                isCompleted: Global.tasks[idx].isCompleted,
-                                subject: Global.tasks[idx].subject,
-                                updateTask: updateTask,
-                                deleteTask: deleteTask,
+                                id: tasks[idx].id,
+                                deadLine: tasks[idx].deadLine,
+                                description: tasks[idx].description,
+                                isCompleted: tasks[idx].isCompleted,
+                                subject: tasks[idx].subject,
                               );
                             },
                           ),
@@ -177,7 +160,7 @@ class _TasksPageState extends State<TasksPage> {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddTask(callback: addToAll),
+                  builder: (context) => AddTask(),
                 ),
               ),
               child: Icon(Icons.add_to_photos_rounded),
