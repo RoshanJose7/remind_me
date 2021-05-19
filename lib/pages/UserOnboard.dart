@@ -269,7 +269,7 @@ class _UserOnboardState extends State<UserOnboard>
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: IconButton(
-                          onPressed: () => Navigator.of(context).pushNamed("/"),
+                          onPressed: () => Navigator.of(context).pushNamed("/getInfo"),
                           iconSize: 40,
                           tooltip: "Let's Go",
                           icon: Icon(

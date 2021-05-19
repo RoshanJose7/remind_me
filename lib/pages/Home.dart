@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:remind_me/components/ClassCard.dart';
 import 'package:remind_me/components/TaskCard.dart';
 import 'package:remind_me/models/Subject.dart';
+import 'package:remind_me/providers/MainState.dart';
 import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/providers/Tasks.dart';
 import 'package:remind_me/shared/globals.dart';
@@ -58,7 +60,7 @@ class _HomePageState extends State<HomePage> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     final tasks = Provider.of<Tasks>(context).tasks;
-    // final classesToday = Provider.of<ClassesToday>(context).classesToday;
+    final _mainStateProvider = Provider.of<MainState>(context);
 
     return SafeArea(
       child: Stack(
@@ -108,32 +110,43 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        margin: EdgeInsets.only(right: 20, left: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.blueGrey.withOpacity(0.2),
-                              blurRadius: 12,
-                              spreadRadius: 8,
+                      _mainStateProvider.picPath.startsWith("assets")
+                          ? Container(
+                              width: 40,
+                              height: 40,
+                              margin: EdgeInsets.only(right: 20, left: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blueGrey.withOpacity(0.2),
+                                    blurRadius: 12,
+                                    spreadRadius: 8,
+                                  ),
+                                ],
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(_mainStateProvider.picPath),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: 40,
+                              height: 40,
+                              margin: EdgeInsets.only(right: 20, left: 20),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.file(
+                                    File(_mainStateProvider.picPath)),
+                              ),
                             ),
-                          ],
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(Global.picPath),
-                          ),
-                        ),
-                      ),
                       const SizedBox(width: 30),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Hi, ${Global.userName}",
+                              "Hi, ${_mainStateProvider.userName}",
                               style: TextStyle(
                                 color: Color(0xFF37408A),
                                 fontSize: 30,
@@ -244,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                                           (BuildContext context, int idx) {
                                         return ClassCard(
                                           time:
-                                              "${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.hour}:${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute == 0 ? '00' : _subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.minute}",
+                                              "${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.split(":")[0]}:${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.split(":")[1]}",
                                           subjectName:
                                               _subjectsToday[idx].subjectName,
                                           roomName:

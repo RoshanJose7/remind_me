@@ -131,7 +131,7 @@ class _CalenderPageState extends State<CalenderPage> {
                               itemBuilder: (_, int idx) {
                                 return DayClass(
                                   time:
-                                      "${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.hour}:${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.minute == 0 ? '00' : classesTodayProvider.classesToday[idx].timeSlots[curDay]!.minute}",
+                                      "${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[0]}:${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[1]}",
                                   duration: classesTodayProvider
                                       .classesToday[idx].duration,
                                   subjectName: classesTodayProvider

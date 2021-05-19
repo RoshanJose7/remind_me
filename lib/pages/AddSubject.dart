@@ -17,7 +17,7 @@ class _AddSubjectState extends State<AddSubject> {
   String _professorName = "";
   String _roomFloor = "";
   String _roomName = "";
-  List<TimeOfDay?> _timeSlots = [];
+  List<String?> _timeSlots = [];
 
   Widget _buildSubNameField() {
     return TextFormField(
@@ -91,7 +91,8 @@ class _AddSubjectState extends State<AddSubject> {
             hour: int.parse(val.split(":")[0]),
             minute: int.parse(val.split(":")[1]),
           );
-          _timeSlots.add(_time);
+          _timeSlots
+              .add("${_time.hour}:${_time.minute == 0 ? 00 : _time.minute}");
         } else
           _timeSlots.add(null);
       },

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class SubjectCard extends StatelessWidget {
+  final String id;
   final String subName;
   final String duration;
   final String professorName;
   final String roomName;
-  final List<TimeOfDay?> timeSlots;
+  final List timeSlots;
 
   SubjectCard({
+    required this.id,
     required this.duration,
     required this.professorName,
     required this.roomName,
@@ -18,6 +22,7 @@ class SubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final subjectsProvider = Provider.of<Subjects>(context);
     final List<GlobalKey> _toolTipKey = [
       GlobalKey(),
       GlobalKey(),
@@ -183,7 +188,7 @@ class SubjectCard extends StatelessWidget {
                       key: _toolTipKey[i],
                       message: timeSlots[i] == null
                           ? "No Class"
-                          : "${timeSlots[i]!.hour}:${timeSlots[i]!.minute == 0 ? '00' : timeSlots[i]!.minute}",
+                          : "${timeSlots[i]!.split(":")[0]}:${timeSlots[i]!.split(":")[1]}",
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -213,6 +218,26 @@ class SubjectCard extends StatelessWidget {
                 ),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Remove from List",
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.delete_forever_rounded,
+                  color: Colors.red,
+                ),
+                onPressed: () => subjectsProvider.removeSubject(id: id),
+              ),
+            ],
+          )
         ],
       ),
     );

@@ -71,7 +71,6 @@ class _AddTaskState extends State<AddTask> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
     final tasks = Provider.of<Tasks>(context);
 
     return Scaffold(

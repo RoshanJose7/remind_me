@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class Task with ChangeNotifier {
   bool isCompleted;
@@ -19,4 +20,30 @@ class Task with ChangeNotifier {
     isCompleted = !isCompleted;
     notifyListeners();
   }
+
+  factory Task.fromJson(Map<String, dynamic> jsonData) {
+    return Task(
+      id: jsonData['id'],
+      isCompleted: jsonData['isCompleted'],
+      subject: jsonData['subject'],
+      deadLine: jsonData['deadLine'],
+      description: jsonData['description'],
+    );
+  }
+
+  static Map<String, dynamic> toMap(Task task) => {
+        'id': task.id,
+        'isCompleted': task.isCompleted,
+        'subject': task.subject,
+        'deadLine': task.deadLine,
+        'description': task.description,
+      };
+
+  static String encode(List<Task> tasks) => json.encode(
+        tasks.map<Map<String, dynamic>>((sub) => Task.toMap(sub)).toList(),
+      );
+
+  static List<Task> decode(String task) => (json.decode(task) as List<dynamic>)
+      .map<Task>((item) => Task.fromJson(item))
+      .toList();
 }

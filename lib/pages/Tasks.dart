@@ -105,7 +105,7 @@ class _TasksPageState extends State<TasksPage> {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: height - 191,
+                    height: height - 215,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Column(
                       children: [
@@ -132,18 +132,29 @@ class _TasksPageState extends State<TasksPage> {
                         const SizedBox(height: 10),
                         Expanded(
                           flex: 4,
-                          child: ListView.builder(
-                            itemCount: tasks.length,
-                            itemBuilder: (BuildContext context, int idx) {
-                              return TaskDetailCard(
-                                id: tasks[idx].id,
-                                deadLine: tasks[idx].deadLine,
-                                description: tasks[idx].description,
-                                isCompleted: tasks[idx].isCompleted,
-                                subject: tasks[idx].subject,
-                              );
-                            },
-                          ),
+                          child: tasks.length == 0
+                              ? Center(
+                                  child: Text(
+                                    "Click on the + button to add your Tasks!",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: tasks.length,
+                                  itemBuilder: (BuildContext context, int idx) {
+                                    return TaskDetailCard(
+                                      id: tasks[idx].id,
+                                      deadLine: tasks[idx].deadLine,
+                                      description: tasks[idx].description,
+                                      isCompleted: tasks[idx].isCompleted,
+                                      subject: tasks[idx].subject,
+                                    );
+                                  },
+                                ),
                         ),
                       ],
                     ),

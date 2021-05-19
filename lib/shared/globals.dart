@@ -1,6 +1,4 @@
 class Global {
-  static String userName = "Jose";
-  static String picPath = "assets/img/Jose.jpg";
   static final List week = [];
   static const List<String> days = [
     "Monday",

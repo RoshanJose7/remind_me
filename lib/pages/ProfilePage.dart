@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import 'package:remind_me/shared/globals.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remind_me/providers/MainState.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+    final _mainStateProvider = Provider.of<MainState>(context);
 
     return SafeArea(
       child: Stack(
@@ -38,27 +41,38 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      margin: EdgeInsets.only(right: 20, left: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blueGrey.withOpacity(0.2),
-                            blurRadius: 12,
-                            spreadRadius: 8,
+                    _mainStateProvider.picPath.startsWith("assets")
+                        ? Container(
+                            width: 40,
+                            height: 40,
+                            margin: EdgeInsets.only(right: 20, left: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.blueGrey.withOpacity(0.2),
+                                  blurRadius: 12,
+                                  spreadRadius: 8,
+                                ),
+                              ],
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(_mainStateProvider.picPath),
+                              ),
+                            ),
+                          )
+                        : Container(
+                            width: 40,
+                            height: 40,
+                            margin: EdgeInsets.only(right: 20, left: 20),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child:
+                                  Image.file(File(_mainStateProvider.picPath)),
+                            ),
                           ),
-                        ],
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(Global.picPath),
-                        ),
-                      ),
-                    ),
                     Text(
-                      "Hi, ${Global.userName}",
+                      "Hi, ${_mainStateProvider.userName}",
                       style: TextStyle(
                         color: Color(0xFF37408A),
                         fontSize: 24,

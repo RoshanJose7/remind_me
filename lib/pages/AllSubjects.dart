@@ -56,7 +56,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                     children: [
                       Expanded(
                         child: Text(
-                          "All Your Subjects",
+                          "Your Subjects",
                           style: TextStyle(
                             color: Color(0xFF37408A),
                             fontSize: 30,
@@ -80,25 +80,65 @@ class _AllSubjectsState extends State<AllSubjects> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
               ),
-              child: Container(
-                height: height,
-                width: width,
-                padding: EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: 10,
-                ),
-                child: ListView.builder(
-                  itemCount: subjects.length,
-                  itemBuilder: (ctx, idx) {
-                    return SubjectCard(
-                      duration: subjects[idx].duration,
-                      professorName: subjects[idx].professorName,
-                      roomName: subjects[idx].roomName,
-                      subName: subjects[idx].subjectName,
-                      timeSlots: subjects[idx].timeSlots,
-                    );
-                  },
-                ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "All Subjects",
+                          style: TextStyle(
+                            color: const Color(0xFF37408A),
+                            fontSize: 18,
+                          ),
+                        ),
+                        Text(
+                          "(${subjects.length})",
+                          style: TextStyle(
+                            color: const Color(0xFF37408A),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    height: height - 262,
+                    width: width,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 10,
+                    ),
+                    child: subjects.length == 0
+                        ? Center(
+                            child: Text(
+                              "Click on the + button to add Subjects!",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: subjects.length,
+                            itemBuilder: (ctx, idx) {
+                              return SubjectCard(
+                                id: subjects[idx].id,
+                                duration: subjects[idx].duration,
+                                professorName: subjects[idx].professorName,
+                                roomName: subjects[idx].roomName,
+                                subName: subjects[idx].subjectName,
+                                timeSlots: subjects[idx].timeSlots,
+                              );
+                            },
+                          ),
+                  ),
+                ],
               ),
             ),
           ),
