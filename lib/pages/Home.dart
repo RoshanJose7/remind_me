@@ -327,7 +327,9 @@ class _HomePageState extends State<HomePage> {
                                     itemBuilder:
                                         (BuildContext context, int idx) {
                                       return TaskCard(
-                                        days: getDaysLeft(tasks[idx].deadLine),
+                                        days: getDaysLeft(
+                                          DateTime.parse(tasks[idx].deadLine),
+                                        ),
                                         subjectName: tasks[idx].subject,
                                       );
                                     },

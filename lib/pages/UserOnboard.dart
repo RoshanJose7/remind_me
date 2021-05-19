@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/Helpers/Helpers.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:provider/provider.dart';
+import 'package:remind_me/providers/MainState.dart';
 
 class UserOnboard extends StatefulWidget {
   static const TextStyle goldcoinGreyText = TextStyle(
@@ -46,8 +48,8 @@ class UserOnboard extends StatefulWidget {
 class _UserOnboardState extends State<UserOnboard>
     with SingleTickerProviderStateMixin {
   bool _visible = true;
+  bool _loaded = false;
   int page = 0;
-
   late LiquidController _liquidController;
   late Animation<double> transformAnimation;
   late Animation<double> opacityAnimation;
@@ -79,6 +81,18 @@ class _UserOnboardState extends State<UserOnboard>
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    final bool _hideIntro = Provider.of<MainState>(context).hideIntro;
+    super.didChangeDependencies();
+    Future.delayed(Duration.zero, () {
+      if (_hideIntro)
+        Navigator.of(context).pushNamed("/");
+      else
+        setState(() => _loaded = true);
+    });
   }
 
   @override
@@ -269,7 +283,8 @@ class _UserOnboardState extends State<UserOnboard>
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: IconButton(
-                          onPressed: () => Navigator.of(context).pushNamed("/getInfo"),
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed("/getInfo"),
                           iconSize: 40,
                           tooltip: "Let's Go",
                           icon: Icon(
@@ -289,38 +304,40 @@ class _UserOnboardState extends State<UserOnboard>
     ];
 
     return SafeArea(
-      child: Scaffold(
-        body: GestureDetector(
-          onHorizontalDragDown: (_) => setState(() => _visible = false),
-          child: LiquidSwipe(
-            enableLoop: false,
-            initialPage: 0,
-            fullTransitionValue: 500,
-            liquidController: _liquidController,
-            waveType: WaveType.liquidReveal,
-            ignoreUserGestureWhileAnimating: true,
-            slideIconWidget: AnimatedOpacity(
-              duration: Duration(milliseconds: 400),
-              opacity: _visible ? 1.0 : 0.0,
-              child: Icon(
-                Icons.arrow_back_ios_rounded,
-                size: 25.0,
-                color: page == 0 ? Color(0xFFFF735C) : Color(0xFF425DCE),
+      child: _loaded
+          ? Scaffold(
+              body: GestureDetector(
+                onHorizontalDragDown: (_) => setState(() => _visible = false),
+                child: LiquidSwipe(
+                  enableLoop: false,
+                  initialPage: 0,
+                  fullTransitionValue: 500,
+                  liquidController: _liquidController,
+                  waveType: WaveType.liquidReveal,
+                  ignoreUserGestureWhileAnimating: true,
+                  slideIconWidget: AnimatedOpacity(
+                    duration: Duration(milliseconds: 400),
+                    opacity: _visible ? 1.0 : 0.0,
+                    child: Icon(
+                      Icons.arrow_back_ios_rounded,
+                      size: 25.0,
+                      color: page == 0 ? Color(0xFFFF735C) : Color(0xFF425DCE),
+                    ),
+                  ),
+                  onPageChangeCallback: (int val) {
+                    setState(
+                      () {
+                        _visible = val == 2 ? false : true;
+                        page = val;
+                      },
+                    );
+                  },
+                  positionSlideIcon: 0.8,
+                  pages: pages,
+                ),
               ),
-            ),
-            onPageChangeCallback: (int val) {
-              setState(
-                () {
-                  _visible = val == 2 ? false : true;
-                  page = val;
-                },
-              );
-            },
-            positionSlideIcon: 0.8,
-            pages: pages,
-          ),
-        ),
-      ),
+            )
+          : CircularProgressIndicator(),
     );
   }
 }

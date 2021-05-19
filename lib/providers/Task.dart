@@ -6,7 +6,7 @@ class Task with ChangeNotifier {
   String id;
   String subject;
   String description;
-  DateTime deadLine;
+  String deadLine;
 
   Task({
     required this.id,

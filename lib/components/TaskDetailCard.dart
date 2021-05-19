@@ -7,7 +7,7 @@ class TaskDetailCard extends StatefulWidget {
   final bool isCompleted;
   final String subject;
   final String description;
-  final DateTime deadLine;
+  final String deadLine;
 
   TaskDetailCard({
     required this.id,
@@ -101,7 +101,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             ),
           ),
           Text(
-            "DeadLine : ${widget.deadLine.day - DateTime.now().day} days left",
+            "DeadLine : ${DateTime.parse(widget.deadLine).day - DateTime.now().day} days left",
             style: TextStyle(
               color: Colors.white,
               fontSize: 15,

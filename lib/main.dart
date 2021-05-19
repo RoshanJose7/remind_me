@@ -44,8 +44,7 @@ class App extends StatelessWidget {
           actionsIconTheme: IconThemeData(color: Colors.blueGrey),
         ),
       ),
-      initialRoute:
-          Provider.of<MainState>(context).hideIntro ? "/" : "/onboard",
+      initialRoute: "/onboard",
       routes: {
         "/": (context) => MainApp(),
         "/getInfo": (context) => GetInfoPage(),

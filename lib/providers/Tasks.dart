@@ -34,7 +34,7 @@ class Tasks with ChangeNotifier {
   void addTask({
     required bool isCompleted,
     required String subject,
-    required DateTime deadLine,
+    required String deadLine,
     required String description,
   }) {
     Task temp = Task(

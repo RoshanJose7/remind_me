@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
-
 import 'package:remind_me/providers/Tasks.dart';
 
 class AddTask extends StatefulWidget {
@@ -109,7 +108,7 @@ class _AddTaskState extends State<AddTask> {
                   tasks.addTask(
                     isCompleted: false,
                     subject: _subName,
-                    deadLine: _deadLine,
+                    deadLine: _deadLine.toString(),
                     description: _description,
                   );
 
