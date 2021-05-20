@@ -25,6 +25,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   @override
   Widget build(BuildContext context) {
     final tasksProvider = Provider.of<Tasks>(context);
+    print(widget.deadLine);
 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -101,7 +102,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             ),
           ),
           Text(
-            "DeadLine : ${DateTime.parse(widget.deadLine).day - DateTime.now().day} days left",
+            "DeadLine : ${DateTime.parse(widget.deadLine).day - DateTime.now().day} days left, ${DateTime.parse(widget.deadLine).hour - DateTime.now().hour} hours left.",
             style: TextStyle(
               color: Colors.white,
               fontSize: 15,

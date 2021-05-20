@@ -86,14 +86,10 @@ class _AddSubjectState extends State<AddSubject> {
         labelStyle: TextStyle(fontSize: 15),
       ),
       onSaved: (String? val) {
-        if (val != null && val.isNotEmpty) {
-          TimeOfDay _time = TimeOfDay(
-            hour: int.parse(val.split(":")[0]),
-            minute: int.parse(val.split(":")[1]),
-          );
+        if (val != null && val.isNotEmpty) 
           _timeSlots
-              .add("${_time.hour}:${_time.minute == 0 ? 00 : _time.minute}");
-        } else
+              .add("${val.split(":")[0]}:${val.split(":")[1] == '0' ? 00 : val.split(":")[1]}");
+         else
           _timeSlots.add(null);
       },
     );
@@ -134,48 +130,50 @@ class _AddSubjectState extends State<AddSubject> {
               _buildProfessorNameField(),
               _buildRoomFloorField(),
               _buildRoomNameField(),
-              Container(
-                width: width - 50,
-                height: height - 470,
-                margin: EdgeInsets.only(top: 20),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey.withOpacity(0.3),
-                    width: 2,
+              Expanded(
+                child: Container(
+                  width: width - 50,
+                  height: height - 470,
+                  margin: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey.withOpacity(0.3),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ListView(
-                  children: [
-                    Text(
-                      "Time Slot 24 Hour Text Format hh:mm",
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.grey,
+                  child: ListView(
+                    children: [
+                      Text(
+                        "Time Slot 24 Hour Text Format hh:mm",
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "(Leave blank if no class)",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
+                      Text(
+                        "(Leave blank if no class)",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                    for (int i = 0; i < count && count <= 7; i++)
-                      _buildTimeSlotField(i),
-                    if (count < 7)
-                      IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          setState(
-                            () {
-                              count++;
-                            },
-                          );
-                        },
-                      ),
-                  ],
+                      for (int i = 0; i < count && count <= 7; i++)
+                        _buildTimeSlotField(i),
+                      if (count < 7)
+                        IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: () {
+                            setState(
+                              () {
+                                count++;
+                              },
+                            );
+                          },
+                        ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 10),

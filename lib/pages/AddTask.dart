@@ -51,7 +51,7 @@ class _AddTaskState extends State<AddTask> {
           context,
           showTitleActions: true,
           onConfirm: (date) => _deadLine = date,
-          currentTime: DateTime(2008, 12, 31, 23, 12, 34),
+          currentTime: DateTime.now(),
           locale: LocaleType.en,
         );
       },

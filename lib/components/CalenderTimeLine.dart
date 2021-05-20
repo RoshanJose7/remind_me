@@ -40,24 +40,20 @@ class _CalenderTimeLineState extends State<CalenderTimeLine> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: 55,
-                  height: 60,
-                  margin: const EdgeInsets.only(right: 10),
+                  width: 60,
+                  height: 85,
+                  margin: const EdgeInsets.only(right: 8),
                   padding: const EdgeInsets.symmetric(
                     vertical: 3,
                     horizontal: 8,
                   ),
                   child: TextButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Global.days[_day] == Global.week[idx]['day']
-                            ? Color(0xFF3F33C7)
-                            : Colors.grey.withOpacity(0.1),
-                      ),
+                    style: TextButton.styleFrom(
+                      backgroundColor:
+                          Global.days[_day] == Global.week[idx]['day']
+                              ? Color(0xFF3F33C7)
+                              : Colors.grey[200],
+                      elevation: 3.0,
                     ),
                     onPressed: () => {
                       setState(
@@ -75,6 +71,7 @@ class _CalenderTimeLineState extends State<CalenderTimeLine> {
                         Text(
                           Global.week[idx]['day'][0],
                           style: TextStyle(
+                            fontSize: 14,
                             color: Global.days[_day] == Global.week[idx]['day']
                                 ? Colors.white70
                                 : Colors.grey,
@@ -84,11 +81,11 @@ class _CalenderTimeLineState extends State<CalenderTimeLine> {
                         Text(
                           Global.week[idx]['date'].toString(),
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 17,
                             color: Global.days[_day] == Global.week[idx]['day']
                                 ? Colors.white
                                 : Colors.black,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],

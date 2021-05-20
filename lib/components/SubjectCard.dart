@@ -23,15 +23,6 @@ class SubjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subjectsProvider = Provider.of<Subjects>(context);
-    final List<GlobalKey> _toolTipKey = [
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-      GlobalKey(),
-    ];
 
     return Container(
       padding: EdgeInsets.all(10),
@@ -183,36 +174,41 @@ class SubjectCard extends StatelessWidget {
                             : Colors.grey.withOpacity(0.1),
                       ),
                     ),
-                    onPressed: () => {},
-                    child: Tooltip(
-                      key: _toolTipKey[i],
-                      message: timeSlots[i] == null
-                          ? "No Class"
-                          : "${timeSlots[i]!.split(":")[0]}:${timeSlots[i]!.split(":")[1]}",
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            Global.week[i]['day'][0],
-                            style: TextStyle(
-                              color: timeSlots[i] != null
-                                  ? Colors.white70
-                                  : Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            Global.week[i]['date'].toString(),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: timeSlots[i] != null
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
+                    onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(timeSlots[i] == null
+                            ? "No Class"
+                            : "${Global.days[i]} class at ${timeSlots[i]!.split(":")[0]}:${timeSlots[i]!.split(":")[1]}"),
+                        action: SnackBarAction(
+                          label: "Close",
+                          onPressed: () {},
+                          textColor: Colors.red,
+                        ),
                       ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          Global.week[i]['day'][0],
+                          style: TextStyle(
+                            color: timeSlots[i] != null
+                                ? Colors.white70
+                                : Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          Global.week[i]['date'].toString(),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: timeSlots[i] != null
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

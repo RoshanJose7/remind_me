@@ -123,28 +123,39 @@ class _CalenderPageState extends State<CalenderPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          child: Expanded(
-                            child: ListView.builder(
-                              itemCount:
-                                  classesTodayProvider.classesToday.length,
-                              itemBuilder: (_, int idx) {
-                                return DayClass(
-                                  time:
-                                      "${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[0]}:${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[1]}",
-                                  duration: classesTodayProvider
-                                      .classesToday[idx].duration,
-                                  subjectName: classesTodayProvider
-                                      .classesToday[idx].subjectName,
-                                  professorName: classesTodayProvider
-                                      .classesToday[idx].professorName,
-                                  roomName: classesTodayProvider
-                                      .classesToday[idx].roomName,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
+                        classesTodayProvider.classesToday.length == 0
+                            ? Center(
+                                child: Text(
+                                  "No Classes",
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                child: Expanded(
+                                  child: ListView.builder(
+                                    itemCount: classesTodayProvider
+                                        .classesToday.length,
+                                    itemBuilder: (_, int idx) {
+                                      return DayClass(
+                                        time:
+                                            "${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[0]}:${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[1]}",
+                                        duration: classesTodayProvider
+                                            .classesToday[idx].duration,
+                                        subjectName: classesTodayProvider
+                                            .classesToday[idx].subjectName,
+                                        professorName: classesTodayProvider
+                                            .classesToday[idx].professorName,
+                                        roomName: classesTodayProvider
+                                            .classesToday[idx].roomName,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                   ),
