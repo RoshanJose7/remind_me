@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/providers/MainState.dart';
 
@@ -112,63 +113,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       TextButton(
                         child: Icon(Icons.file_download),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: 200,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 30,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      "Upload a .db file",
-                                      style: TextStyle(
-                                        color: Colors.blueGrey[600],
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Select File",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.blueGrey,
-                                            ),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Icon(
-                                            Icons.edit_rounded,
-                                            color: Colors.blueGrey,
-                                            size: 20,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                      icon: Icon(
-                                        Icons.done,
-                                        color: Colors.blueGrey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                        onPressed: () async {
+                          Directory _dir =
+                              await getApplicationDocumentsDirectory();
+                          final _snackBar = SnackBar(
+                            content:
+                                Text("Keep your file at the Downloads Folder"),
+                            action: SnackBarAction(
+                              label: "Upload to App",
+                              onPressed: () {
+                                File file = File(
+                                    "/storage/emulated/0/Downloads/shared_preferences.json");
+                                file.copy(_dir.path);
+                              },
+                            ),
                           );
+                          ScaffoldMessenger.of(context).showSnackBar(_snackBar);
                         },
                         style: TextButton.styleFrom(
                           primary: Colors.blueGrey[300],
@@ -191,67 +151,20 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       TextButton(
                         child: Icon(Icons.file_upload),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: 200,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 30,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      "Export to .db File",
-                                      style: TextStyle(
-                                        color: Colors.blueGrey[600],
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Select File",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.blueGrey,
-                                            ),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Icon(
-                                            Icons.edit_rounded,
-                                            color: Colors.blueGrey,
-                                            size: 20,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                      icon: Icon(
-                                        Icons.done,
-                                        color: Colors.blueGrey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                        onPressed: () async {
+                          Directory _dir =
+                              await getApplicationDocumentsDirectory();
+                          File file =
+                              File("${_dir.path}/shared_preferences.json");
+                          file.copy("/storage/emulated/0/Downloads/");
+                          final _snackBar = SnackBar(
+                            content:
+                                Text("Move your data file to Downloads filder"),
                           );
+                          ScaffoldMessenger.of(context).showSnackBar(_snackBar);
                         },
-                        style: TextButton.styleFrom(
-                          primary: Colors.blueGrey[300],
-                        ),
+                        style:
+                            TextButton.styleFrom(primary: Colors.blueGrey[300]),
                       ),
                     ],
                   ),

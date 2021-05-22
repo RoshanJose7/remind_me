@@ -1,7 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
+import 'package:remind_me/shared/LocalNotifications.dart';
 import 'package:remind_me/providers/Tasks.dart';
 
 class AddTask extends StatefulWidget {
@@ -15,6 +17,13 @@ class _AddTaskState extends State<AddTask> {
   String _subName = "";
   DateTime _deadLine = DateTime.now();
   String _description = "";
+  LocalNotifications _localNotifications = LocalNotifications();
+
+  @override
+  void initState() {
+    super.initState();
+    _localNotifications.init();
+  }
 
   Widget _buildSubNameField() {
     return TextFormField(
@@ -71,6 +80,14 @@ class _AddTaskState extends State<AddTask> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final tasks = Provider.of<Tasks>(context);
+    final snackBar = SnackBar(
+      content:
+          Text('You will receive a Notification 3 days before the DeadLine'),
+      action: SnackBarAction(
+        label: 'Close',
+        onPressed: () {},
+      ),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -112,6 +129,13 @@ class _AddTaskState extends State<AddTask> {
                     description: _description,
                   );
 
+                  _localNotifications.scheduleNotification(
+                    date: _deadLine.subtract(
+                      Duration(days: 3),
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(

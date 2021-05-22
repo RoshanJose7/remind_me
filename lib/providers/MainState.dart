@@ -25,7 +25,7 @@ class MainState with ChangeNotifier {
   void getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var temp1 = prefs.getString('userName');
-    var temp2 = prefs.getString('pidPath');
+    var temp2 = prefs.getString('picPath');
     var temp3 = prefs.getString('hideIntro');
 
     if (temp1 != null && temp2 != null && temp3 != null) {
@@ -39,7 +39,7 @@ class MainState with ChangeNotifier {
   void storeData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userName', _userName);
-    prefs.setString('pidPath', _picPath);
+    prefs.setString('picPath', _picPath);
     prefs.setString('hideIntro', _hideIntro.toString());
   }
 

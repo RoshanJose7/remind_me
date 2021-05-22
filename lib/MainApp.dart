@@ -29,6 +29,11 @@ class _MainAppState extends State<MainApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List _pages = [
       HomePage(

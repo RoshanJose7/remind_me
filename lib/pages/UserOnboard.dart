@@ -168,25 +168,29 @@ class _UserOnboardState extends State<UserOnboard>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("College",
-                        style: TextStyle(
-                          fontSize: 40.0,
-                          fontFamily: "Product Sans",
-                          fontWeight: FontWeight.bold,
-                        )),
-                    Text("Assignments",
-                        style: TextStyle(
-                          color: Color(0xFF425DCE),
-                          fontSize: 40.0,
-                          fontFamily: "Righteous",
-                        )),
-                    const SizedBox(height: 20.0),
+                    Text(
+                      "College",
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontFamily: "Product Sans",
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Assignments",
+                      style: TextStyle(
+                        color: Color(0xFF425DCE),
+                        fontSize: 40.0,
+                        fontFamily: "Righteous",
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                     Text(
                       "Set due dates for your assignments,\n"
                       "And finish it in time.",
                       overflow: TextOverflow.clip,
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                         fontFamily: "Product Sans",
                       ),
                     ),
@@ -218,8 +222,8 @@ class _UserOnboardState extends State<UserOnboard>
                 child: Container(
                   width: double.infinity,
                   constraints: BoxConstraints(
-                    minHeight: 300,
-                    maxHeight: 340,
+                    minHeight: 290,
+                    maxHeight: 315,
                   ),
                   child: Image.asset("assets/img/calender.png"),
                 ),
@@ -229,24 +233,29 @@ class _UserOnboardState extends State<UserOnboard>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Class", style: UserOnboard.whiteStyle),
-                        Text("Calender",
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Class", style: UserOnboard.whiteStyle),
+                          Text(
+                            "Calender",
                             style: TextStyle(
                               color: Color(0xFF140A81),
                               fontSize: 40.0,
                               fontFamily: "Righteous",
-                            )),
-                        const SizedBox(height: 20.0),
-                        Text(
-                          "Look at the Big Picture,\n"
-                          "Manage your time,\nin a productive way.",
-                          overflow: TextOverflow.clip,
-                          style: UserOnboard.descriptionWhiteStyle,
-                        ),
-                      ],
+                            ),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            "Look at the Big Picture,\n"
+                            "Manage your time,\nin a productive way.",
+                            overflow: TextOverflow.clip,
+                            style: UserOnboard.descriptionWhiteStyle,
+                          ),
+                        ],
+                      ),
                     ),
                     AnimatedBuilder(
                       animation: transformAnimation,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:remind_me/providers/Subjects.dart';
+import 'package:remind_me/shared/LocalNotifications.dart';
 import 'package:remind_me/shared/globals.dart';
 
 class AddSubject extends StatefulWidget {
@@ -11,6 +12,7 @@ class AddSubject extends StatefulWidget {
 
 class _AddSubjectState extends State<AddSubject> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final LocalNotifications _localNotifications = LocalNotifications();
   int count = 1;
   String _subName = "";
   String _duration = "";
@@ -86,10 +88,10 @@ class _AddSubjectState extends State<AddSubject> {
         labelStyle: TextStyle(fontSize: 15),
       ),
       onSaved: (String? val) {
-        if (val != null && val.isNotEmpty) 
-          _timeSlots
-              .add("${val.split(":")[0]}:${val.split(":")[1] == '0' ? 00 : val.split(":")[1]}");
-         else
+        if (val != null && val.isNotEmpty)
+          _timeSlots.add(
+              "${val.split(":")[0]}:${val.split(":")[1] == '0' ? 00 : val.split(":")[1]}");
+        else
           _timeSlots.add(null);
       },
     );
@@ -192,6 +194,13 @@ class _AddSubjectState extends State<AddSubject> {
                     roomName: "$_roomName:$_roomFloor",
                     timeSlots: _timeSlots,
                   );
+
+                  _timeSlots.map((_slot) async => {
+                        if (_slot != null)
+                          await _localNotifications
+                              .scheduleAtDayAndTimeNotification(
+                                  date: DateTime.parse(_slot))
+                      });
 
                   Navigator.of(context).pop();
                 },
