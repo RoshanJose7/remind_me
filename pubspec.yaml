@@ -19,6 +19,7 @@ dependencies:
   file_picker: ^3.0.1
   path_provider: ^2.0.1
   flutter_local_notifications: ^5.0.0+4
+  fluttertoast: ^8.0.7
 
 dev_dependencies:
   flutter_test:
@@ -33,12 +34,8 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icon/remind_me_logo.png
-    - assets/img/professor.png
-    - assets/img/Jose.jpg
-    - assets/img/assignments.png
-    - assets/img/calender.png
-    - assets/img/remainder.png
+    - assets/icon/
+    - assets/img/
 
   fonts:
     - family: Product Sans

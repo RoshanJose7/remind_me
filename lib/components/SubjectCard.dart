@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
@@ -136,6 +137,9 @@ class SubjectCard extends StatelessWidget {
                         text: roomName.split(':')[0],
                       ),
                       TextSpan(
+                        text: ", ",
+                      ),
+                      TextSpan(
                         text: roomName.split(':')[1],
                       ),
                     ],
@@ -174,17 +178,15 @@ class SubjectCard extends StatelessWidget {
                             : Colors.grey.withOpacity(0.1),
                       ),
                     ),
-                    onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(timeSlots[i] == null
-                            ? "No Class"
-                            : "${Global.days[i]} class at ${timeSlots[i]!.split(":")[0]}:${timeSlots[i]!.split(":")[1]}"),
-                        action: SnackBarAction(
-                          label: "Close",
-                          onPressed: () {},
-                          textColor: Colors.red,
-                        ),
-                      ),
+                    onPressed: () => Fluttertoast.showToast(
+                      fontSize: 12.0,
+                      msg: timeSlots[i] == null
+                          ? "No Class"
+                          : "${Global.days[i]} class at ${timeSlots[i]!.split(":")[0]}:${timeSlots[i]!.split(":")[1]}",
+                      toastLength: Toast.LENGTH_LONG,
+                      textColor: Colors.black87,
+                      gravity: ToastGravity.SNACKBAR,
+                      backgroundColor: Colors.red,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -230,7 +232,16 @@ class SubjectCard extends StatelessWidget {
                   Icons.delete_forever_rounded,
                   color: Colors.red,
                 ),
-                onPressed: () => subjectsProvider.removeSubject(id: id),
+                onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("You sure you want to delete $subName?"),
+                    action: SnackBarAction(
+                      label: "Confirm",
+                      onPressed: () => subjectsProvider.removeSubject(id: id),
+                      textColor: Colors.red,
+                    ),
+                  ),
+                ),
               ),
             ],
           )

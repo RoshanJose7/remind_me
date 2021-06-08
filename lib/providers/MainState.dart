@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MainState with ChangeNotifier {
   String _userName = "User";
-  String _picPath = "assets/img/Jose.jpg";
+  String _picPath = "assets/img/avatar.png";
   bool _hideIntro = false;
 
   MainState() {

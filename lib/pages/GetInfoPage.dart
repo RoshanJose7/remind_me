@@ -29,7 +29,7 @@ class _GetInfoPageState extends State<GetInfoPage> {
         File uploadfile = File(result.files.single.path!);
         final _path = await _localPath;
         File newFile =
-            await uploadfile.copy("$_path/${result.files.single.name!}");
+            await uploadfile.copy("$_path/${result.files.single.name}");
         _mainStateProvider.updatePicPath(path: newFile.path);
       }
     }
@@ -39,75 +39,77 @@ class _GetInfoPageState extends State<GetInfoPage> {
         child: Container(
           width: MediaQuery.of(context).size.width - 50,
           height: 300,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    "May I know how you look?",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "May I know how you look?",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  IconButton(
-                    tooltip: "Select Pic",
-                    icon: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.grey,
+                    const SizedBox(height: 10),
+                    IconButton(
+                      tooltip: "Select Pic",
+                      icon: Icon(
+                        Icons.add_a_photo,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () => getPic(),
                     ),
-                    onPressed: () => getPic(),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text(
-                    "What would you love to be called?",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "What would you love to be called?",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          decoration: InputDecoration(labelText: "User Name"),
-                          validator: (String? val) {
-                            if (val!.isEmpty) return "Provide a valid Input";
-                          },
-                          onSaved: (String? val) {
-                            setState(() {
-                              _name = val!;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (!_formKey.currentState!.validate()) return;
-                            _formKey.currentState!.save();
-
-                            _mainStateProvider.updateHideIntro(val: true);
-                            _mainStateProvider.updateUserName(name: _name);
-                            Navigator.of(context).pushNamed("/");
-                          },
-                          child: Container(
-                            child: Text("Done!"),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(labelText: "User Name"),
+                            validator: (String? val) {
+                              if (val!.isEmpty) return "Provide a valid Input";
+                            },
+                            onSaved: (String? val) {
+                              setState(() {
+                                _name = val!;
+                              });
+                            },
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (!_formKey.currentState!.validate()) return;
+                              _formKey.currentState!.save();
+
+                              _mainStateProvider.updateHideIntro(val: true);
+                              _mainStateProvider.updateUserName(name: _name);
+                              Navigator.of(context).pushNamed("/");
+                            },
+                            child: Container(
+                              child: Text("Done!"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -70,7 +70,17 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                               color: Colors.green,
                             ),
                             onPressed: () =>
-                                tasksProvider.markCompleted(id: widget.id),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Mark as Completed?"),
+                                action: SnackBarAction(
+                                  label: "Confirm",
+                                  onPressed: () => tasksProvider.markCompleted(
+                                      id: widget.id),
+                                  textColor: Colors.green,
+                                ),
+                              ),
+                            ),
                           ),
                         )
                       : Container(
@@ -86,7 +96,17 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                               color: Colors.red,
                             ),
                             onPressed: () =>
-                                tasksProvider.removeTask(id: widget.id),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Delete Task?"),
+                                action: SnackBarAction(
+                                  label: "Confirm",
+                                  onPressed: () =>
+                                      tasksProvider.removeTask(id: widget.id),
+                                  textColor: Colors.red,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                 ],

@@ -119,21 +119,21 @@ class _AddSubjectState extends State<AddSubject> {
           ),
         ),
       ),
-      body: Container(
-        height: height,
-        width: width,
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              _buildSubNameField(),
-              _buildDurationField(),
-              _buildProfessorNameField(),
-              _buildRoomFloorField(),
-              _buildRoomNameField(),
-              Expanded(
-                child: Container(
+      body: SingleChildScrollView(
+        child: Container(
+          height: height,
+          width: width,
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                _buildSubNameField(),
+                _buildDurationField(),
+                _buildProfessorNameField(),
+                _buildRoomFloorField(),
+                _buildRoomNameField(),
+                Container(
                   width: width - 50,
                   height: height - 470,
                   margin: EdgeInsets.only(top: 20),
@@ -177,46 +177,46 @@ class _AddSubjectState extends State<AddSubject> {
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  if (!_formKey.currentState!.validate()) return;
-                  _formKey.currentState!.save();
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!_formKey.currentState!.validate()) return;
+                    _formKey.currentState!.save();
 
-                  for (int i = _timeSlots.length - 1; i < 7; i++)
-                    _timeSlots.add(null);
+                    for (int i = _timeSlots.length - 1; i < 7; i++)
+                      _timeSlots.add(null);
 
-                  subjectProvider.addSubject(
-                    duration: _duration,
-                    subjectName: _subName,
-                    professorName: _professorName,
-                    roomName: "$_roomName:$_roomFloor",
-                    timeSlots: _timeSlots,
-                  );
+                    subjectProvider.addSubject(
+                      duration: _duration,
+                      subjectName: _subName,
+                      professorName: _professorName,
+                      roomName: "$_roomName:$_roomFloor",
+                      timeSlots: _timeSlots,
+                    );
 
-                  _timeSlots.map((_slot) async => {
-                        if (_slot != null)
-                          await _localNotifications
-                              .scheduleAtDayAndTimeNotification(
-                                  date: DateTime.parse(_slot))
-                      });
+                    _timeSlots.map((_slot) async => {
+                          if (_slot != null)
+                            await _localNotifications
+                                .scheduleAtDayAndTimeNotification(
+                                    date: DateTime.parse(_slot))
+                        });
 
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  primary: Color(0xFF3E37C9),
-                ),
-                child: Text(
-                  "Add Subject",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    primary: Color(0xFF3E37C9),
                   ),
-                ),
-              )
-            ],
+                  child: Text(
+                    "Add Subject",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
