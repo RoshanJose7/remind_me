@@ -27,7 +27,21 @@ class _AddTaskState extends State<AddTask> {
 
   Widget _buildSubNameField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: "Subject Name"),
+      decoration: InputDecoration(
+        labelText: "Subject Name",
+        labelStyle: TextStyle(color: Colors.blueGrey),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+        ),
+      ),
       validator: (String? val) {
         if (val!.isEmpty) return "Provide a valid Input";
       },
@@ -39,7 +53,21 @@ class _AddTaskState extends State<AddTask> {
 
   Widget _buildDescriptionField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: "Task Description"),
+      decoration: InputDecoration(
+        labelText: "Task Description",
+        labelStyle: TextStyle(color: Colors.blueGrey),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+        ),
+      ),
       validator: (String? val) {
         if (val!.isEmpty) return "Provide a valid Input";
       },
@@ -50,28 +78,58 @@ class _AddTaskState extends State<AddTask> {
   }
 
   Widget _buildDeadLineField() {
-    return TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: Colors.deepPurple[400],
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      ),
-      onPressed: () {
-        DatePicker.showDateTimePicker(
-          context,
-          showTitleActions: true,
-          onConfirm: (date) => _deadLine = date,
-          currentTime: DateTime.now(),
-          locale: LocaleType.en,
-        );
-      },
-      child: Text(
-        'Select Task Dead-Line',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Task Dead Line",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                color: Colors.blueGrey,
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.edit,
+                color: Colors.blueGrey,
+              ),
+              onPressed: () {
+                DatePicker.showDateTimePicker(
+                  context,
+                  showTitleActions: true,
+                  onConfirm: (date) => setState(() => _deadLine = date),
+                  currentTime: DateTime.now(),
+                  locale: LocaleType.en,
+                );
+              },
+            ),
+          ],
         ),
-      ),
+        Row(
+          children: [
+            Text(
+              _deadLine.toString().split(" ")[0],
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Text(
+              "${_deadLine.hour}:${_deadLine.minute}",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -112,7 +170,9 @@ class _AddTaskState extends State<AddTask> {
           key: _formKey,
           child: Column(
             children: [
+              const SizedBox(height: 10),
               _buildSubNameField(),
+              const SizedBox(height: 10),
               _buildDescriptionField(),
               const SizedBox(height: 20),
               _buildDeadLineField(),
