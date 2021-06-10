@@ -184,7 +184,7 @@ class SubjectCard extends StatelessWidget {
                           ? "No Class"
                           : "${Global.days[i]} class at ${timeSlots[i]!.split(":")[0]}:${timeSlots[i]!.split(":")[1]}",
                       toastLength: Toast.LENGTH_LONG,
-                      textColor: Colors.black87,
+                      textColor: Colors.white,
                       gravity: ToastGravity.SNACKBAR,
                       backgroundColor: Colors.red,
                     ),
