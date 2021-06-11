@@ -292,119 +292,124 @@ class _AddSubjectState extends State<AddSubject> {
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              _buildSubNameField(),
-              const SizedBox(height: 10),
-              _buildProfessorNameField(),
-              const SizedBox(height: 10),
-              _buildRoomFloorField(),
-              const SizedBox(height: 10),
-              _buildRoomNameField(),
-              const SizedBox(height: 10),
-              _buildDurationField(),
-              Container(
-                width: width - 50,
-                height: height - 470,
-                margin: EdgeInsets.only(top: 20),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey.withOpacity(0.3),
-                    width: 2,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildSubNameField(),
+                const SizedBox(height: 10),
+                _buildProfessorNameField(),
+                const SizedBox(height: 10),
+                _buildRoomFloorField(),
+                const SizedBox(height: 10),
+                _buildRoomNameField(),
+                const SizedBox(height: 10),
+                _buildDurationField(),
+                Container(
+                  width: width - 50,
+                  height: height - 470,
+                  constraints: BoxConstraints(
+                    minHeight: 150,
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ListView(
-                  children: [
-                    Text(
-                      "Select Your Time Slots",
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.grey,
-                      ),
+                  margin: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey.withOpacity(0.3),
+                      width: 2,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Day",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListView(
+                    children: [
+                      Text(
+                        "Select Your Time Slots",
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.grey,
                         ),
-                        const SizedBox(width: 80),
-                        Text(
-                          "Date",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    for (int i = 0; i < count && count <= 7; i++)
-                      _buildTimeSlotField(i),
-                    if (count < 7)
-                      TextButton(
-                        child: Text(
-                          "Add Day",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        onPressed: () {
-                          setState(
-                            () {
-                              count++;
-                            },
-                          );
-                        },
                       ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  if (!_formKey.currentState!.validate()) return;
-                  _formKey.currentState!.save();
-
-                  for (int i = _timeSlots.length - 1; i < 7; i++)
-                    _timeSlots.add(null);
-
-                  subjectProvider.addSubject(
-                    duration: "${_hours}hr ${_minutes}min",
-                    subjectName: _subName,
-                    professorName: _professorName,
-                    roomName: "$_roomName:$_roomFloor",
-                    timeSlots: _timeSlots,
-                  );
-
-                  _timeSlots.map((_slot) async => {
-                        if (_slot != null)
-                          await _localNotifications
-                              .scheduleAtDayAndTimeNotification(
-                                  date: DateTime.parse(_slot))
-                      });
-
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  primary: Color(0xFF3E37C9),
-                ),
-                child: Text(
-                  "Add Subject",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Day",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(width: 80),
+                          Text(
+                            "Date",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      for (int i = 0; i < count && count <= 7; i++)
+                        _buildTimeSlotField(i),
+                      if (count < 7)
+                        TextButton(
+                          child: Text(
+                            "Add Day",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(
+                              () {
+                                count++;
+                              },
+                            );
+                          },
+                        ),
+                    ],
                   ),
                 ),
-              )
-            ],
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!_formKey.currentState!.validate()) return;
+                    _formKey.currentState!.save();
+
+                    for (int i = _timeSlots.length - 1; i < 7; i++)
+                      _timeSlots.add(null);
+
+                    subjectProvider.addSubject(
+                      duration: "${_hours}hr ${_minutes}min",
+                      subjectName: _subName,
+                      professorName: _professorName,
+                      roomName: "$_roomName:$_roomFloor",
+                      timeSlots: _timeSlots,
+                    );
+
+                    _timeSlots.map((_slot) async => {
+                          if (_slot != null)
+                            await _localNotifications
+                                .scheduleAtDayAndTimeNotification(
+                                    date: DateTime.parse(_slot))
+                        });
+
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    primary: Color(0xFF3E37C9),
+                  ),
+                  child: Text(
+                    "Add Subject",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:animations/animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:remind_me/pages/AttendancePage.dart';
 
 import 'package:remind_me/pages/Home.dart';
 import 'package:remind_me/pages/Calender.dart';
@@ -42,6 +44,7 @@ class _MainAppState extends State<MainApp> {
         pushToTasksPage: pushToTasksPage,
       ),
       AllSubjects(),
+      AttendancePage(),
       TasksPage(),
       CalenderPage(),
       ProfilePage(),
@@ -89,6 +92,13 @@ class _MainAppState extends State<MainApp> {
             BottomNavigationBarItem(
               label: "Subjects",
               icon: Icon(Icons.book_rounded),
+            ),
+            BottomNavigationBarItem(
+              label: "Attendance",
+              icon: FaIcon(
+                FontAwesomeIcons.percentage,
+                size: 25,
+              ),
             ),
             BottomNavigationBarItem(
               label: "Tasks",
