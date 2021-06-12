@@ -5,6 +5,7 @@ import 'package:remind_me/components/CalenderTimeLine.dart';
 import 'package:remind_me/components/DayClass.dart';
 import 'package:remind_me/providers/ClassesToday.dart';
 import 'package:remind_me/providers/Subjects.dart';
+import 'package:remind_me/shared/globals.dart';
 
 class CalenderPage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class CalenderPage extends StatefulWidget {
 }
 
 class _CalenderPageState extends State<CalenderPage> {
-  int curDay = DateTime.now().weekday - 1;
+  DateTime curDay = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +27,10 @@ class _CalenderPageState extends State<CalenderPage> {
         subjects: subjects,
         day: day,
       );
+
       setState(() {
-        curDay = day;
+        curDay = DateTime.utc(DateTime.now().year, DateTime.now().month,
+            Global.week[day]['date']);
       });
     }
 
@@ -62,7 +65,7 @@ class _CalenderPageState extends State<CalenderPage> {
                           ),
                           const SizedBox(width: 20),
                           Text(
-                            "Oct",
+                            Global.months[curDay.month],
                             style: TextStyle(
                               color: Color(0xFF272F66),
                               fontWeight: FontWeight.w900,
@@ -70,7 +73,7 @@ class _CalenderPageState extends State<CalenderPage> {
                             ),
                           ),
                           Text(
-                            " 2021",
+                            " ${curDay.year}",
                             style: TextStyle(
                               color: Color(0xFF272F66),
                               fontWeight: FontWeight.w600,
@@ -80,7 +83,7 @@ class _CalenderPageState extends State<CalenderPage> {
                         ],
                       ),
                       Text(
-                        "Today",
+                        "${curDay.day} ${Global.days[curDay.weekday - 1]}",
                         style: TextStyle(
                           color: Color(0xFF4235C8),
                           fontWeight: FontWeight.bold,
@@ -114,7 +117,7 @@ class _CalenderPageState extends State<CalenderPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CalenderTimeLine(
-                          day: curDay,
+                          day: curDay.weekday - 1,
                           changeState: changeState,
                         ),
                         const SizedBox(
@@ -142,7 +145,7 @@ class _CalenderPageState extends State<CalenderPage> {
                                     itemBuilder: (_, int idx) {
                                       return DayClass(
                                         time:
-                                            "${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[0]}:${classesTodayProvider.classesToday[idx].timeSlots[curDay]!.split(":")[1]}",
+                                            "${classesTodayProvider.classesToday[idx].timeSlots[curDay.weekday - 1]!.split(":")[0]}:${classesTodayProvider.classesToday[idx].timeSlots[curDay.weekday - 1]!.split(":")[1]}",
                                         duration: classesTodayProvider
                                             .classesToday[idx].duration,
                                         subjectName: classesTodayProvider
