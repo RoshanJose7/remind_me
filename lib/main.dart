@@ -37,7 +37,8 @@ Future<void> main() async {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "Product Sans",
-          accentColor: Color(0xFF37408A),
+          // colorScheme: ColorScheme(
+          //   secondary: Color(0xFF37408A), background: Color(0xFFF0F0F0),),
           backgroundColor: Color(0xFFD4E7FE),
           appBarTheme: AppBarTheme(
             backgroundColor: Color(0xFFF0F0F0),

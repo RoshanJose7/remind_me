@@ -18,8 +18,12 @@ class _AddSubjectState extends State<AddSubject> {
 
   int count = 1;
   String _subName = "";
-  int _hours = 00, _minutes = 00;
+  int _hours = 00,
+      _minutes = 00,
+      _minRequiredClasses = 0,
+      _totalClassesCompleted = 0;
   String _professorName = "";
+  int _classesAttended = 0;
   String _roomFloor = "";
   String _roomName = "";
   List<String?> _timeSlots = [];
@@ -160,6 +164,48 @@ class _AddSubjectState extends State<AddSubject> {
         onSaved: (String? val) => _roomFloor = val!,
       );
 
+  Widget _buildClassesAttendedField() => TextFormField(
+        decoration: InputDecoration(
+          labelText: "Total Classes Attended",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
+        ),
+        validator: (String? val) {
+          if (val!.isEmpty) return "Provide a valid Input";
+        },
+        onSaved: (String? val) => _classesAttended = int.parse(val!),
+      );
+
+  Widget _buildTotalClassesField() => TextFormField(
+        decoration: InputDecoration(
+          labelText: "No. of Classes Completed",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
+        ),
+        validator: (String? val) {
+          if (val!.isEmpty) return "Provide a valid Input";
+        },
+        onSaved: (String? val) => _totalClassesCompleted = int.parse(val!),
+      );
+
   Widget _buildRoomNameField() => TextFormField(
         decoration: InputDecoration(
           labelText: "Room Name",
@@ -275,7 +321,7 @@ class _AddSubjectState extends State<AddSubject> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[50],
         elevation: 0.0,
-        actionsIconTheme: Theme.of(context).accentIconTheme,
+        actionsIconTheme: IconThemeData(color: Color(0xFF37408A)),
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
           "Add Subject",
@@ -289,7 +335,7 @@ class _AddSubjectState extends State<AddSubject> {
       body: Container(
         height: height,
         width: width,
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -298,6 +344,10 @@ class _AddSubjectState extends State<AddSubject> {
                 _buildSubNameField(),
                 const SizedBox(height: 10),
                 _buildProfessorNameField(),
+                const SizedBox(height: 10),
+                _buildClassesAttendedField(),
+                const SizedBox(height: 10),
+                _buildTotalClassesField(),
                 const SizedBox(height: 10),
                 _buildRoomFloorField(),
                 const SizedBox(height: 10),
@@ -379,12 +429,24 @@ class _AddSubjectState extends State<AddSubject> {
                     for (int i = _timeSlots.length - 1; i < 7; i++)
                       _timeSlots.add(null);
 
+                    _minRequiredClasses =
+                        subjectProvider.calcMinimumClassesRequired(
+                      totalClasses: _totalClassesCompleted,
+                      attendancePercent: subjectProvider.calcPercentage(
+                        totalClasses: _totalClassesCompleted,
+                        classesAttended: _classesAttended,
+                      ),
+                    );
+
                     subjectProvider.addSubject(
                       duration: "${_hours}hr ${_minutes}min",
                       subjectName: _subName,
+                      classesAttended: _classesAttended,
                       professorName: _professorName,
                       roomName: "$_roomName:$_roomFloor",
                       timeSlots: _timeSlots,
+                      minRequiredClasses: _minRequiredClasses,
+                      totalClassesCompleted: _totalClassesCompleted,
                     );
 
                     _timeSlots.map((_slot) async => {

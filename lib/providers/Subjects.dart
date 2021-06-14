@@ -35,6 +35,9 @@ class Subjects with ChangeNotifier {
   void addSubject({
     required String duration,
     required String subjectName,
+    required int minRequiredClasses,
+    required int totalClassesCompleted,
+    required int classesAttended,
     required String professorName,
     required String roomName,
     required List timeSlots,
@@ -43,12 +46,19 @@ class Subjects with ChangeNotifier {
       Subject(
         id: uuid.v4(),
         duration: duration,
+        percentage: calcPercentage(
+            classesAttended: classesAttended,
+            totalClasses: totalClassesCompleted),
+        classesAttended: classesAttended,
+        minRequiredClasses: minRequiredClasses,
         subjectName: subjectName,
         professorName: professorName,
         roomName: roomName,
         timeSlots: timeSlots,
+        totalClassesCompleted: totalClassesCompleted,
       ),
     );
+
     storeData();
     notifyListeners();
   }
@@ -57,5 +67,15 @@ class Subjects with ChangeNotifier {
     _subjects.removeWhere((sub) => sub.id == id);
     storeData();
     notifyListeners();
+  }
+
+  int calcMinimumClassesRequired(
+      {required int totalClasses, required double attendancePercent}) {
+    return ((attendancePercent * totalClasses) / 100).round();
+  }
+
+  double calcPercentage(
+      {required int totalClasses, required int classesAttended}) {
+    return (classesAttended / totalClasses) * 100;
   }
 }

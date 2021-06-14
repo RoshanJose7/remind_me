@@ -54,7 +54,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
+                      Flexible(
                         child: Text(
                           "Your Subjects",
                           style: TextStyle(

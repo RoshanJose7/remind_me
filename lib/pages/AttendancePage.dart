@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remind_me/components/PercentageIndicator.dart';
+import 'package:remind_me/providers/Subjects.dart';
+import 'package:remind_me/shared/globals.dart';
 
 class AttendancePage extends StatefulWidget {
   const AttendancePage({Key? key}) : super(key: key);
@@ -12,26 +16,77 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+    final subjectProvider = Provider.of<Subjects>(context);
+    final subjects = Provider.of<Subjects>(context).subjects;
 
     return SafeArea(
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFD4E7FE),
-                  Color(0xFFF0F0F0),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.6, 0.3],
-              ),
+            height: height,
+            width: width,
+            child: Stack(
+              children: [
+                Container(
+                  height: height,
+                  width: width,
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    right: 10,
+                    top: 40,
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFFD4E7FE),
+                        const Color(0xFFF0F0F0),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0.6, 0.3],
+                    ),
+                  ),
+                  child: Text(
+                    "Attendance Percentage",
+                    style: TextStyle(
+                      color: const Color(0xFF272F66),
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 30,
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          Global.days[DateTime.now().weekday - 1],
+                          style: TextStyle(
+                            color: const Color(0xFF272F66),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Text(
+                          " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
+                          style: TextStyle(
+                            color: const Color(0xFF272F66),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Positioned(
-            top: 180,
+            top: 100,
             bottom: 0,
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -47,8 +102,18 @@ class _AttendancePageState extends State<AttendancePage> {
               child: Column(
                 children: [
                   Expanded(
-                    child: Container(
-                      width: width,
+                    child: ListView.builder(
+                      itemCount: subjects.length,
+                      itemBuilder: (context, idx) => PercentageIndicator(
+                        key: Key(idx.toString()),
+                        subjectName: subjects[idx].subjectName,
+                        completedPercent: subjects[idx].percentage,
+                        classes: (subjects[idx].totalClassesCompleted -
+                            subjectProvider.calcMinimumClassesRequired(
+                              totalClasses: subjects[idx].totalClassesCompleted,
+                              attendancePercent: subjects[idx].percentage,
+                            )),
+                      ),
                     ),
                   ),
                 ],

@@ -6,11 +6,19 @@ class Subject {
   String subjectName;
   String professorName;
   String roomName;
+  int totalClassesCompleted;
+  int classesAttended;
+  int minRequiredClasses;
+  double percentage;
   List timeSlots;
 
   Subject({
     required this.id,
     required this.duration,
+    required this.percentage,
+    required this.totalClassesCompleted,
+    required this.classesAttended,
+    required this.minRequiredClasses,
     required this.subjectName,
     required this.professorName,
     required this.roomName,
@@ -21,6 +29,10 @@ class Subject {
     return Subject(
       id: jsonData['id'],
       duration: jsonData['duration'],
+      percentage: jsonData['percentage'],
+      totalClassesCompleted: jsonData['totalClassesCompleted'],
+      classesAttended: jsonData['totalClassesCompleted'],
+      minRequiredClasses: jsonData['minRequiredClasses'],
       subjectName: jsonData['subjectName'],
       professorName: jsonData['professorName'],
       roomName: jsonData['roomName'],
@@ -32,6 +44,10 @@ class Subject {
         'id': sub.id,
         'duration': sub.duration,
         'subjectName': sub.subjectName,
+        'percentage': sub.percentage,
+        'totalClassesCompleted': sub.totalClassesCompleted,
+        'classesAttended': sub.classesAttended,
+        'minRequiredClasses': sub.minRequiredClasses,
         'professorName': sub.professorName,
         'roomName': sub.roomName,
         'timeSlots': sub.timeSlots,

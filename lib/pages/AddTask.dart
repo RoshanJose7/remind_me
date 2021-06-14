@@ -151,7 +151,7 @@ class _AddTaskState extends State<AddTask> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[50],
         elevation: 0.0,
-        actionsIconTheme: Theme.of(context).accentIconTheme,
+        actionsIconTheme: IconThemeData(color: Color(0xFF37408A)),
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
           "Add Task",
