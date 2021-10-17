@@ -1,7 +1,7 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:remind_me/components/ClassCard.dart';
 import 'package:remind_me/components/TaskCard.dart';
 import 'package:remind_me/models/Subject.dart';

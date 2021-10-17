@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
+import 'package:remind_me/providers/Subjects.dart';
 
 class PercentageIndicator extends StatefulWidget {
+  final String subId;
   final String subjectName;
   final double completedPercent;
-  final int classes;
+  final int reqdClasses;
+  final int totalClasses;
+  final int attendedClasses;
 
   const PercentageIndicator({
     Key? key,
+    required this.subId,
     required this.completedPercent,
     required this.subjectName,
-    required this.classes,
+    required this.reqdClasses,
+    required this.totalClasses,
+    required this.attendedClasses,
   }) : super(key: key);
 
   @override
@@ -20,8 +28,81 @@ class PercentageIndicator extends StatefulWidget {
 class _PercentageIndicatorState extends State<PercentageIndicator> {
   @override
   Widget build(BuildContext context) {
+    final _subjectsProvider = Provider.of<Subjects>(context);
     final Color _color =
         widget.completedPercent >= 75 ? Colors.greenAccent : Colors.redAccent;
+    int _classesAttended = widget.attendedClasses;
+    int _classesCompleted = widget.totalClasses;
+
+    _showEditPercentageDialog(context) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Container(
+                constraints: BoxConstraints(maxHeight: 250),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Form(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Edit Total Classes Attended"),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Classes Attended",
+                          ),
+                          keyboardType: TextInputType.number,
+                          initialValue: _classesAttended.toString(),
+                          onChanged: (val) => _classesAttended = int.parse(val),
+                          validator: (val) {
+                            if (val!.isEmpty) return "Enter a Number";
+                            return null;
+                          },
+                          onSaved: (val) => setState(
+                              () => _classesAttended = int.parse(val!)),
+                        ),
+                        const SizedBox(height: 20),
+                        Text("Edit Total Classes Completed"),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Classes Completed",
+                          ),
+                          keyboardType: TextInputType.number,
+                          initialValue: _classesCompleted.toString(),
+                          onChanged: (val) =>
+                              _classesCompleted = int.parse(val),
+                          validator: (val) {
+                            if (val!.isEmpty) return "Enter a Number";
+                            return null;
+                          },
+                          onSaved: (val) => setState(
+                              () => _classesCompleted = int.parse(val!)),
+                        ),
+                        TextButton(
+                          onPressed: () => setState(() {
+                            _subjectsProvider.updateClasses(
+                                id: widget.subId,
+                                totalClasses: _classesCompleted,
+                                attendedClasses: _classesAttended);
+                            Navigator.of(context).pop();
+                          }),
+                          child: Text(
+                            "Save",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          });
+    }
 
     Widget generateSuggestion() {
       return Column(
@@ -32,7 +113,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
             children: [
               Flexible(
                 child: Text(
-                  "Edit Percentage",
+                  "Edit",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -40,18 +121,18 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => _showEditPercentageDialog(context),
                 icon: Icon(
                   Icons.edit,
                   color: Colors.blueGrey,
-                  size: 25,
+                  size: 20,
                 ),
               ),
             ],
           ),
           widget.completedPercent >= 75
               ? Text(
-                  "You can bunk ${widget.classes} more classes.",
+                  "You can bunk ${widget.reqdClasses} more classes.",
                   style: TextStyle(
                     color: _color,
                     fontSize: 16,
@@ -59,7 +140,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                   ),
                 )
               : Text(
-                  "You will have to attend ${widget.classes} more classes.",
+                  "You will have to attend ${widget.reqdClasses} more class/es.",
                   style: TextStyle(
                     color: _color,
                     fontSize: 16,

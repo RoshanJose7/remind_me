@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:remind_me/components/TaskDetailCard.dart';
 import 'package:remind_me/pages/AddTask.dart';
 import 'package:remind_me/providers/Tasks.dart';
@@ -105,7 +104,7 @@ class _TasksPageState extends State<TasksPage> {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: height - 215,
+                    height: height - 220,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Column(
                       children: [
@@ -136,6 +135,7 @@ class _TasksPageState extends State<TasksPage> {
                               ? Center(
                                   child: Text(
                                     "Click on the + button to add your Tasks!",
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

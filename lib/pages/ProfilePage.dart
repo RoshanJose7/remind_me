@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -81,49 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
             );
           });
     }
-
-    // _showEditPicDialog(context) {
-    //   showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return Dialog(
-    //           shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.circular(20.0),
-    //           ),
-    //           child: Container(
-    //             constraints: BoxConstraints(maxHeight: 150),
-    //             child: Padding(
-    //               padding: const EdgeInsets.all(12.0),
-    //               child: Form(
-    //                 child: Column(
-    //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                   children: [
-    //                     Text("Edit Profile Pic"),
-    //                     IconButton(
-    //                       tooltip: "Select Pic",
-    //                       icon: Icon(
-    //                         Icons.add_a_photo,
-    //                         color: Colors.grey,
-    //                       ),
-    //                       onPressed: () => getPic(),
-    //                     ),
-    //                     TextButton(
-    //                       onPressed: () => setState(() {
-    //                         Navigator.of(context).pop();
-    //                       }),
-    //                       child: Text(
-    //                         "Save",
-    //                         style: TextStyle(fontSize: 18),
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //             ),
-    //           ),
-    //         );
-    //       });
-    // }
 
     return SafeArea(
       child: Stack(

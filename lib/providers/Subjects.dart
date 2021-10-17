@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:remind_me/models/Subject.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class Subjects with ChangeNotifier {
   static const uuid = Uuid();
@@ -65,6 +64,23 @@ class Subjects with ChangeNotifier {
 
   void removeSubject({required String id}) {
     _subjects.removeWhere((sub) => sub.id == id);
+    storeData();
+    notifyListeners();
+  }
+
+  void updateClasses(
+      {required String id,
+      required int totalClasses,
+      required int attendedClasses}) {
+    _subjects.forEach((e) {
+      if (e.id == id) {
+        e.totalClassesCompleted = totalClasses;
+        e.classesAttended = attendedClasses;
+        e.percentage = calcPercentage(
+            totalClasses: totalClasses, classesAttended: attendedClasses);
+      }
+    });
+
     storeData();
     notifyListeners();
   }

@@ -102,19 +102,36 @@ class _AttendancePageState extends State<AttendancePage> {
               child: Column(
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: subjects.length,
-                      itemBuilder: (context, idx) => PercentageIndicator(
-                        key: Key(idx.toString()),
-                        subjectName: subjects[idx].subjectName,
-                        completedPercent: subjects[idx].percentage,
-                        classes: (subjects[idx].totalClassesCompleted -
-                            subjectProvider.calcMinimumClassesRequired(
+                    child: subjects.length > 0
+                        ? ListView.builder(
+                            itemCount: subjects.length,
+                            itemBuilder: (context, idx) => PercentageIndicator(
+                              key: Key(idx.toString()),
+                              subId: subjects[idx].id,
+                              subjectName: subjects[idx].subjectName,
+                              completedPercent: subjects[idx].percentage,
                               totalClasses: subjects[idx].totalClassesCompleted,
-                              attendancePercent: subjects[idx].percentage,
-                            )),
-                      ),
-                    ),
+                              attendedClasses: subjects[idx].classesAttended,
+                              reqdClasses: (subjects[idx]
+                                      .totalClassesCompleted -
+                                  subjectProvider.calcMinimumClassesRequired(
+                                    totalClasses:
+                                        subjects[idx].totalClassesCompleted,
+                                    attendancePercent: subjects[idx].percentage,
+                                  )),
+                            ),
+                          )
+                        : Center(
+                            child: Text(
+                              "Go to the Subjects page and add a new subject",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
                   ),
                 ],
               ),

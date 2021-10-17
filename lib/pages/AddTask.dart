@@ -2,9 +2,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:remind_me/pages/UserOnboard.dart';
 
 import 'package:remind_me/shared/LocalNotifications.dart';
 import 'package:remind_me/providers/Tasks.dart';
+import 'package:uuid/uuid.dart';
 
 class AddTask extends StatefulWidget {
   @override
@@ -13,6 +15,7 @@ class AddTask extends StatefulWidget {
 
 class _AddTaskState extends State<AddTask> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final uuid = Uuid();
   int count = 1;
   String _subName = "";
   DateTime _deadLine = DateTime.now();
@@ -23,6 +26,18 @@ class _AddTaskState extends State<AddTask> {
   void initState() {
     super.initState();
     _localNotifications.init();
+    _localNotifications
+        .configureSelectNotificationSubject(notificationSelected);
+  }
+
+  @override
+  void dispose() {
+    _localNotifications.dispose();
+    super.dispose();
+  }
+
+  Future<void> notificationSelected() async {
+    await Navigator.of(context).pushNamed("/onboard");
   }
 
   Widget _buildSubNameField() {
@@ -140,7 +155,7 @@ class _AddTaskState extends State<AddTask> {
     final tasks = Provider.of<Tasks>(context);
     final snackBar = SnackBar(
       content:
-          Text('You will receive a Notification 3 days before the DeadLine'),
+          Text('You will receive a Notification 1 day before the DeadLine'),
       action: SnackBarAction(
         label: 'Close',
         onPressed: () {},
@@ -178,7 +193,7 @@ class _AddTaskState extends State<AddTask> {
               _buildDeadLineField(),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (!_formKey.currentState!.validate()) return;
                   _formKey.currentState!.save();
 
@@ -191,8 +206,14 @@ class _AddTaskState extends State<AddTask> {
 
                   _localNotifications.scheduleNotification(
                     date: _deadLine.subtract(
-                      Duration(days: 3),
+                      Duration(days: 1),
                     ),
+                    channelId: uuid.v4(),
+                    channelName: 'Task Channel',
+                    channelDesc: 'Task Channel Description',
+                    notificationTitle: 'Task Remainder',
+                    notificationBody: '$_subName will be due in 24 hours',
+                    payload: 'task',
                   );
 
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
