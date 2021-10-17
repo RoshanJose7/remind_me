@@ -4,8 +4,8 @@
    <uses-permission android:name="android.permission.VIBRATE"/>
    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
    <application
-        android:label="remind_me"
-        android:icon="@mipmap/launcher_icon">
+        android:label="Remind Me"
+        android:icon="@mipmap/ic_launcher">
 
         <activity
             android:name=".MainActivity"

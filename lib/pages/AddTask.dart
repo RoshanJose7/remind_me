@@ -1,11 +1,10 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:remind_me/pages/UserOnboard.dart';
 
-import 'package:remind_me/shared/LocalNotifications.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:remind_me/providers/Tasks.dart';
+import 'package:remind_me/shared/LocalNotifications.dart';
 import 'package:uuid/uuid.dart';
 
 class AddTask extends StatefulWidget {
@@ -46,15 +45,15 @@ class _AddTaskState extends State<AddTask> {
         labelText: "Subject Name",
         labelStyle: TextStyle(color: Colors.blueGrey),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
       ),
       validator: (String? val) {
@@ -72,15 +71,15 @@ class _AddTaskState extends State<AddTask> {
         labelText: "Task Description",
         labelStyle: TextStyle(color: Colors.blueGrey),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
       ),
       validator: (String? val) {

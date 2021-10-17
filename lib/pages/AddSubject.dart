@@ -51,15 +51,15 @@ class _AddSubjectState extends State<AddSubject> {
         decoration: InputDecoration(
           labelText: "Subject Name",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
         validator: (String? val) {
@@ -74,15 +74,15 @@ class _AddSubjectState extends State<AddSubject> {
         decoration: InputDecoration(
           labelText: "Professor Name",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
         validator: (String? val) {
@@ -93,72 +93,89 @@ class _AddSubjectState extends State<AddSubject> {
 
   Widget _buildDurationField() => Row(
         children: [
-          Text(
-            "Duration",
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          const SizedBox(width: 20),
-          Container(
-            width: 70,
-            child: TextFormField(
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              keyboardType: TextInputType.datetime,
-              onChanged: (val) => _hours = int.parse(val),
-              validator: (val) {
-                if (val == null)
-                  return "Enter a valid number";
-                else if (int.tryParse(val) == 0) return "Hour cannot be 0";
-                return null;
-              },
-              decoration: InputDecoration(
-                labelText: 'Hours',
-                labelStyle: TextStyle(color: Colors.blueGrey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              "Duration",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
-          const SizedBox(width: 20),
-          Container(
-            width: 80,
-            child: TextFormField(
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              keyboardType: TextInputType.datetime,
-              onChanged: (val) => _minutes = int.parse(val),
-              validator: (val) {
-                if (val == null) return "Enter a valid number";
-                return null;
-              },
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
-                labelText: 'Minutes',
-                labelStyle: TextStyle(color: Colors.blueGrey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          Expanded(
+            flex: 6,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    keyboardType: TextInputType.datetime,
+                    onChanged: (val) => _hours = int.parse(val),
+                    validator: (val) {
+                      if (val == null)
+                        return "Enter a valid number";
+                      else if (int.tryParse(val) == 0)
+                        return "Hour cannot be 0";
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Hours',
+                      labelStyle: TextStyle(color: Colors.blueGrey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.blueGrey, width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.blueGrey, width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                    ),
+                  ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                const SizedBox(width: 20),
+                Expanded(
+                  flex: 1,
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    keyboardType: TextInputType.datetime,
+                    onChanged: (val) => _minutes = int.parse(val),
+                    validator: (val) {
+                      if (val == null) return "Enter a valid number";
+                      return null;
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      labelText: 'Minutes',
+                      labelStyle: TextStyle(color: Colors.blueGrey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.blueGrey, width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.blueGrey, width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                    ),
+                  ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-              ),
+              ],
             ),
-          ),
+          )
         ],
       );
 
@@ -166,15 +183,15 @@ class _AddSubjectState extends State<AddSubject> {
         decoration: InputDecoration(
           labelText: "Room Floor",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
         validator: (String? val) {
@@ -188,15 +205,15 @@ class _AddSubjectState extends State<AddSubject> {
         decoration: InputDecoration(
           labelText: "Total Classes Attended",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
         validator: (String? val) {
@@ -210,15 +227,15 @@ class _AddSubjectState extends State<AddSubject> {
         decoration: InputDecoration(
           labelText: "No. of Classes Completed",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
         validator: (String? val) {
@@ -231,15 +248,15 @@ class _AddSubjectState extends State<AddSubject> {
         decoration: InputDecoration(
           labelText: "Room Name",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
         validator: (String? val) {
