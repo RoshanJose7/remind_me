@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _theme = Provider.of<Themes>(context);
+    print(_theme.theme);
     bool? hideIntro = prefs.getString('hideIntro') == null
         ? false
         : prefs.getString('hideIntro') == 'true'

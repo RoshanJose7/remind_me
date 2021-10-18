@@ -45,9 +45,6 @@ class Subjects with ChangeNotifier {
       Subject(
         id: uuid.v4(),
         duration: duration,
-        percentage: calcPercentage(
-            classesAttended: classesAttended,
-            totalClasses: totalClassesCompleted),
         classesAttended: classesAttended,
         minRequiredClasses: minRequiredClasses,
         subjectName: subjectName,
@@ -76,8 +73,6 @@ class Subjects with ChangeNotifier {
       if (e.id == id) {
         e.totalClassesCompleted = totalClasses;
         e.classesAttended = attendedClasses;
-        e.percentage = calcPercentage(
-            totalClasses: totalClasses, classesAttended: attendedClasses);
       }
     });
 

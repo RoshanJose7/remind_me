@@ -109,16 +109,12 @@ class _AttendancePageState extends State<AttendancePage> {
                               key: Key(idx.toString()),
                               subId: subjects[idx].id,
                               subjectName: subjects[idx].subjectName,
-                              completedPercent: subjects[idx].percentage,
+                              completedPercent:
+                                  ((subjects[idx].classesAttended /
+                                          subjects[idx].totalClassesCompleted) *
+                                      100),
                               totalClasses: subjects[idx].totalClassesCompleted,
                               attendedClasses: subjects[idx].classesAttended,
-                              reqdClasses: (subjects[idx]
-                                      .totalClassesCompleted -
-                                  subjectProvider.calcMinimumClassesRequired(
-                                    totalClasses:
-                                        subjects[idx].totalClassesCompleted,
-                                    attendancePercent: subjects[idx].percentage,
-                                  )),
                             ),
                           )
                         : Center(

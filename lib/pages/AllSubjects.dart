@@ -107,7 +107,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                   ),
                   const SizedBox(height: 10),
                   Container(
-                    height: height - 265,
+                    height: height - 312,
                     width: width,
                     padding: EdgeInsets.symmetric(
                       vertical: 5,

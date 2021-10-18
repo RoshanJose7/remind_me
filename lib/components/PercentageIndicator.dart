@@ -7,7 +7,6 @@ class PercentageIndicator extends StatefulWidget {
   final String subId;
   final String subjectName;
   final double completedPercent;
-  final int reqdClasses;
   final int totalClasses;
   final int attendedClasses;
 
@@ -16,7 +15,6 @@ class PercentageIndicator extends StatefulWidget {
     required this.subId,
     required this.completedPercent,
     required this.subjectName,
-    required this.reqdClasses,
     required this.totalClasses,
     required this.attendedClasses,
   }) : super(key: key);
@@ -30,9 +28,27 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
   Widget build(BuildContext context) {
     final _subjectsProvider = Provider.of<Subjects>(context);
     final Color _color =
-        widget.completedPercent >= 75 ? Colors.greenAccent : Colors.redAccent;
+        widget.completedPercent > 75 ? Colors.greenAccent : Colors.redAccent;
+
+    _calcReqdClasses(int comp, int att) {
+      if (att / comp > 0.75) return ((comp * 0.75).ceil() - att);
+
+      int classes = 0, sub = -1;
+
+      while (sub != 0) {
+        sub = (comp * 0.75).ceil() - att;
+
+        comp += sub;
+        if (sub > 0) att += sub;
+        classes++;
+      }
+
+      return classes;
+    }
+
     int _classesAttended = widget.attendedClasses;
     int _classesCompleted = widget.totalClasses;
+    int _redqClasses = _calcReqdClasses(_classesCompleted, _classesAttended);
 
     _showEditPercentageDialog(context) {
       showDialog(
@@ -57,7 +73,9 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                           ),
                           keyboardType: TextInputType.number,
                           initialValue: _classesAttended.toString(),
-                          onChanged: (val) => _classesAttended = int.parse(val),
+                          onChanged: (val) {
+                            if (val != "") _classesAttended = int.parse(val);
+                          },
                           validator: (val) {
                             if (val!.isEmpty) return "Enter a Number";
                             return null;
@@ -73,14 +91,18 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                           ),
                           keyboardType: TextInputType.number,
                           initialValue: _classesCompleted.toString(),
-                          onChanged: (val) =>
-                              _classesCompleted = int.parse(val),
+                          onChanged: (val) {
+                            if (val != "") _classesCompleted = int.parse(val);
+                          },
                           validator: (val) {
                             if (val!.isEmpty) return "Enter a Number";
                             return null;
                           },
-                          onSaved: (val) => setState(
-                              () => _classesCompleted = int.parse(val!)),
+                          onSaved: (val) {
+                            if (val != null)
+                              setState(
+                                  () => _classesCompleted = int.parse(val));
+                          },
                         ),
                         TextButton(
                           onPressed: () => setState(() {
@@ -130,23 +152,32 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
               ),
             ],
           ),
-          widget.completedPercent >= 75
+          _redqClasses < 0
               ? Text(
-                  "You can bunk ${widget.reqdClasses} more classes.",
+                  "You can bunk ${_redqClasses.abs()} more classes.",
                   style: TextStyle(
                     color: _color,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 )
-              : Text(
-                  "You will have to attend ${widget.reqdClasses} more class/es.",
-                  style: TextStyle(
-                    color: _color,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+              : _redqClasses == 0
+                  ? Text(
+                      "You are right on Track.",
+                      style: TextStyle(
+                        color: _color,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  : Text(
+                      "You will have to attend ${_redqClasses.abs()} more class/es.",
+                      style: TextStyle(
+                        color: _color,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
         ],
       );
     }
