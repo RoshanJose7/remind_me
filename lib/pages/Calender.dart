@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:remind_me/components/CalenderTimeLine.dart';
 import 'package:remind_me/components/DayClass.dart';
 import 'package:remind_me/providers/ClassesToday.dart';
@@ -21,6 +20,7 @@ class _CalenderPageState extends State<CalenderPage> {
     final double width = MediaQuery.of(context).size.width;
     final subjects = Provider.of<Subjects>(context).subjects;
     final classesTodayProvider = Provider.of<ClassesToday>(context);
+    final _theme = Theme.of(context);
 
     void changeState(int day) {
       Provider.of<ClassesToday>(context, listen: false).generateTodaysClasses(
@@ -45,7 +45,15 @@ class _CalenderPageState extends State<CalenderPage> {
               top: 30,
             ),
             decoration: BoxDecoration(
-              color: Color(0xFFECEDED),
+              gradient: LinearGradient(
+                colors: [
+                  _theme.backgroundColor,
+                  Color(0xFFF0F0F0),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.6, 0.3],
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,13 +69,13 @@ class _CalenderPageState extends State<CalenderPage> {
                         children: [
                           Icon(
                             Icons.calendar_today_rounded,
-                            color: Colors.grey,
+                            color: _theme.primaryColor,
                           ),
                           const SizedBox(width: 20),
                           Text(
                             Global.months[curDay.month],
                             style: TextStyle(
-                              color: Color(0xFF272F66),
+                              color: _theme.primaryColor,
                               fontWeight: FontWeight.w900,
                               fontSize: 22,
                             ),
@@ -75,7 +83,7 @@ class _CalenderPageState extends State<CalenderPage> {
                           Text(
                             " ${curDay.year}",
                             style: TextStyle(
-                              color: Color(0xFF272F66),
+                              color: _theme.primaryColor,
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
                             ),
@@ -85,7 +93,7 @@ class _CalenderPageState extends State<CalenderPage> {
                       Text(
                         "${curDay.day} ${Global.days[curDay.weekday - 1]}",
                         style: TextStyle(
-                          color: Color(0xFF4235C8),
+                          color: _theme.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

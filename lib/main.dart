@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _theme = Provider.of<Themes>(context);
-    print(_theme.theme);
     bool? hideIntro = prefs.getString('hideIntro') == null
         ? false
         : prefs.getString('hideIntro') == 'true'
@@ -53,11 +52,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Product Sans",
-        primaryColor: _theme.theme,
-        backgroundColor: Color(0xFFD4E7FE),
+        primaryColor: _theme.theme.primaryColor,
+        backgroundColor: _theme.theme.backgroundColor,
+        accentColor: _theme.theme.selectedIconColor,
+        unselectedWidgetColor: _theme.theme.unselectedIconColor,
         appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFFF0F0F0),
-          actionsIconTheme: IconThemeData(color: Colors.blueGrey),
+          backgroundColor: _theme.theme.backgroundColor,
         ),
       ),
       initialRoute: hideIntro == true ? "/" : "/onboard",

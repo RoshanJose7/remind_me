@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:animations/animations.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:remind_me/pages/AttendancePage.dart';
-
-import 'package:remind_me/pages/Home.dart';
-import 'package:remind_me/pages/Calender.dart';
-import 'package:remind_me/pages/ProfilePage.dart';
 import 'package:remind_me/pages/AllSubjects.dart';
+import 'package:remind_me/pages/AttendancePage.dart';
+import 'package:remind_me/pages/Calender.dart';
+import 'package:remind_me/pages/Home.dart';
+import 'package:remind_me/pages/ProfilePage.dart';
 import 'package:remind_me/pages/Tasks.dart';
 
 class MainApp extends StatefulWidget {
@@ -39,6 +38,7 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     List _pages = [
       HomePage(
         pushToTasksPage: pushToTasksPage,
@@ -74,9 +74,9 @@ class _MainAppState extends State<MainApp> {
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
           backgroundColor: Color(0xFFF0F0F0),
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.black,
-          selectedIconTheme: IconThemeData(color: Colors.blueGrey[600]),
+          unselectedItemColor: _theme.unselectedWidgetColor,
+          selectedItemColor: _theme.accentColor,
+          selectedIconTheme: IconThemeData(color: _theme.accentColor),
           currentIndex: _selectedItemIndex,
           type: BottomNavigationBarType.fixed,
           onTap: (int index) {

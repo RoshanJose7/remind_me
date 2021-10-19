@@ -364,19 +364,21 @@ class _AddSubjectState extends State<AddSubject> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final subjectProvider = Provider.of<Subjects>(context);
+    final _theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[50],
+        backgroundColor: _theme.backgroundColor,
+        iconTheme: IconThemeData(
+          color: _theme.primaryColor,
+        ),
         elevation: 0.0,
-        actionsIconTheme: IconThemeData(color: Color(0xFF37408A)),
-        iconTheme: Theme.of(context).iconTheme,
         title: Text(
           "Add Subject",
           style: TextStyle(
             fontFamily: "Righteous",
             fontSize: 24,
-            color: Colors.black45,
+            color: _theme.primaryColor,
           ),
         ),
       ),
@@ -455,6 +457,7 @@ class _AddSubjectState extends State<AddSubject> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color: _theme.primaryColor,
                             ),
                           ),
                           onPressed: () {
@@ -528,7 +531,7 @@ class _AddSubjectState extends State<AddSubject> {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    primary: Color(0xFF3E37C9),
+                    primary: _theme.primaryColor,
                   ),
                   child: Text(
                     "Add Subject",

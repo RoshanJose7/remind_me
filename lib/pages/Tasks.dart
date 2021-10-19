@@ -15,7 +15,7 @@ class _TasksPageState extends State<TasksPage> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-
+    final _theme = Theme.of(context);
     final tasks = Provider.of<Tasks>(context).tasks;
 
     return SafeArea(
@@ -38,7 +38,7 @@ class _TasksPageState extends State<TasksPage> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        const Color(0xFFD4E7FE),
+                        _theme.backgroundColor,
                         const Color(0xFFF0F0F0),
                       ],
                       begin: Alignment.topCenter,
@@ -49,7 +49,7 @@ class _TasksPageState extends State<TasksPage> {
                   child: Text(
                     "Your Tasks",
                     style: TextStyle(
-                      color: const Color(0xFF272F66),
+                      color: _theme.primaryColor,
                       fontSize: 27,
                       fontWeight: FontWeight.w600,
                     ),
@@ -65,7 +65,7 @@ class _TasksPageState extends State<TasksPage> {
                         Text(
                           Global.days[DateTime.now().weekday - 1],
                           style: TextStyle(
-                            color: const Color(0xFF272F66),
+                            color: _theme.primaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
@@ -73,7 +73,7 @@ class _TasksPageState extends State<TasksPage> {
                         Text(
                           " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                           style: TextStyle(
-                            color: const Color(0xFF272F66),
+                            color: _theme.primaryColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
@@ -115,14 +115,14 @@ class _TasksPageState extends State<TasksPage> {
                             Text(
                               "All Tasks",
                               style: TextStyle(
-                                color: const Color(0xFF37408A),
+                                color: _theme.primaryColor,
                                 fontSize: 18,
                               ),
                             ),
                             Text(
                               "(${tasks.length})",
                               style: TextStyle(
-                                color: const Color(0xFF37408A),
+                                color: _theme.primaryColor,
                                 fontSize: 18,
                               ),
                             ),
@@ -167,14 +167,14 @@ class _TasksPageState extends State<TasksPage> {
             bottom: 10,
             right: 10,
             child: FloatingActionButton(
-              backgroundColor: Color(0xFF37408A),
+              backgroundColor: _theme.primaryColor,
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => AddTask(),
                 ),
               ),
-              child: Icon(Icons.add_to_photos_rounded),
+              child: Icon(Icons.add_to_photos_rounded, color: Colors.white),
             ),
           ),
         ],

@@ -16,8 +16,8 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    final subjectProvider = Provider.of<Subjects>(context);
     final subjects = Provider.of<Subjects>(context).subjects;
+    final _theme = Theme.of(context);
 
     return SafeArea(
       child: Stack(
@@ -38,7 +38,7 @@ class _AttendancePageState extends State<AttendancePage> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        const Color(0xFFD4E7FE),
+                        _theme.backgroundColor,
                         const Color(0xFFF0F0F0),
                       ],
                       begin: Alignment.topCenter,
@@ -49,7 +49,7 @@ class _AttendancePageState extends State<AttendancePage> {
                   child: Text(
                     "Attendance Percentage",
                     style: TextStyle(
-                      color: const Color(0xFF272F66),
+                      color: _theme.primaryColor,
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                     ),
@@ -65,7 +65,7 @@ class _AttendancePageState extends State<AttendancePage> {
                         Text(
                           Global.days[DateTime.now().weekday - 1],
                           style: TextStyle(
-                            color: const Color(0xFF272F66),
+                            color: _theme.primaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
@@ -73,7 +73,7 @@ class _AttendancePageState extends State<AttendancePage> {
                         Text(
                           " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                           style: TextStyle(
-                            color: const Color(0xFF272F66),
+                            color: _theme.primaryColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),

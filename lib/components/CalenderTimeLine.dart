@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:remind_me/providers/ClassesToday.dart';
 import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
@@ -25,6 +24,7 @@ class _CalenderTimeLineState extends State<CalenderTimeLine> {
     int _day = widget.day;
     final subjects = Provider.of<Subjects>(context).subjects;
     final classesTodayProvider = Provider.of<ClassesToday>(context);
+    final _theme = Theme.of(context);
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5),
@@ -51,7 +51,7 @@ class _CalenderTimeLineState extends State<CalenderTimeLine> {
                     style: TextButton.styleFrom(
                       backgroundColor:
                           Global.days[_day] == Global.week[idx]['day']
-                              ? Color(0xFF3F33C7)
+                              ? _theme.primaryColor
                               : Colors.grey[200],
                       elevation: 3.0,
                     ),

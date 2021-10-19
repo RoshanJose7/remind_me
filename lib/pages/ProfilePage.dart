@@ -5,13 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/providers/MainState.dart';
+import 'package:remind_me/providers/Theme.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>
+    with TickerProviderStateMixin {
+  late int _curIdx;
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
@@ -22,7 +26,10 @@ class _ProfilePageState extends State<ProfilePage> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     final _mainStateProvider = Provider.of<MainState>(context);
+    final _themes = Provider.of<Themes>(context);
+    final _theme = Theme.of(context);
     String _name = _mainStateProvider.userName;
+    _curIdx = _themes.themeIdx;
 
     void getPic() async {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -90,7 +97,17 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: EdgeInsets.only(top: 10, left: 20),
             height: height,
             width: width,
-            color: Colors.blueGrey[50],
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  _theme.backgroundColor,
+                  Color(0xFFF0F0F0),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.6, 0.3],
+              ),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Text(
                   "Settings",
                   style: TextStyle(
-                    color: Colors.black54,
+                    color: _theme.primaryColor,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
@@ -141,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       "Hi, $_name",
                       style: TextStyle(
-                        color: Color(0xFF37408A),
+                        color: _theme.primaryColor,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                       ),
@@ -202,6 +219,118 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            "Color Theme",
+                            style: TextStyle(fontSize: 18),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: this._curIdx == 0
+                                ? Border.all(color: Colors.blueGrey, width: 2)
+                                : null,
+                          ),
+                          child: new Material(
+                            shape: CircleBorder(),
+                            color: _themes.colorThemes[0],
+                            child: new InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: () {
+                                setState(() {
+                                  this._curIdx = 0;
+                                  _themes.changeTheme(idx: 0);
+                                });
+                              },
+                              splashColor: Colors.blueGrey[50],
+                              child: new Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: this._curIdx == 1
+                                ? Border.all(color: Colors.blueGrey, width: 2)
+                                : null,
+                          ),
+                          child: new Material(
+                            shape: CircleBorder(),
+                            color: _themes.colorThemes[1],
+                            child: new InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: () {
+                                setState(() {
+                                  this._curIdx = 1;
+                                  _themes.changeTheme(idx: 1);
+                                });
+                              },
+                              splashColor: Colors.blueGrey[50],
+                              child: new Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: this._curIdx == 2
+                                ? Border.all(color: Colors.blueGrey, width: 2)
+                                : null,
+                          ),
+                          child: new Material(
+                            shape: CircleBorder(),
+                            color: _themes.colorThemes[2],
+                            child: new InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: () {
+                                setState(() {
+                                  this._curIdx = 2;
+                                  _themes.changeTheme(idx: 2);
+                                });
+                              },
+                              splashColor: Colors.blueGrey[50],
+                              child: new Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   children: [
@@ -281,3 +410,97 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
+// Row(
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   crossAxisAlignment: CrossAxisAlignment.center,
+//   children: [
+//     Container(
+//       padding: EdgeInsets.all(5),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(25),
+//         border: this._curIdx == 0
+//             ? Border.all(color: Colors.blueGrey, width: 2)
+//             : null,
+//       ),
+//       child: new Material(
+//         shape: CircleBorder(),
+//         color: _themes.colorThemes[0],
+//         child: new InkWell(
+//           borderRadius: BorderRadius.circular(15),
+//           onTap: () {
+//             setState(() {
+//               this._curIdx = 0;
+//             });
+//           },
+//           splashColor: Colors.blueGrey[50],
+//           child: new Container(
+//             width: 30,
+//             height: 30,
+//             decoration: BoxDecoration(
+//               shape: BoxShape.circle,
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//     Container(
+//       padding: EdgeInsets.all(5),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(25),
+//         border: this._curIdx == 1
+//             ? Border.all(color: Colors.blueGrey, width: 2)
+//             : null,
+//       ),
+//       child: new Material(
+//         shape: CircleBorder(),
+//         color: _themes.colorThemes[1],
+//         child: new InkWell(
+//           borderRadius: BorderRadius.circular(15),
+//           onTap: () {
+//             setState(() {
+//               this._curIdx = 1;
+//             });
+//           },
+//           splashColor: Colors.blueGrey[50],
+//           child: new Container(
+//             width: 30,
+//             height: 30,
+//             decoration: BoxDecoration(
+//               shape: BoxShape.circle,
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//     Container(
+//       padding: EdgeInsets.all(5),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(25),
+//         border: this._curIdx == 2
+//             ? Border.all(color: Colors.blueGrey, width: 2)
+//             : null,
+//       ),
+//       child: new Material(
+//         shape: CircleBorder(),
+//         color: _themes.colorThemes[2],
+//         child: new InkWell(
+//           borderRadius: BorderRadius.circular(15),
+//           onTap: () {
+//             setState(() {
+//               this._curIdx = 2;
+//             });
+//           },
+//           splashColor: Colors.blueGrey[50],
+//           child: new Container(
+//             width: 30,
+//             height: 30,
+//             decoration: BoxDecoration(
+//               shape: BoxShape.circle,
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//   ],
+// ),

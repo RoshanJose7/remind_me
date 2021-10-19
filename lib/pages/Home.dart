@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     final tasks = Provider.of<Tasks>(context).tasks;
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFFD4E7FE),
+                  _theme.backgroundColor,
                   Color(0xFFF0F0F0),
                 ],
                 begin: Alignment.topCenter,
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         Global.days[DateTime.now().weekday - 1],
                         style: TextStyle(
-                          color: Color(0xFF272F66),
+                          color: _theme.primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                         style: TextStyle(
-                          color: Color(0xFF272F66),
+                          color: _theme.primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
@@ -148,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               "Hi, ${_mainStateProvider.userName}",
                               style: TextStyle(
-                                color: Color(0xFF37408A),
+                                color: _theme.primaryColor,
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -157,14 +158,14 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               "Here is a list of you Schedule,",
                               style: TextStyle(
-                                color: Color(0xFF37408A),
+                                color: _theme.primaryColor,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               "You need to Check...",
                               style: TextStyle(
-                                color: Color(0xFF37408A),
+                                color: _theme.primaryColor,
                                 fontSize: 16,
                               ),
                             ),
@@ -227,7 +228,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                   "See all",
                                   style: TextStyle(
-                                    color: Color(0xFF3F33C7),
+                                    color: _theme.primaryColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -300,7 +301,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Text(
                                     "See all",
                                     style: TextStyle(
-                                      color: Color(0xFF3F33C7),
+                                      color: _theme.primaryColor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

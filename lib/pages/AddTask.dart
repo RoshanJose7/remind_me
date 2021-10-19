@@ -152,6 +152,7 @@ class _AddTaskState extends State<AddTask> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final tasks = Provider.of<Tasks>(context);
+    final _theme = Theme.of(context);
     final snackBar = SnackBar(
       content:
           Text('You will receive a Notification 1 day before the DeadLine'),
@@ -163,16 +164,15 @@ class _AddTaskState extends State<AddTask> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[50],
+        backgroundColor: _theme.backgroundColor,
         elevation: 0.0,
-        actionsIconTheme: IconThemeData(color: Color(0xFF37408A)),
-        iconTheme: Theme.of(context).iconTheme,
+        iconTheme: IconThemeData(color: _theme.primaryColor),
         title: Text(
           "Add Task",
           style: TextStyle(
             fontFamily: "Righteous",
             fontSize: 24,
-            color: Colors.black45,
+            color: _theme.primaryColor,
           ),
         ),
       ),
@@ -220,7 +220,7 @@ class _AddTaskState extends State<AddTask> {
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  primary: Color(0xFF3E37C9),
+                  primary: _theme.primaryColor,
                 ),
                 child: Text(
                   "Add Task",

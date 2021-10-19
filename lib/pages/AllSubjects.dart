@@ -15,13 +15,24 @@ class _AllSubjectsState extends State<AllSubjects> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final subjects = Provider.of<Subjects>(context).subjects;
+    final _theme = Theme.of(context);
 
     return SafeArea(
       child: Stack(
         children: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            decoration: BoxDecoration(color: Colors.blueGrey[50]),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  _theme.backgroundColor,
+                  Color(0xFFF0F0F0),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.6, 0.3],
+              ),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -32,7 +43,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                       Text(
                         Global.days[DateTime.now().weekday - 1],
                         style: TextStyle(
-                          color: Color(0xFF272F66),
+                          color: _theme.primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
@@ -40,7 +51,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                       Text(
                         " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                         style: TextStyle(
-                          color: Color(0xFF272F66),
+                          color: _theme.primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
@@ -58,7 +69,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                         child: Text(
                           "Your Subjects",
                           style: TextStyle(
-                            color: Color(0xFF37408A),
+                            color: _theme.primaryColor,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
@@ -91,14 +102,14 @@ class _AllSubjectsState extends State<AllSubjects> {
                         Text(
                           "All Subjects",
                           style: TextStyle(
-                            color: const Color(0xFF37408A),
+                            color: _theme.primaryColor,
                             fontSize: 18,
                           ),
                         ),
                         Text(
                           "(${subjects.length})",
                           style: TextStyle(
-                            color: const Color(0xFF37408A),
+                            color: _theme.primaryColor,
                             fontSize: 18,
                           ),
                         ),
@@ -146,8 +157,12 @@ class _AllSubjectsState extends State<AllSubjects> {
             bottom: 20,
             right: 20,
             child: FloatingActionButton(
+              backgroundColor: _theme.primaryColor,
               onPressed: () => Navigator.pushNamed(context, "/addSubject"),
-              child: Icon(Icons.add),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
