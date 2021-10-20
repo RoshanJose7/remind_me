@@ -69,13 +69,13 @@ class _CalenderPageState extends State<CalenderPage> {
                         children: [
                           Icon(
                             Icons.calendar_today_rounded,
-                            color: _theme.primaryColor,
+                            color: _theme.shadowColor,
                           ),
                           const SizedBox(width: 20),
                           Text(
                             Global.months[curDay.month],
                             style: TextStyle(
-                              color: _theme.primaryColor,
+                              color: _theme.cardColor,
                               fontWeight: FontWeight.w900,
                               fontSize: 22,
                             ),
@@ -83,7 +83,7 @@ class _CalenderPageState extends State<CalenderPage> {
                           Text(
                             " ${curDay.year}",
                             style: TextStyle(
-                              color: _theme.primaryColor,
+                              color: _theme.shadowColor,
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
                             ),
@@ -93,7 +93,7 @@ class _CalenderPageState extends State<CalenderPage> {
                       Text(
                         "${curDay.day} ${Global.days[curDay.weekday - 1]}",
                         style: TextStyle(
-                          color: _theme.primaryColor,
+                          color: _theme.cardColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -39,20 +39,20 @@ class _AddTaskState extends State<AddTask> {
     await Navigator.of(context).pushNamed("/onboard");
   }
 
-  Widget _buildSubNameField() {
+  Widget _buildSubNameField({required ThemeData theme}) {
     return TextFormField(
       decoration: InputDecoration(
         labelText: "Subject Name",
-        labelStyle: TextStyle(color: Colors.blueGrey),
+        labelStyle: TextStyle(color: theme.primaryColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+          borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+          borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
       ),
@@ -65,20 +65,20 @@ class _AddTaskState extends State<AddTask> {
     );
   }
 
-  Widget _buildDescriptionField() {
+  Widget _buildDescriptionField({required ThemeData theme}) {
     return TextFormField(
       decoration: InputDecoration(
         labelText: "Task Description",
-        labelStyle: TextStyle(color: Colors.blueGrey),
+        labelStyle: TextStyle(color: theme.primaryColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+          borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+          borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
       ),
@@ -91,7 +91,7 @@ class _AddTaskState extends State<AddTask> {
     );
   }
 
-  Widget _buildDeadLineField() {
+  Widget _buildDeadLineField({required ThemeData theme}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,13 +104,13 @@ class _AddTaskState extends State<AddTask> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w400,
-                color: Colors.blueGrey,
+                color: theme.shadowColor,
               ),
             ),
             IconButton(
               icon: Icon(
                 Icons.edit,
-                color: Colors.blueGrey,
+                color: theme.primaryColor,
               ),
               onPressed: () {
                 DatePicker.showDateTimePicker(
@@ -166,13 +166,13 @@ class _AddTaskState extends State<AddTask> {
       appBar: AppBar(
         backgroundColor: _theme.backgroundColor,
         elevation: 0.0,
-        iconTheme: IconThemeData(color: _theme.primaryColor),
+        iconTheme: IconThemeData(color: _theme.shadowColor),
         title: Text(
           "Add Task",
           style: TextStyle(
             fontFamily: "Righteous",
             fontSize: 24,
-            color: _theme.primaryColor,
+            color: _theme.cardColor,
           ),
         ),
       ),
@@ -185,11 +185,11 @@ class _AddTaskState extends State<AddTask> {
           child: Column(
             children: [
               const SizedBox(height: 10),
-              _buildSubNameField(),
+              _buildSubNameField(theme: _theme),
               const SizedBox(height: 10),
-              _buildDescriptionField(),
+              _buildDescriptionField(theme: _theme),
               const SizedBox(height: 20),
-              _buildDeadLineField(),
+              _buildDeadLineField(theme: _theme),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {

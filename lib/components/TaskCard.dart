@@ -8,6 +8,8 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
+
     return Container(
       margin: EdgeInsets.only(right: 15),
       padding: EdgeInsets.all(10),
@@ -21,7 +23,7 @@ class TaskCard extends StatelessWidget {
         children: [
           Text(
             "Deadline",
-            style: TextStyle(color: Colors.grey, fontSize: 16),
+            style: TextStyle(color: _theme.shadowColor, fontSize: 16),
           ),
           Row(
             children: [
@@ -36,7 +38,7 @@ class TaskCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black54,
+                  color: _theme.cardColor,
                 ),
               ),
             ],
@@ -49,7 +51,7 @@ class TaskCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w800,
-                  color: Colors.grey[600],
+                  color: _theme.primaryColor,
                 ),
               ),
             ),

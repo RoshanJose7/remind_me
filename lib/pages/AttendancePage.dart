@@ -49,7 +49,7 @@ class _AttendancePageState extends State<AttendancePage> {
                   child: Text(
                     "Attendance Percentage",
                     style: TextStyle(
-                      color: _theme.primaryColor,
+                      color: _theme.cardColor,
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                     ),
@@ -65,7 +65,7 @@ class _AttendancePageState extends State<AttendancePage> {
                         Text(
                           Global.days[DateTime.now().weekday - 1],
                           style: TextStyle(
-                            color: _theme.primaryColor,
+                            color: _theme.cardColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
@@ -73,7 +73,7 @@ class _AttendancePageState extends State<AttendancePage> {
                         Text(
                           " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                           style: TextStyle(
-                            color: _theme.primaryColor,
+                            color: _theme.shadowColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),

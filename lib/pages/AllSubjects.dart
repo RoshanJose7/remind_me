@@ -43,7 +43,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                       Text(
                         Global.days[DateTime.now().weekday - 1],
                         style: TextStyle(
-                          color: _theme.primaryColor,
+                          color: _theme.cardColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
@@ -51,7 +51,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                       Text(
                         " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                         style: TextStyle(
-                          color: _theme.primaryColor,
+                          color: _theme.shadowColor,
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
@@ -69,7 +69,7 @@ class _AllSubjectsState extends State<AllSubjects> {
                         child: Text(
                           "Your Subjects",
                           style: TextStyle(
-                            color: _theme.primaryColor,
+                            color: _theme.cardColor,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
@@ -94,7 +94,7 @@ class _AllSubjectsState extends State<AllSubjects> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,

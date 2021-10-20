@@ -31,7 +31,7 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   Future notificationSelected() async {
-    print("trinyg");
+    print("tring");
     await Navigator.of(context).pushNamed("/onboard");
   }
 
@@ -47,18 +47,19 @@ class _AddSubjectState extends State<AddSubject> {
   String _roomName = "";
   List<String?> _timeSlots = [];
 
-  Widget _buildSubNameField() => TextFormField(
+  Widget _buildSubNameField({required ThemeData theme}) => TextFormField(
         decoration: InputDecoration(
           labelText: "Subject Name",
+          labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
@@ -70,18 +71,19 @@ class _AddSubjectState extends State<AddSubject> {
         },
       );
 
-  Widget _buildProfessorNameField() => TextFormField(
+  Widget _buildProfessorNameField({required ThemeData theme}) => TextFormField(
         decoration: InputDecoration(
           labelText: "Professor Name",
+          labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
@@ -91,7 +93,7 @@ class _AddSubjectState extends State<AddSubject> {
         onSaved: (String? val) => _professorName = val!,
       );
 
-  Widget _buildDurationField() => Row(
+  Widget _buildDurationField({required ThemeData theme}) => Row(
         children: [
           Expanded(
             flex: 4,
@@ -124,18 +126,18 @@ class _AddSubjectState extends State<AddSubject> {
                     },
                     decoration: InputDecoration(
                       labelText: 'Hours',
-                      labelStyle: TextStyle(color: Colors.blueGrey),
+                      labelStyle: TextStyle(color: theme.shadowColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: Colors.blueGrey, width: 1.0),
+                            BorderSide(color: theme.shadowColor, width: 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: Colors.blueGrey, width: 2.0),
+                            BorderSide(color: theme.shadowColor, width: 2.0),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                     ),
@@ -156,18 +158,18 @@ class _AddSubjectState extends State<AddSubject> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                       labelText: 'Minutes',
-                      labelStyle: TextStyle(color: Colors.blueGrey),
+                      labelStyle: TextStyle(color: theme.shadowColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: Colors.blueGrey, width: 1.0),
+                            BorderSide(color: theme.shadowColor, width: 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: Colors.blueGrey, width: 2.0),
+                            BorderSide(color: theme.shadowColor, width: 2.0),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                     ),
@@ -179,18 +181,19 @@ class _AddSubjectState extends State<AddSubject> {
         ],
       );
 
-  Widget _buildRoomFloorField() => TextFormField(
+  Widget _buildRoomFloorField({required ThemeData theme}) => TextFormField(
         decoration: InputDecoration(
           labelText: "Room Floor",
+          labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
@@ -200,19 +203,21 @@ class _AddSubjectState extends State<AddSubject> {
         onSaved: (String? val) => _roomFloor = val!,
       );
 
-  Widget _buildClassesAttendedField() => TextFormField(
+  Widget _buildClassesAttendedField({required ThemeData theme}) =>
+      TextFormField(
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           labelText: "Total Classes Attended",
+          labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
@@ -222,19 +227,20 @@ class _AddSubjectState extends State<AddSubject> {
         onSaved: (String? val) => _classesAttended = int.parse(val!),
       );
 
-  Widget _buildTotalClassesField() => TextFormField(
+  Widget _buildTotalClassesField({required ThemeData theme}) => TextFormField(
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           labelText: "No. of Classes Completed",
+          labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
@@ -244,18 +250,19 @@ class _AddSubjectState extends State<AddSubject> {
         onSaved: (String? val) => _totalClassesCompleted = int.parse(val!),
       );
 
-  Widget _buildRoomNameField() => TextFormField(
+  Widget _buildRoomNameField({required ThemeData theme}) => TextFormField(
         decoration: InputDecoration(
           labelText: "Room Name",
+          labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
@@ -267,7 +274,7 @@ class _AddSubjectState extends State<AddSubject> {
         },
       );
 
-  Widget _buildTimeSlotField(int i) {
+  Widget _buildTimeSlotField(int i, {required ThemeData theme}) {
     setState(() {
       _timeSlots.add(null);
     });
@@ -278,19 +285,19 @@ class _AddSubjectState extends State<AddSubject> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey.withOpacity(0.5),
+            color: theme.shadowColor.withOpacity(0.5),
             width: 2,
           ),
           top: BorderSide(
-            color: Colors.grey.withOpacity(0.5),
+            color: theme.shadowColor.withOpacity(0.5),
             width: 2,
           ),
           left: BorderSide(
-            color: Colors.grey.withOpacity(0.5),
+            color: theme.shadowColor.withOpacity(0.5),
             width: 2,
           ),
           right: BorderSide(
-            color: Colors.grey.withOpacity(0.5),
+            color: theme.shadowColor.withOpacity(0.5),
             width: 2,
           ),
         ),
@@ -370,7 +377,7 @@ class _AddSubjectState extends State<AddSubject> {
       appBar: AppBar(
         backgroundColor: _theme.backgroundColor,
         iconTheme: IconThemeData(
-          color: _theme.primaryColor,
+          color: _theme.shadowColor,
         ),
         elevation: 0.0,
         title: Text(
@@ -378,7 +385,7 @@ class _AddSubjectState extends State<AddSubject> {
           style: TextStyle(
             fontFamily: "Righteous",
             fontSize: 24,
-            color: _theme.primaryColor,
+            color: _theme.cardColor,
           ),
         ),
       ),
@@ -391,19 +398,19 @@ class _AddSubjectState extends State<AddSubject> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _buildSubNameField(),
+                _buildSubNameField(theme: _theme),
                 const SizedBox(height: 10),
-                _buildProfessorNameField(),
+                _buildProfessorNameField(theme: _theme),
                 const SizedBox(height: 10),
-                _buildClassesAttendedField(),
+                _buildClassesAttendedField(theme: _theme),
                 const SizedBox(height: 10),
-                _buildTotalClassesField(),
+                _buildTotalClassesField(theme: _theme),
                 const SizedBox(height: 10),
-                _buildRoomFloorField(),
+                _buildRoomFloorField(theme: _theme),
                 const SizedBox(height: 10),
-                _buildRoomNameField(),
+                _buildRoomNameField(theme: _theme),
                 const SizedBox(height: 10),
-                _buildDurationField(),
+                _buildDurationField(theme: _theme),
                 Container(
                   width: width - 50,
                   height: height - 470,
@@ -414,7 +421,7 @@ class _AddSubjectState extends State<AddSubject> {
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: _theme.shadowColor.withOpacity(0.3),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -425,7 +432,7 @@ class _AddSubjectState extends State<AddSubject> {
                         "Select Your Time Slots",
                         style: TextStyle(
                           fontSize: 17,
-                          color: Colors.grey,
+                          color: _theme.primaryColor,
                         ),
                       ),
                       Row(
@@ -449,7 +456,7 @@ class _AddSubjectState extends State<AddSubject> {
                         ],
                       ),
                       for (int i = 0; i < count && count <= 7; i++)
-                        _buildTimeSlotField(i),
+                        _buildTimeSlotField(i, theme: _theme),
                       if (count < 7)
                         TextButton(
                           child: Text(
@@ -457,7 +464,7 @@ class _AddSubjectState extends State<AddSubject> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: _theme.primaryColor,
+                              color: _theme.shadowColor,
                             ),
                           ),
                           onPressed: () {

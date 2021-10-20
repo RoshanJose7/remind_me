@@ -12,7 +12,8 @@ import 'package:remind_me/shared/globals.dart';
 
 class HomePage extends StatefulWidget {
   final Function pushToTasksPage;
-  HomePage({required this.pushToTasksPage});
+  final Function pushToSubjectsPage;
+  HomePage({required this.pushToTasksPage, required this.pushToSubjectsPage});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -57,11 +58,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _mainStateProvider = Provider.of<MainState>(context);
     final _theme = Theme.of(context);
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     final tasks = Provider.of<Tasks>(context).tasks;
-    final _mainStateProvider = Provider.of<MainState>(context);
 
     return SafeArea(
       child: Stack(
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         Global.days[DateTime.now().weekday - 1],
                         style: TextStyle(
-                          color: _theme.primaryColor,
+                          color: _theme.cardColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                         style: TextStyle(
-                          color: _theme.primaryColor,
+                          color: _theme.shadowColor,
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.blueGrey.withOpacity(0.2),
+                                    color: _theme.shadowColor.withOpacity(0.2),
                                     blurRadius: 12,
                                     spreadRadius: 8,
                                   ),
@@ -149,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               "Hi, ${_mainStateProvider.userName}",
                               style: TextStyle(
-                                color: _theme.primaryColor,
+                                color: _theme.cardColor,
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -158,14 +159,14 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               "Here is a list of you Schedule,",
                               style: TextStyle(
-                                color: _theme.primaryColor,
+                                color: _theme.shadowColor,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               "You need to Check...",
                               style: TextStyle(
-                                color: _theme.primaryColor,
+                                color: _theme.shadowColor,
                                 fontSize: 16,
                               ),
                             ),
@@ -223,8 +224,9 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               TextButton(
-                                onPressed: () => Navigator.of(context)
-                                    .pushNamed("/allSubjects"),
+                                onPressed: () {
+                                  widget.pushToSubjectsPage();
+                                },
                                 child: Text(
                                   "See all",
                                   style: TextStyle(

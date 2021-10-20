@@ -51,14 +51,18 @@ class _ProfilePageState extends State<ProfilePage>
                 borderRadius: BorderRadius.circular(20.0),
               ),
               child: Container(
-                constraints: BoxConstraints(maxHeight: 150),
+                constraints: BoxConstraints(maxHeight: 170),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Form(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("Edit User Name"),
+                        Text("Edit User Name",
+                            style: TextStyle(
+                              color: _theme.shadowColor,
+                              fontSize: 20,
+                            )),
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: "Your Name",
@@ -72,6 +76,8 @@ class _ProfilePageState extends State<ProfilePage>
                           onSaved: (name) => setState(() => _name = name!),
                         ),
                         TextButton(
+                          style: TextButton.styleFrom(
+                              primary: _theme.primaryColor),
                           onPressed: () => setState(() {
                             _mainStateProvider.updateUserName(name: _name);
                             Navigator.of(context).pop();
@@ -116,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage>
                 Text(
                   "Settings",
                   style: TextStyle(
-                    color: _theme.primaryColor,
+                    color: _theme.cardColor,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
@@ -134,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage>
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.blueGrey.withOpacity(0.2),
+                                  color: _theme.shadowColor.withOpacity(0.2),
                                   blurRadius: 12,
                                   spreadRadius: 8,
                                 ),
@@ -158,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage>
                     Text(
                       "Hi, $_name",
                       style: TextStyle(
-                        color: _theme.primaryColor,
+                        color: _theme.shadowColor,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                       ),
@@ -238,96 +244,38 @@ class _ProfilePageState extends State<ProfilePage>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: this._curIdx == 0
-                                ? Border.all(color: Colors.blueGrey, width: 2)
-                                : null,
-                          ),
-                          child: new Material(
-                            shape: CircleBorder(),
-                            color: _themes.colorThemes[0],
-                            child: new InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () {
-                                setState(() {
-                                  this._curIdx = 0;
-                                  _themes.changeTheme(idx: 0);
-                                });
-                              },
-                              splashColor: Colors.blueGrey[50],
-                              child: new Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
+                        for (int i = 0; i < _themes.colorThemes.length; i++)
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              border: this._curIdx == i
+                                  ? Border.all(
+                                      color: _theme.primaryColor, width: 3)
+                                  : null,
+                            ),
+                            child: new Material(
+                              shape: CircleBorder(),
+                              color: _themes.colorThemes[i],
+                              child: new InkWell(
+                                borderRadius: BorderRadius.circular(15),
+                                onTap: () {
+                                  setState(() {
+                                    this._curIdx = 0;
+                                    _themes.changeTheme(idx: i);
+                                  });
+                                },
+                                splashColor: Colors.blueGrey[50],
+                                child: new Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: this._curIdx == 1
-                                ? Border.all(color: Colors.blueGrey, width: 2)
-                                : null,
-                          ),
-                          child: new Material(
-                            shape: CircleBorder(),
-                            color: _themes.colorThemes[1],
-                            child: new InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () {
-                                setState(() {
-                                  this._curIdx = 1;
-                                  _themes.changeTheme(idx: 1);
-                                });
-                              },
-                              splashColor: Colors.blueGrey[50],
-                              child: new Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: this._curIdx == 2
-                                ? Border.all(color: Colors.blueGrey, width: 2)
-                                : null,
-                          ),
-                          child: new Material(
-                            shape: CircleBorder(),
-                            color: _themes.colorThemes[2],
-                            child: new InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () {
-                                setState(() {
-                                  this._curIdx = 2;
-                                  _themes.changeTheme(idx: 2);
-                                });
-                              },
-                              splashColor: Colors.blueGrey[50],
-                              child: new Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
 

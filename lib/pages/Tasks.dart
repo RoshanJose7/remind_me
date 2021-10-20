@@ -49,7 +49,7 @@ class _TasksPageState extends State<TasksPage> {
                   child: Text(
                     "Your Tasks",
                     style: TextStyle(
-                      color: _theme.primaryColor,
+                      color: _theme.cardColor,
                       fontSize: 27,
                       fontWeight: FontWeight.w600,
                     ),
@@ -65,7 +65,7 @@ class _TasksPageState extends State<TasksPage> {
                         Text(
                           Global.days[DateTime.now().weekday - 1],
                           style: TextStyle(
-                            color: _theme.primaryColor,
+                            color: _theme.cardColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
@@ -73,7 +73,7 @@ class _TasksPageState extends State<TasksPage> {
                         Text(
                           " ${DateTime.now().day} ${Global.months[DateTime.now().month - 1]}",
                           style: TextStyle(
-                            color: _theme.primaryColor,
+                            color: _theme.shadowColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),

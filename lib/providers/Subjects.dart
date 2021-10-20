@@ -14,9 +14,12 @@ class Subjects with ChangeNotifier {
   void getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? encodedData = prefs.getString('subjects');
+    prefs.remove('subjects');
 
     if (encodedData != null) {
       _subjects = Subject.decode(encodedData);
+      print(_subjects[0].classesAttended);
+      print(_subjects[0].totalClassesCompleted);
       notifyListeners();
     }
   }
@@ -24,6 +27,11 @@ class Subjects with ChangeNotifier {
   void storeData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String encodedData = Subject.encode(_subjects);
+
+    print(_subjects[0].classesAttended);
+    print(_subjects[0].totalClassesCompleted);
+
+    prefs.remove('subjects');
     prefs.setString('subjects', encodedData);
   }
 
@@ -69,12 +77,14 @@ class Subjects with ChangeNotifier {
       {required String id,
       required int totalClasses,
       required int attendedClasses}) {
-    _subjects.forEach((e) {
+    _subjects = _subjects.map((e) {
       if (e.id == id) {
         e.totalClassesCompleted = totalClasses;
         e.classesAttended = attendedClasses;
       }
-    });
+
+      return e;
+    }).toList();
 
     storeData();
     notifyListeners();

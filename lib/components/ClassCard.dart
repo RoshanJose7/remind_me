@@ -16,6 +16,8 @@ class ClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
+
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -28,7 +30,7 @@ class ClassCard extends StatelessWidget {
           Text(
             time,
             style: TextStyle(
-              color: Colors.black54,
+              color: _theme.primaryColor,
               fontWeight: FontWeight.w900,
               fontSize: 20,
             ),
@@ -38,7 +40,7 @@ class ClassCard extends StatelessWidget {
             height: 100,
             child: VerticalDivider(
               width: 1,
-              color: Colors.grey[300],
+              color: _theme.shadowColor.withOpacity(0.5),
               thickness: 2,
             ),
           ),
@@ -52,13 +54,14 @@ class ClassCard extends StatelessWidget {
                     subjectName,
                     style: TextStyle(
                       fontSize: 18,
+                      color: _theme.cardColor,
                     ),
                   ),
                   Row(
                     children: [
                       Icon(
                         Icons.location_on,
-                        color: Colors.grey,
+                        color: _theme.primaryColor,
                       ),
                       SizedBox(width: 10),
                       Expanded(

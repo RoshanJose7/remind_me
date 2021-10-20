@@ -18,6 +18,8 @@ class DayClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
+
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 10),
       child: Column(
@@ -32,7 +34,7 @@ class DayClass extends StatelessWidget {
                     height: 8,
                     width: 10,
                     decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: _theme.primaryColor,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         bottomRight: Radius.circular(10),

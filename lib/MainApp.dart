@@ -27,7 +27,7 @@ class _MainAppState extends State<MainApp> {
 
   void pushToTasksPage() {
     setState(() {
-      _selectedItemIndex = 2;
+      _selectedItemIndex = 3;
     });
   }
 
@@ -42,6 +42,7 @@ class _MainAppState extends State<MainApp> {
     List _pages = [
       HomePage(
         pushToTasksPage: pushToTasksPage,
+        pushToSubjectsPage: pushToAllSubjectsPage,
       ),
       AllSubjects(),
       AttendancePage(),

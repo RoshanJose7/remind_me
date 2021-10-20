@@ -24,6 +24,7 @@ class SubjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subjectsProvider = Provider.of<Subjects>(context);
+    final _theme = Theme.of(context);
 
     return Container(
       padding: EdgeInsets.all(10),
@@ -174,8 +175,8 @@ class SubjectCard extends StatelessWidget {
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
                         timeSlots[i] != null
-                            ? Color(0xFF3F33C7)
-                            : Colors.grey.withOpacity(0.1),
+                            ? _theme.shadowColor
+                            : _theme.backgroundColor,
                       ),
                     ),
                     onPressed: () => Fluttertoast.showToast(
@@ -194,9 +195,7 @@ class SubjectCard extends StatelessWidget {
                         Text(
                           Global.week[i]['day'][0],
                           style: TextStyle(
-                            color: timeSlots[i] != null
-                                ? Colors.white70
-                                : Colors.grey,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
