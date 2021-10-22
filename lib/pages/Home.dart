@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Container(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         Global.days[DateTime.now().weekday - 1],
@@ -110,13 +110,13 @@ class _HomePageState extends State<HomePage> {
                   margin: EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       _mainStateProvider.picPath.startsWith("assets")
                           ? Container(
-                              width: 40,
-                              height: 40,
-                              margin: EdgeInsets.only(right: 20, left: 20),
+                              width: 60,
+                              height: 70,
+                              margin: EdgeInsets.only(right: 30, left: 20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
@@ -133,9 +133,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                             )
                           : Container(
-                              width: 40,
-                              height: 40,
-                              margin: EdgeInsets.only(right: 20, left: 20),
+                              width: 60,
+                              height: 70,
+                              margin: EdgeInsets.only(right: 30, left: 20),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.file(
@@ -217,8 +217,8 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     "(${_subjectsToday.length})",
                                     style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 12,
+                                      color: _theme.primaryColor,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -290,8 +290,8 @@ class _HomePageState extends State<HomePage> {
                                     Text(
                                       "(${tasks.length})",
                                       style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 12,
+                                        color: _theme.primaryColor,
+                                        fontSize: 14,
                                       ),
                                     ),
                                   ],

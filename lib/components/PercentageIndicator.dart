@@ -107,9 +107,10 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                         TextButton(
                           onPressed: () => setState(() {
                             _subjectsProvider.updateClasses(
-                                id: widget.subId,
-                                totalClasses: _classesCompleted,
-                                attendedClasses: _classesAttended);
+                              id: widget.subId,
+                              totalClasses: _classesCompleted,
+                              attendedClasses: _classesAttended,
+                            );
                             Navigator.of(context).pop();
                           }),
                           child: Text(

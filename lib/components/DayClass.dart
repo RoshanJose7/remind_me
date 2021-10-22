@@ -120,7 +120,7 @@ class DayClass extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.location_on,
-                          color: Colors.grey,
+                          color: _theme.primaryColor,
                           size: 30,
                         ),
                         SizedBox(width: 13),

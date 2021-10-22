@@ -57,10 +57,10 @@ class _TasksPageState extends State<TasksPage> {
                 ),
                 Positioned(
                   top: 10,
-                  right: 30,
+                  left: 20,
                   child: Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           Global.days[DateTime.now().weekday - 1],

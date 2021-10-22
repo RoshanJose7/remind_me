@@ -21,7 +21,7 @@ class _AllSubjectsState extends State<AllSubjects> {
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -38,7 +38,7 @@ class _AllSubjectsState extends State<AllSubjects> {
               children: [
                 Container(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         Global.days[DateTime.now().weekday - 1],

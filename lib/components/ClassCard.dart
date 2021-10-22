@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ClassCard extends StatelessWidget {
@@ -25,8 +26,10 @@ class ClassCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(width: 10),
           Text(
             time,
             style: TextStyle(
@@ -35,7 +38,7 @@ class ClassCard extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 20),
           SizedBox(
             height: 100,
             child: VerticalDivider(
@@ -44,6 +47,7 @@ class ClassCard extends StatelessWidget {
               thickness: 2,
             ),
           ),
+          const SizedBox(width: 20),
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
