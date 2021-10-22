@@ -16,7 +16,7 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    final subjects = Provider.of<Subjects>(context).subjects;
+    final subjects = Provider.of<Subjects>(context).subjectsAttendance;
     final _theme = Theme.of(context);
 
     return SafeArea(
