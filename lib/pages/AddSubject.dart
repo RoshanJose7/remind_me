@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/providers/Subjects.dart';
-import 'package:remind_me/shared/LocalNotifications.dart';
 import 'package:remind_me/shared/globals.dart';
 import 'package:uuid/uuid.dart';
 
@@ -15,20 +14,6 @@ class AddSubject extends StatefulWidget {
 class _AddSubjectState extends State<AddSubject> {
   final uuid = Uuid();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final LocalNotifications _localNotifications = LocalNotifications();
-
-  @override
-  void initState() {
-    super.initState();
-    _localNotifications
-        .configureSelectNotificationSubject(notificationSelected);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _localNotifications.dispose();
-  }
 
   Future notificationSelected() async {
     print("tring");
@@ -65,6 +50,7 @@ class _AddSubjectState extends State<AddSubject> {
         ),
         validator: (String? val) {
           if (val!.isEmpty) return "Provide a valid Input";
+          return null;
         },
         onSaved: (String? val) {
           _subName = val!;
@@ -89,6 +75,7 @@ class _AddSubjectState extends State<AddSubject> {
         ),
         validator: (String? val) {
           if (val!.isEmpty) return "Provide a valid Input";
+          return null;
         },
         onSaved: (String? val) => _professorName = val!,
       );
@@ -199,6 +186,7 @@ class _AddSubjectState extends State<AddSubject> {
         ),
         validator: (String? val) {
           if (val!.isEmpty) return "Provide a valid Input";
+          return null;
         },
         onSaved: (String? val) => _roomFloor = val!,
       );
@@ -223,6 +211,7 @@ class _AddSubjectState extends State<AddSubject> {
         ),
         validator: (String? val) {
           if (val!.isEmpty) return "Provide a valid Input";
+          return null;
         },
         onSaved: (String? val) => _classesAttended = int.parse(val!),
       );
@@ -246,6 +235,7 @@ class _AddSubjectState extends State<AddSubject> {
         ),
         validator: (String? val) {
           if (val!.isEmpty) return "Provide a valid Input";
+          return null;
         },
         onSaved: (String? val) => _totalClassesCompleted = int.parse(val!),
       );
@@ -268,6 +258,7 @@ class _AddSubjectState extends State<AddSubject> {
         ),
         validator: (String? val) {
           if (val!.isEmpty) return "Provide a valid Input";
+          return null;
         },
         onSaved: (String? val) {
           _roomName = val!;
@@ -506,33 +497,6 @@ class _AddSubjectState extends State<AddSubject> {
                       minRequiredClasses: _minRequiredClasses,
                       totalClassesCompleted: _totalClassesCompleted,
                     );
-
-                    _timeSlots.map((_slot) async {
-                      if (_slot != null) {
-                        await _localNotifications
-                            .scheduleAtDayAndTimeNotification(
-                          date: DateTime.parse(_slot),
-                          channelId: uuid.v4(),
-                          channelName: 'Subject Channel',
-                          channelDesc: 'Subject Add Channel Description',
-                          notificationTitle:
-                              "$_subName will start in 5 minutes",
-                          notificationBody: "$_subName starting at time $_slot",
-                          payload: "subject",
-                        );
-
-                        await _localNotifications.repeatNotificationDaily(
-                          date: DateTime.parse(_slot).add(
-                              Duration(hours: _hours, minutes: _minutes + 1)),
-                          channelId: uuid.v4(),
-                          channelName: "Attendance Channel",
-                          channelDesc: "Add Attendance Channel Description",
-                          notificationTitle: "Mark Attendance Remainder",
-                          notificationBody: "Did you attend $_subName today?",
-                          payload: "attendance",
-                        );
-                      }
-                    });
 
                     Navigator.of(context).pop();
                   },

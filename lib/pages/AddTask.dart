@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/providers/Tasks.dart';
-import 'package:remind_me/shared/LocalNotifications.dart';
 import 'package:uuid/uuid.dart';
 
 class AddTask extends StatefulWidget {
@@ -19,21 +16,6 @@ class _AddTaskState extends State<AddTask> {
   String _subName = "";
   DateTime _deadLine = DateTime.now();
   String _description = "";
-  LocalNotifications _localNotifications = LocalNotifications();
-
-  @override
-  void initState() {
-    super.initState();
-    _localNotifications.init();
-    _localNotifications
-        .configureSelectNotificationSubject(notificationSelected);
-  }
-
-  @override
-  void dispose() {
-    _localNotifications.dispose();
-    super.dispose();
-  }
 
   Future<void> notificationSelected() async {
     await Navigator.of(context).pushNamed("/onboard");
@@ -58,6 +40,7 @@ class _AddTaskState extends State<AddTask> {
       ),
       validator: (String? val) {
         if (val!.isEmpty) return "Provide a valid Input";
+        return null;
       },
       onSaved: (String? val) {
         _subName = val!;
@@ -84,6 +67,7 @@ class _AddTaskState extends State<AddTask> {
       ),
       validator: (String? val) {
         if (val!.isEmpty) return "Provide a valid Input";
+        return null;
       },
       onSaved: (String? val) {
         _description = val!;
@@ -201,18 +185,6 @@ class _AddTaskState extends State<AddTask> {
                     subject: _subName,
                     deadLine: _deadLine.toString(),
                     description: _description,
-                  );
-
-                  _localNotifications.scheduleNotification(
-                    date: _deadLine.subtract(
-                      Duration(days: 1),
-                    ),
-                    channelId: uuid.v4(),
-                    channelName: 'Task Channel',
-                    channelDesc: 'Task Channel Description',
-                    notificationTitle: 'Task Remainder',
-                    notificationBody: '$_subName will be due in 24 hours',
-                    payload: 'task',
                   );
 
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);

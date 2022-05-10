@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:remind_me/providers/Task.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
-import 'package:remind_me/providers/Task.dart';
 
 class Tasks with ChangeNotifier {
   static const uid = Uuid();
@@ -60,5 +60,40 @@ class Tasks with ChangeNotifier {
     _tasks.firstWhere((element) => element.id == id).isCompleted = true;
     storeData();
     notifyListeners();
+  }
+
+  void fromJSON(List<dynamic> data) {
+    List<Task> temp = [];
+
+    for (final tas in data) {
+      Task task = Task(
+        id: tas['id'],
+        isCompleted: tas['isCompleted'],
+        subject: tas['subject'],
+        deadLine: tas['deadLine'],
+        description: tas['description'],
+      );
+
+      temp.add(task);
+    }
+
+    _tasks = temp;
+    notifyListeners();
+  }
+
+  Future<List<Map<String, dynamic>>> toJSON() async {
+    List<Map<String, dynamic>> data = [];
+
+    for (Task element in _tasks) {
+      data.add({
+        'id': element.id,
+        'isCompleted': element.isCompleted,
+        'subject': element.subject,
+        'deadLine': element.deadLine,
+        'description': element.description,
+      });
+    }
+
+    return data;
   }
 }

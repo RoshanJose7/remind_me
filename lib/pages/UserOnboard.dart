@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_swipe/Helpers/Helpers.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
 class UserOnboard extends StatefulWidget {

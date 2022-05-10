@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -5,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/providers/MainState.dart';
+import 'package:remind_me/providers/Subjects.dart';
+import 'package:remind_me/providers/Tasks.dart';
 import 'package:remind_me/providers/Theme.dart';
+
+import '../utils/files.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -24,10 +29,13 @@ class _ProfilePageState extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
+    final _themes = Provider.of<Themes>(context);
+    final _tasksProvider = Provider.of<Tasks>(context);
+    final _subjectsProvider = Provider.of<Subjects>(context);
+    final _mainStateProvider = Provider.of<MainState>(context);
+
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    final _mainStateProvider = Provider.of<MainState>(context);
-    final _themes = Provider.of<Themes>(context);
     final _theme = Theme.of(context);
     String _name = _mainStateProvider.userName;
     _curIdx = _themes.themeIdx;
@@ -279,76 +287,91 @@ class _ProfilePageState extends State<ProfilePage>
                           ),
                       ],
                     ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 150,
+                          child: Text(
+                            "Export Data",
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          child: Icon(Icons.file_download),
+                          onPressed: () {
+                            final _snackBar = SnackBar(
+                              content: Text("Download?"),
+                              action: SnackBarAction(
+                                label: "Yes",
+                                onPressed: () async {
+                                  String? path = await downloadDirPath;
+                                  final subjects =
+                                      await _subjectsProvider.toJSON();
+                                  final tasks = await _tasksProvider.toJSON();
 
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //       width: 150,
-                    //       child: Text(
-                    //         "Import TimeTable",
-                    //         style: TextStyle(
-                    //           fontSize: 18,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     TextButton(
-                    //       child: Icon(Icons.file_download),
-                    //       onPressed: () async {
-                    //         Directory _dir =
-                    //             await getApplicationDocumentsDirectory();
-                    //         final _snackBar = SnackBar(
-                    //           content:
-                    //               Text("Keep your file at the Downloads Folder"),
-                    //           action: SnackBarAction(
-                    //             label: "Upload to App",
-                    //             onPressed: () {
-                    //               File file = File(
-                    //                   "/storage/emulated/0/Downloads/shared_preferences.json");
-                    //               file.copy(_dir.path);
-                    //             },
-                    //           ),
-                    //         );
-                    //         ScaffoldMessenger.of(context).showSnackBar(_snackBar);
-                    //       },
-                    //       style: TextButton.styleFrom(
-                    //         primary: Colors.blueGrey[300],
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const SizedBox(height: 20),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //       width: 150,
-                    //       child: Text(
-                    //         "Export TimeTable",
-                    //         style: TextStyle(
-                    //           fontSize: 18,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     TextButton(
-                    //       child: Icon(Icons.file_upload),
-                    //       onPressed: () async {
-                    //         Directory _dir =
-                    //             await getApplicationDocumentsDirectory();
-                    //         File file =
-                    //             File("${_dir.path}/shared_preferences.json");
-                    //         file.copy("/storage/emulated/0/Downloads/");
-                    //         final _snackBar = SnackBar(
-                    //           content:
-                    //               Text("Move your data file to Downloads filder"),
-                    //         );
-                    //         ScaffoldMessenger.of(context).showSnackBar(_snackBar);
-                    //       },
-                    //       style:
-                    //           TextButton.styleFrom(primary: Colors.blueGrey[300]),
-                    //     ),
-                    //   ],
-                    // ),
+                                  final data = {
+                                    "subjects": subjects,
+                                    "tasks": tasks,
+                                  };
+
+                                  await createFile(
+                                      path!,
+                                      "${DateTime.now().millisecondsSinceEpoch}.json",
+                                      jsonEncode(data));
+                                },
+                              ),
+                            );
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(_snackBar);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("File Saved!")),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            primary: Colors.blueGrey[300],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 150,
+                          child: Text(
+                            "Import Data",
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          child: Icon(Icons.file_upload),
+                          onPressed: () async {
+                            File? file = await uploadFile();
+
+                            if (file != null) {
+                              final jsonString = await file.readAsString();
+                              final data = jsonDecode(jsonString);
+                              final subjects = data['subjects'];
+                              final tasks = data['tasks'];
+
+                              _subjectsProvider.fromJSON(subjects);
+                              _tasksProvider.fromJSON(tasks);
+                            }
+                          },
+                          style: TextButton.styleFrom(
+                              primary: Colors.blueGrey[300]),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -359,97 +382,3 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 }
-
-// Row(
-//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//   crossAxisAlignment: CrossAxisAlignment.center,
-//   children: [
-//     Container(
-//       padding: EdgeInsets.all(5),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(25),
-//         border: this._curIdx == 0
-//             ? Border.all(color: Colors.blueGrey, width: 2)
-//             : null,
-//       ),
-//       child: new Material(
-//         shape: CircleBorder(),
-//         color: _themes.colorThemes[0],
-//         child: new InkWell(
-//           borderRadius: BorderRadius.circular(15),
-//           onTap: () {
-//             setState(() {
-//               this._curIdx = 0;
-//             });
-//           },
-//           splashColor: Colors.blueGrey[50],
-//           child: new Container(
-//             width: 30,
-//             height: 30,
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//     Container(
-//       padding: EdgeInsets.all(5),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(25),
-//         border: this._curIdx == 1
-//             ? Border.all(color: Colors.blueGrey, width: 2)
-//             : null,
-//       ),
-//       child: new Material(
-//         shape: CircleBorder(),
-//         color: _themes.colorThemes[1],
-//         child: new InkWell(
-//           borderRadius: BorderRadius.circular(15),
-//           onTap: () {
-//             setState(() {
-//               this._curIdx = 1;
-//             });
-//           },
-//           splashColor: Colors.blueGrey[50],
-//           child: new Container(
-//             width: 30,
-//             height: 30,
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//     Container(
-//       padding: EdgeInsets.all(5),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(25),
-//         border: this._curIdx == 2
-//             ? Border.all(color: Colors.blueGrey, width: 2)
-//             : null,
-//       ),
-//       child: new Material(
-//         shape: CircleBorder(),
-//         color: _themes.colorThemes[2],
-//         child: new InkWell(
-//           borderRadius: BorderRadius.circular(15),
-//           onTap: () {
-//             setState(() {
-//               this._curIdx = 2;
-//             });
-//           },
-//           splashColor: Colors.blueGrey[50],
-//           child: new Container(
-//             width: 30,
-//             height: 30,
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//   ],
-// ),

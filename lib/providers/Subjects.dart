@@ -117,4 +117,41 @@ class Subjects with ChangeNotifier {
       {required int totalClasses, required int classesAttended}) {
     return (classesAttended / totalClasses) * 100;
   }
+
+  void fromJSON(List<dynamic> data) {
+    List<Subject> temp = [];
+
+    for (final sub in data) {
+      Subject subject = Subject(
+        id: sub['id'],
+        duration: sub['duration'],
+        subjectName: sub['subjectName'],
+        professorName: sub['professorName'],
+        roomName: sub['roomName'],
+        timeSlots: sub['timeSlots'],
+      );
+
+      temp.add(subject);
+    }
+
+    _subjects = temp;
+    notifyListeners();
+  }
+
+  Future<List<Map<String, dynamic>>> toJSON() async {
+    List<Map<String, dynamic>> data = [];
+
+    for (Subject element in _subjects) {
+      data.add({
+        'id': element.id,
+        'duration': element.duration,
+        'subjectName': element.subjectName,
+        'professorName': element.professorName,
+        'roomName': element.roomName,
+        'timeSlots': element.timeSlots,
+      });
+    }
+
+    return data;
+  }
 }

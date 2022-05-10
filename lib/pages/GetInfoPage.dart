@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/material.dart';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/providers/MainState.dart';
 
@@ -82,6 +83,7 @@ class _GetInfoPageState extends State<GetInfoPage> {
                             decoration: InputDecoration(labelText: "User Name"),
                             validator: (String? val) {
                               if (val!.isEmpty) return "Provide a valid Input";
+                              return null;
                             },
                             onSaved: (String? val) {
                               setState(() {
