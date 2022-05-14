@@ -146,65 +146,45 @@ class _AddTaskState extends State<AddTask> {
       ),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: _theme.backgroundColor,
-        elevation: 0.0,
-        iconTheme: IconThemeData(color: _theme.shadowColor),
-        title: Text(
-          "Add Task",
-          style: TextStyle(
-            fontFamily: "Righteous",
-            fontSize: 24,
-            color: _theme.cardColor,
-          ),
-        ),
-      ),
-      body: Container(
-        height: height,
-        width: width,
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              _buildSubNameField(theme: _theme),
-              const SizedBox(height: 10),
-              _buildDescriptionField(theme: _theme),
-              const SizedBox(height: 20),
-              _buildDeadLineField(theme: _theme),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (!_formKey.currentState!.validate()) return;
-                  _formKey.currentState!.save();
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          _buildSubNameField(theme: _theme),
+          const SizedBox(height: 10),
+          _buildDescriptionField(theme: _theme),
+          const SizedBox(height: 20),
+          _buildDeadLineField(theme: _theme),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () async {
+              if (!_formKey.currentState!.validate()) return;
+              _formKey.currentState!.save();
 
-                  tasks.addTask(
-                    isCompleted: false,
-                    subject: _subName,
-                    deadLine: _deadLine.toString(),
-                    description: _description,
-                  );
+              tasks.addTask(
+                isCompleted: false,
+                subject: _subName,
+                deadLine: _deadLine.toString(),
+                description: _description,
+              );
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  primary: _theme.primaryColor,
-                ),
-                child: Text(
-                  "Add Task",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              primary: _theme.primaryColor,
+            ),
+            child: Text(
+              "Add Task",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

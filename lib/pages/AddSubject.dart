@@ -364,158 +364,133 @@ class _AddSubjectState extends State<AddSubject> {
     final subjectProvider = Provider.of<Subjects>(context);
     final _theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: _theme.backgroundColor,
-        iconTheme: IconThemeData(
-          color: _theme.shadowColor,
-        ),
-        elevation: 0.0,
-        title: Text(
-          "Add Subject",
-          style: TextStyle(
-            fontFamily: "Righteous",
-            fontSize: 24,
-            color: _theme.cardColor,
-          ),
-        ),
-      ),
-      body: Container(
-        height: height,
-        width: width,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          _buildSubNameField(theme: _theme),
+          const SizedBox(height: 10),
+          _buildProfessorNameField(theme: _theme),
+          const SizedBox(height: 10),
+          _buildClassesAttendedField(theme: _theme),
+          const SizedBox(height: 10),
+          _buildTotalClassesField(theme: _theme),
+          const SizedBox(height: 10),
+          _buildRoomFloorField(theme: _theme),
+          const SizedBox(height: 10),
+          _buildRoomNameField(theme: _theme),
+          const SizedBox(height: 10),
+          _buildDurationField(theme: _theme),
+          Container(
+            width: width - 50,
+            height: height - 470,
+            constraints: BoxConstraints(
+              minHeight: 150,
+            ),
+            margin: EdgeInsets.only(top: 20),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: _theme.shadowColor.withOpacity(0.3),
+                width: 2,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: ListView(
               children: [
-                _buildSubNameField(theme: _theme),
-                const SizedBox(height: 10),
-                _buildProfessorNameField(theme: _theme),
-                const SizedBox(height: 10),
-                _buildClassesAttendedField(theme: _theme),
-                const SizedBox(height: 10),
-                _buildTotalClassesField(theme: _theme),
-                const SizedBox(height: 10),
-                _buildRoomFloorField(theme: _theme),
-                const SizedBox(height: 10),
-                _buildRoomNameField(theme: _theme),
-                const SizedBox(height: 10),
-                _buildDurationField(theme: _theme),
-                Container(
-                  width: width - 50,
-                  height: height - 470,
-                  constraints: BoxConstraints(
-                    minHeight: 150,
-                  ),
-                  margin: EdgeInsets.only(top: 20),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: _theme.shadowColor.withOpacity(0.3),
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ListView(
-                    children: [
-                      Text(
-                        "Select Your Time Slots",
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: _theme.primaryColor,
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Day",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(width: 80),
-                          Text(
-                            "Date",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      for (int i = 0; i < count && count <= 7; i++)
-                        _buildTimeSlotField(i, theme: _theme),
-                      if (count < 7)
-                        TextButton(
-                          child: Text(
-                            "Add Day",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: _theme.shadowColor,
-                            ),
-                          ),
-                          onPressed: () {
-                            setState(
-                              () {
-                                count++;
-                              },
-                            );
-                          },
-                        ),
-                    ],
+                Text(
+                  "Select Your Time Slots",
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: _theme.primaryColor,
                   ),
                 ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!_formKey.currentState!.validate()) return;
-                    _formKey.currentState!.save();
-
-                    for (int i = _timeSlots.length - 1; i < 7; i++)
-                      _timeSlots.add(null);
-
-                    _minRequiredClasses =
-                        subjectProvider.calcMinimumClassesRequired(
-                      totalClasses: _totalClassesCompleted,
-                      attendancePercent: subjectProvider.calcPercentage(
-                        totalClasses: _totalClassesCompleted,
-                        classesAttended: _classesAttended,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Day",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
-
-                    subjectProvider.addSubject(
-                      duration: "${_hours}hr ${_minutes}min",
-                      subjectName: _subName,
-                      classesAttended: _classesAttended,
-                      professorName: _professorName,
-                      roomName: "$_roomName:$_roomFloor",
-                      timeSlots: _timeSlots,
-                      minRequiredClasses: _minRequiredClasses,
-                      totalClassesCompleted: _totalClassesCompleted,
-                    );
-
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    primary: _theme.primaryColor,
-                  ),
-                  child: Text(
-                    "Add Subject",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
                     ),
+                    const SizedBox(width: 80),
+                    Text(
+                      "Date",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                for (int i = 0; i < count && count <= 7; i++)
+                  _buildTimeSlotField(i, theme: _theme),
+                if (count < 7)
+                  TextButton(
+                    child: Text(
+                      "Add Day",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: _theme.shadowColor,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(
+                        () {
+                          count++;
+                        },
+                      );
+                    },
                   ),
-                )
               ],
             ),
           ),
-        ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              if (!_formKey.currentState!.validate()) return;
+              _formKey.currentState!.save();
+
+              for (int i = _timeSlots.length - 1; i < 7; i++)
+                _timeSlots.add(null);
+
+              _minRequiredClasses = subjectProvider.calcMinimumClassesRequired(
+                totalClasses: _totalClassesCompleted,
+                attendancePercent: subjectProvider.calcPercentage(
+                  totalClasses: _totalClassesCompleted,
+                  classesAttended: _classesAttended,
+                ),
+              );
+
+              subjectProvider.addSubject(
+                duration: "${_hours}hr ${_minutes}min",
+                subjectName: _subName,
+                classesAttended: _classesAttended,
+                professorName: _professorName,
+                roomName: "$_roomName:$_roomFloor",
+                timeSlots: _timeSlots,
+                minRequiredClasses: _minRequiredClasses,
+                totalClassesCompleted: _totalClassesCompleted,
+              );
+
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              primary: _theme.primaryColor,
+            ),
+            child: Text(
+              "Add Subject",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

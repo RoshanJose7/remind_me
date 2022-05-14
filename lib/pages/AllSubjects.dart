@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/components/SubjectCard.dart';
+import 'package:remind_me/pages/AddSubject.dart';
 import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
 
@@ -9,7 +10,18 @@ class AllSubjects extends StatefulWidget {
   _AllSubjectsState createState() => _AllSubjectsState();
 }
 
-class _AllSubjectsState extends State<AllSubjects> {
+class _AllSubjectsState extends State<AllSubjects>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  Tween<Offset> _tween = Tween(begin: Offset(0, 1), end: Offset(0, 0));
+
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -17,22 +29,22 @@ class _AllSubjectsState extends State<AllSubjects> {
     final subjects = Provider.of<Subjects>(context).subjects;
     final _theme = Theme.of(context);
 
-    return SafeArea(
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  _theme.backgroundColor,
-                  Color(0xFFF0F0F0),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.6, 0.3],
-              ),
+    return Stack(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                _theme.backgroundColor,
+                Color(0xFFF0F0F0),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.6, 0.3],
             ),
+          ),
+          child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -81,92 +93,148 @@ class _AllSubjectsState extends State<AllSubjects> {
               ],
             ),
           ),
-          Positioned(
-            top: 120,
-            bottom: 0,
-            child: Container(
-              padding: EdgeInsets.only(top: 20, bottom: 10),
-              width: width,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+        ),
+        Positioned(
+          top: 150,
+          bottom: 0,
+          child: Container(
+            padding: EdgeInsets.only(top: 20, bottom: 10),
+            width: width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "All Subjects",
+                        style: TextStyle(
+                          color: _theme.primaryColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "(${subjects.length})",
+                        style: TextStyle(
+                          color: _theme.primaryColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: height - 312,
+                  width: width,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 10,
+                  ),
+                  child: subjects.length == 0
+                      ? Center(
+                          child: Text(
+                            "Click on the + button to add Subjects!",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: subjects.length,
+                          itemBuilder: (ctx, idx) {
+                            return SubjectCard(
+                              id: subjects[idx].id,
+                              duration: subjects[idx].duration,
+                              professorName: subjects[idx].professorName,
+                              roomName: subjects[idx].roomName,
+                              subName: subjects[idx].subjectName,
+                              timeSlots: subjects[idx].timeSlots,
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          right: 20,
+          child: FloatingActionButton(
+            backgroundColor: _theme.primaryColor,
+            onPressed: () {
+              if (_controller.isDismissed) {
+                _controller.forward();
+              } else if (_controller.isCompleted) {
+                _controller.reverse();
+              }
+            },
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        SizedBox.expand(
+          child: SlideTransition(
+            position: _tween.animate(_controller),
+            child: DraggableScrollableSheet(
+              expand: true,
+              builder: (_, controller) {
+                return SingleChildScrollView(
+                  controller: controller,
+                  child: Container(
+                    width: width,
+                    decoration: BoxDecoration(
+                      color: _theme.backgroundColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 35, horizontal: 10),
+                    child: Column(
                       children: [
-                        Text(
-                          "All Subjects",
-                          style: TextStyle(
-                            color: _theme.primaryColor,
-                            fontSize: 18,
-                          ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () => _controller.reverse(),
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.blue,
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              "Add Subject",
+                              style: TextStyle(
+                                fontFamily: "Righteous",
+                                fontSize: 24,
+                                color: _theme.cardColor,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "(${subjects.length})",
-                          style: TextStyle(
-                            color: _theme.primaryColor,
-                            fontSize: 18,
-                          ),
-                        ),
+                        AddSubject(),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Container(
-                    height: height - 312,
-                    width: width,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 10,
-                    ),
-                    child: subjects.length == 0
-                        ? Center(
-                            child: Text(
-                              "Click on the + button to add Subjects!",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          )
-                        : ListView.builder(
-                            itemCount: subjects.length,
-                            itemBuilder: (ctx, idx) {
-                              return SubjectCard(
-                                id: subjects[idx].id,
-                                duration: subjects[idx].duration,
-                                professorName: subjects[idx].professorName,
-                                roomName: subjects[idx].roomName,
-                                subName: subjects[idx].subjectName,
-                                timeSlots: subjects[idx].timeSlots,
-                              );
-                            },
-                          ),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: FloatingActionButton(
-              backgroundColor: _theme.primaryColor,
-              onPressed: () => Navigator.pushNamed(context, "/addSubject"),
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

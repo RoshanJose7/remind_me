@@ -64,22 +64,22 @@ class _HomePageState extends State<HomePage> {
     final double width = MediaQuery.of(context).size.width;
     final tasks = Provider.of<Tasks>(context).tasks;
 
-    return SafeArea(
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  _theme.backgroundColor,
-                  Color(0xFFF0F0F0),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.6, 0.3],
-              ),
+    return Stack(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                _theme.backgroundColor,
+                Color(0xFFF0F0F0),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.6, 0.3],
             ),
+          ),
+          child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -179,43 +179,116 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Positioned(
-            top: 180,
-            bottom: 0,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
-              ),
-              height: height - 240,
-              width: width,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
+        ),
+        Positioned(
+          top: 220,
+          bottom: 0,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
+            height: height - 240,
+            width: width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "TODAY CLASSES ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  "(${_subjectsToday.length})",
+                                  style: TextStyle(
+                                    color: _theme.primaryColor,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                widget.pushToSubjectsPage();
+                              },
+                              child: Text(
+                                "See all",
+                                style: TextStyle(
+                                  color: _theme.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: _subjectsToday.length == 0
+                                ? Center(
+                                    child: Text(
+                                      "No classes for Today!!!",
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: _subjectsToday.length <= 2
+                                        ? _subjectsToday.length
+                                        : 2,
+                                    itemBuilder:
+                                        (BuildContext context, int idx) {
+                                      return ClassCard(
+                                        time:
+                                            "${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.split(":")[0]}:${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.split(":")[1]}",
+                                        subjectName:
+                                            _subjectsToday[idx].subjectName,
+                                        roomName: _subjectsToday[idx].roomName,
+                                        professorName:
+                                            _subjectsToday[idx].professorName,
+                                      );
+                                    },
+                                  ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "TODAY CLASSES ",
+                                    "YOUR TASKS ",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w900,
                                       fontSize: 16,
                                     ),
                                   ),
                                   Text(
-                                    "(${_subjectsToday.length})",
+                                    "(${tasks.length})",
                                     style: TextStyle(
                                       color: _theme.primaryColor,
                                       fontSize: 14,
@@ -225,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  widget.pushToSubjectsPage();
+                                  widget.pushToTasksPage();
                                 },
                                 child: Text(
                                   "See all",
@@ -237,117 +310,42 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                          Expanded(
-                            child: Container(
-                              width: double.infinity,
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: _subjectsToday.length == 0
-                                  ? Center(
-                                      child: Text(
-                                        "No classes for Today!!!",
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    )
-                                  : ListView.builder(
-                                      itemCount: _subjectsToday.length <= 2
-                                          ? _subjectsToday.length
-                                          : 2,
-                                      itemBuilder:
-                                          (BuildContext context, int idx) {
-                                        return ClassCard(
-                                          time:
-                                              "${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.split(":")[0]}:${_subjectsToday[idx].timeSlots[DateTime.now().weekday - 1]!.split(":")[1]}",
-                                          subjectName:
-                                              _subjectsToday[idx].subjectName,
-                                          roomName:
-                                              _subjectsToday[idx].roomName,
-                                          professorName:
-                                              _subjectsToday[idx].professorName,
-                                        );
-                                      },
-                                    ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "YOUR TASKS ",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    Text(
-                                      "(${tasks.length})",
-                                      style: TextStyle(
-                                        color: _theme.primaryColor,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    widget.pushToTasksPage();
-                                  },
+                        ),
+                        Container(
+                          height: 120,
+                          child: tasks.length == 0
+                              ? Center(
                                   child: Text(
-                                    "See all",
+                                    "No Due Tasks!!!",
                                     style: TextStyle(
-                                      color: _theme.primaryColor,
+                                      color: Colors.black54,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 120,
-                            child: tasks.length == 0
-                                ? Center(
-                                    child: Text(
-                                      "No Due Tasks!!!",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
+                                )
+                              : ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: tasks.length,
+                                  itemBuilder: (BuildContext context, int idx) {
+                                    return TaskCard(
+                                      days: getDaysLeft(
+                                        DateTime.parse(tasks[idx].deadLine),
                                       ),
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: tasks.length,
-                                    itemBuilder:
-                                        (BuildContext context, int idx) {
-                                      return TaskCard(
-                                        days: getDaysLeft(
-                                          DateTime.parse(tasks[idx].deadLine),
-                                        ),
-                                        subjectName: tasks[idx].subject,
-                                      );
-                                    },
-                                  ),
-                          ),
-                        ],
-                      ),
+                                      subjectName: tasks[idx].subject,
+                                    );
+                                  },
+                                ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

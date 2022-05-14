@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/MainApp.dart';
-import 'package:remind_me/pages/AddSubject.dart';
 import 'package:remind_me/pages/AllSubjects.dart';
 import 'package:remind_me/pages/GetInfoPage.dart';
 import 'package:remind_me/pages/UserOnboard.dart';
@@ -68,7 +67,6 @@ class MyApp extends StatelessWidget {
         "/getInfo": (context) => GetInfoPage(),
         "/onboard": (context) => UserOnboard(),
         "/allSubjects": (context) => AllSubjects(),
-        "/addSubject": (context) => AddSubject(),
       },
     );
   }
