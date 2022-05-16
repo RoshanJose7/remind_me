@@ -27,15 +27,15 @@ class _AddTaskState extends State<AddTask> {
         labelText: "Subject Name",
         labelStyle: TextStyle(color: theme.primaryColor),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(color: theme.shadowColor, width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(color: theme.shadowColor, width: 2),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ),
       validator: (String? val) {
@@ -54,15 +54,15 @@ class _AddTaskState extends State<AddTask> {
         labelText: "Task Description",
         labelStyle: TextStyle(color: theme.primaryColor),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(color: theme.shadowColor, width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(color: theme.shadowColor, width: 2),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ),
       validator: (String? val) {
@@ -133,8 +133,6 @@ class _AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     final tasks = Provider.of<Tasks>(context);
     final _theme = Theme.of(context);
     final snackBar = SnackBar(

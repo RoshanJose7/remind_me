@@ -37,15 +37,15 @@ class _AddSubjectState extends State<AddSubject> {
           labelText: "Subject Name",
           labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
         validator: (String? val) {
@@ -62,15 +62,15 @@ class _AddSubjectState extends State<AddSubject> {
           labelText: "Professor Name",
           labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(color: theme.shadowColor, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(color: theme.shadowColor, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
         validator: (String? val) {
@@ -173,15 +173,15 @@ class _AddSubjectState extends State<AddSubject> {
           labelText: "Room Floor",
           labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
         validator: (String? val) {
@@ -198,15 +198,15 @@ class _AddSubjectState extends State<AddSubject> {
           labelText: "Total Classes Attended",
           labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
         validator: (String? val) {
@@ -222,15 +222,15 @@ class _AddSubjectState extends State<AddSubject> {
           labelText: "No. of Classes Completed",
           labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
         validator: (String? val) {
@@ -245,15 +245,15 @@ class _AddSubjectState extends State<AddSubject> {
           labelText: "Room Name",
           labelStyle: TextStyle(color: theme.primaryColor),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.shadowColor, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
         validator: (String? val) {

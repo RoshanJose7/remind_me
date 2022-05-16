@@ -190,14 +190,19 @@ class _TasksPageState extends State<TasksPage>
           child: SlideTransition(
             position: _tween.animate(_controller),
             child: DraggableScrollableSheet(
-              expand: true,
+              maxChildSize: 0.5,
+              initialChildSize: 0.3,
+              expand: false,
+              snap: true,
               builder: (_, controller) {
                 return SingleChildScrollView(
                   controller: controller,
                   child: Container(
                     width: width,
                     decoration: BoxDecoration(
-                      color: _theme.backgroundColor,
+                      color: Colors.white,
+                      border:
+                          Border.all(color: _theme.backgroundColor, width: 5),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
@@ -206,6 +211,7 @@ class _TasksPageState extends State<TasksPage>
                     padding: const EdgeInsets.symmetric(
                         vertical: 35, horizontal: 10),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           children: [

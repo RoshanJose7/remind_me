@@ -188,6 +188,8 @@ class _AllSubjectsState extends State<AllSubjects>
           child: SlideTransition(
             position: _tween.animate(_controller),
             child: DraggableScrollableSheet(
+              maxChildSize: 0.82,
+              minChildSize: 0.4,
               expand: true,
               builder: (_, controller) {
                 return SingleChildScrollView(
@@ -195,7 +197,9 @@ class _AllSubjectsState extends State<AllSubjects>
                   child: Container(
                     width: width,
                     decoration: BoxDecoration(
-                      color: _theme.backgroundColor,
+                      color: Colors.white,
+                      border:
+                          Border.all(color: _theme.backgroundColor, width: 5),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
