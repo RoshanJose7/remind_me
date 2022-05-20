@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remind_me/MainApp.dart';
-import 'package:remind_me/pages/AllSubjects.dart';
-import 'package:remind_me/pages/GetInfoPage.dart';
-import 'package:remind_me/pages/UserOnboard.dart';
+import 'package:remind_me/pages/Onboarding.dart';
+import 'package:remind_me/pages/Signup.dart';
+import 'package:remind_me/pages/Subjects.dart';
 import 'package:remind_me/providers/ClassesToday.dart';
 import 'package:remind_me/providers/MainState.dart';
 import 'package:remind_me/providers/Subjects.dart';
@@ -29,14 +29,14 @@ Future<void> main() async {
         ),
         ListenableProvider<Tasks>(create: (ctx) => Tasks()),
       ],
-      child: MyApp(prefs),
+      child: Router(prefs),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class Router extends StatelessWidget {
   SharedPreferences prefs;
-  MyApp(this.prefs);
+  Router(this.prefs);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: hideIntro == true ? "/" : "/onboard",
       routes: {
-        "/": (context) => MainApp(),
+        "/": (context) => AppPlaceholder(),
         "/getInfo": (context) => GetInfoPage(),
         "/onboard": (context) => UserOnboard(),
         "/allSubjects": (context) => AllSubjects(),

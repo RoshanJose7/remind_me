@@ -9,8 +9,7 @@ import 'package:remind_me/providers/MainState.dart';
 import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/providers/Tasks.dart';
 import 'package:remind_me/providers/Theme.dart';
-
-import '../utils/files.dart';
+import 'package:remind_me/utils/files.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -18,8 +17,18 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  Tween<Offset> _tween = Tween(begin: Offset(0, 1), end: Offset(0, 0));
+
   late int _curIdx;
+
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    super.initState();
+  }
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -34,7 +43,6 @@ class _ProfilePageState extends State<ProfilePage>
     final _subjectsProvider = Provider.of<Subjects>(context);
     final _mainStateProvider = Provider.of<MainState>(context);
 
-    final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     final _theme = Theme.of(context);
     String _name = _mainStateProvider.userName;
@@ -49,60 +57,6 @@ class _ProfilePageState extends State<ProfilePage>
             await uploadfile.copy("$_path/${result.files.single.name}");
         _mainStateProvider.updatePicPath(path: newFile.path);
       }
-    }
-
-    _showEditNameDialog(context) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Container(
-                constraints: BoxConstraints(maxHeight: 170),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Form(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("Edit User Name",
-                            style: TextStyle(
-                              color: _theme.shadowColor,
-                              fontSize: 20,
-                            )),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: "Your Name",
-                          ),
-                          initialValue: _name,
-                          onChanged: (val) => _name = val,
-                          validator: (val) {
-                            if (val!.isEmpty) return "Enter a Valid Name";
-                            return null;
-                          },
-                          onSaved: (name) => setState(() => _name = name!),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                              primary: _theme.primaryColor),
-                          onPressed: () => setState(() {
-                            _mainStateProvider.updateUserName(name: _name);
-                            Navigator.of(context).pop();
-                          }),
-                          child: Text(
-                            "Save",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          });
     }
 
     return Stack(
@@ -206,7 +160,13 @@ class _ProfilePageState extends State<ProfilePage>
                         style: TextStyle(fontSize: 18),
                       ),
                       IconButton(
-                        onPressed: () => _showEditNameDialog(context),
+                        onPressed: () {
+                          if (_controller.isDismissed) {
+                            _controller.forward();
+                          } else if (_controller.isCompleted) {
+                            _controller.reverse();
+                          }
+                        },
                         icon: Icon(
                           Icons.edit,
                           color: Colors.blueGrey,
@@ -370,6 +330,91 @@ class _ProfilePageState extends State<ProfilePage>
                     ],
                   ),
                 ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox.expand(
+          child: SlideTransition(
+            position: _tween.animate(_controller),
+            child: DraggableScrollableSheet(
+              maxChildSize: 0.5,
+              initialChildSize: 0.3,
+              expand: false,
+              snap: true,
+              builder: (context, controller) => Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: _theme.backgroundColor, width: 5),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Form(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () => _controller.reverse(),
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.blue,
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              "Edit Name",
+                              style: TextStyle(
+                                fontFamily: "Righteous",
+                                fontSize: 24,
+                                color: _theme.cardColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Your Name",
+                          ),
+                          initialValue: _name,
+                          onChanged: (val) => _name = val,
+                          validator: (val) {
+                            if (val!.isEmpty) return "Enter a Valid Name";
+                            return null;
+                          },
+                          onSaved: (name) => setState(() => _name = name!),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => setState(
+                            () {
+                              _mainStateProvider.updateUserName(name: _name);
+                              _controller.reverse();
+                            },
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 25),
+                            primary: _theme.primaryColor,
+                          ),
+                          child: Text(
+                            "Save",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),

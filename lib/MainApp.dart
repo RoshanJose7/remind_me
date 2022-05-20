@@ -2,19 +2,19 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:remind_me/pages/AllSubjects.dart';
-import 'package:remind_me/pages/AttendancePage.dart';
+import 'package:remind_me/pages/AttendencePercentage.dart';
 import 'package:remind_me/pages/Calender.dart';
 import 'package:remind_me/pages/Home.dart';
-import 'package:remind_me/pages/ProfilePage.dart';
+import 'package:remind_me/pages/Settings.dart';
+import 'package:remind_me/pages/Subjects.dart';
 import 'package:remind_me/pages/Tasks.dart';
 
-class MainApp extends StatefulWidget {
+class AppPlaceholder extends StatefulWidget {
   @override
-  _MainAppState createState() => _MainAppState();
+  _AppPlaceholderState createState() => _AppPlaceholderState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _AppPlaceholderState extends State<AppPlaceholder> {
   DateTime? _lastPressedAt;
   int _selectedItemIndex = 0;
 
@@ -44,7 +44,7 @@ class _MainAppState extends State<MainApp> {
         pushToSubjectsPage: pushToAllSubjectsPage,
       ),
       AllSubjects(),
-      AttendancePage(),
+      AttendancePercentagePage(),
       TasksPage(),
       CalenderPage(),
       ProfilePage(),

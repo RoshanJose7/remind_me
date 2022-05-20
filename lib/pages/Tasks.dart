@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remind_me/components/AddTask.dart';
 import 'package:remind_me/components/TaskDetailCard.dart';
-import 'package:remind_me/pages/AddTask.dart';
 import 'package:remind_me/providers/Tasks.dart';
 import 'package:remind_me/shared/globals.dart';
 
@@ -78,7 +78,7 @@ class _TasksPageState extends State<TasksPage>
                     children: [
                       Flexible(
                         child: Text(
-                          "Your Tasks",
+                          "Tasks",
                           style: TextStyle(
                             color: _theme.cardColor,
                             fontSize: 30,

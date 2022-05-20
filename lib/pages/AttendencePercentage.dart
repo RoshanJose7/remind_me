@@ -4,14 +4,15 @@ import 'package:remind_me/components/PercentageIndicator.dart';
 import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
 
-class AttendancePage extends StatefulWidget {
-  const AttendancePage({Key? key}) : super(key: key);
+class AttendancePercentagePage extends StatefulWidget {
+  const AttendancePercentagePage({Key? key}) : super(key: key);
 
   @override
-  _AttendancePageState createState() => _AttendancePageState();
+  _AttendancePercentagePageState createState() =>
+      _AttendancePercentagePageState();
 }
 
-class _AttendancePageState extends State<AttendancePage> {
+class _AttendancePercentagePageState extends State<AttendancePercentagePage> {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -69,7 +70,7 @@ class _AttendancePageState extends State<AttendancePage> {
                     children: [
                       Flexible(
                         child: Text(
-                          "Attendance Percentage",
+                          "Attendance %",
                           style: TextStyle(
                             color: _theme.cardColor,
                             fontSize: 30,

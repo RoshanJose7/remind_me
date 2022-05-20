@@ -181,7 +181,7 @@ class _AddTaskState extends State<AddTask> {
                 fontSize: 16,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

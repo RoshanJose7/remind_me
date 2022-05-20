@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   liquid_swipe: ^2.1.0
-  animations: ^2.0.0
+  animations: ^2.0.2
   provider: ^6.0.2
   uuid: ^3.0.4
   shared_preferences: ^2.0.5

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remind_me/components/AddSubject.dart';
 import 'package:remind_me/components/SubjectCard.dart';
-import 'package:remind_me/pages/AddSubject.dart';
 import 'package:remind_me/providers/Subjects.dart';
 import 'package:remind_me/shared/globals.dart';
 
@@ -79,7 +79,7 @@ class _AllSubjectsState extends State<AllSubjects>
                     children: [
                       Flexible(
                         child: Text(
-                          "Your Subjects",
+                          "Subjects",
                           style: TextStyle(
                             color: _theme.cardColor,
                             fontSize: 30,
