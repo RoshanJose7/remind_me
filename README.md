@@ -11,11 +11,6 @@ Another key feature of Remind Me is its push notification system. With this feat
 Remind Me is an excellent tool for college students who want to stay organised and on top of their coursework. With its user-friendly interface and helpful features, Remind Me is an essential companion for any student looking to succeed academically.
 
 ## Application Walkthrough
-[![Watch the video](https://cdn.dribbble.com/users/1242672/screenshots/7878410/media/325db35ea3a4e322228d78e5611f1f32.png?compress=1&resize=1600x1200&vertical=top)](https://drive.google.com/file/d/1xbUPdrDMnndBV06KD69WYtA90wz9iQND/view?usp=sharing)
-
-
-## UI Design
-- The credits for UI design for the Home Page and Calendar Page
-- [Kukuh Andik's Dribble](https://dribbble.com/shots/7878410-School-Management-App-Exploration?utm_source=Clipboard_Shot&utm_campaign=kuatur&utm_content=School%20Management%20App%20-%20Exploration&utm_medium=Social_Share&utm_source=Clipboard_Shot&utm_campaign=kuatur&utm_content=School%20Management%20App%20-%20Exploration&utm_medium=Social_Share)
-
-[Buy Me Coffee](https://www.buymeacoffee.com/roshanjose7/)
+- [Application Demo](https://drive.google.com/file/d/1xbUPdrDMnndBV06KD69WYtA90wz9iQND/view?usp=sharing)
+- The credits for UI design for the Home Page and Calendar Page [Kukuh Andik's Dribble](https://dribbble.com/shots/7878410-School-Management-App-Exploration?utm_source=Clipboard_Shot&utm_campaign=kuatur&utm_content=School%20Management%20App%20-%20Exploration&utm_medium=Social_Share&utm_source=Clipboard_Shot&utm_campaign=kuatur&utm_content=School%20Management%20App%20-%20Exploration&utm_medium=Social_Share)
+- [Buy Me Coffee](https://www.buymeacoffee.com/roshanjose7/)
